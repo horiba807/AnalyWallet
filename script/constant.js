@@ -1,5 +1,5 @@
 // カテゴリーの定義
-const categoryOptions = {
+export const categoryOptions = {
     expense: [
         { value: 'food', label: '食費' },
         { value: 'transport', label: '交通費' },

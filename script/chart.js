@@ -36,7 +36,7 @@ function getMonthlyStatsData() {
     return { monthlyBalances, monthlyIncomes, monthlyExpenses };
 }
 
-export function updateChart(catTotals) {
+export function renderCircleChart(catTotals) {
     const ctx = document.getElementById('expenseChart');
     if (!ctx) return;
 
