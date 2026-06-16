@@ -2,6 +2,7 @@ import { supabaseClient } from './supabase.js';
 import { categoryOptions } from './constant.js';
 import { updateHistoryDisplay, toggleView, updateCategoryMenu, calculateStats } from './ui.js';
 import { fetchTransactions, deleteTransaction, signUp, signIn, signOut } from './api.js';
+window.deleteTransaction = deleteTransaction; // グローバルスコープをモジュールスコープに変更
 import { state, moneyForm } from './state.js';
 
 //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ログイン画面■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
