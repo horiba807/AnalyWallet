@@ -1,3 +1,6 @@
+import { calculateStats } from './ui.js';
+import { state } from './state.js';
+
 // 12ヶ月分の残高、収入、支出の配列を生成
 function getMonthlyStatsData() {
     const monthlyBalances = [];
@@ -6,11 +9,11 @@ function getMonthlyStatsData() {
 
     for (let m = 1; m <= 12; m++) {
         // その月の開始日と末日
-        const startOfMonth = new Date(currentYear, m - 1, 1);
-        const endOfMonth = new Date(currentYear, m, 0);
+        const startOfMonth = new Date(state.currentYear, m - 1, 1);
+        const endOfMonth = new Date(state.currentYear, m, 0);
 
         // その月だけの集計
-        const currentMonthData = history.filter(item => {
+        const currentMonthData = state.history.filter(item => {
             const d = new Date(item.date);
             return d >= startOfMonth && d <= endOfMonth;
         });
@@ -24,7 +27,7 @@ function getMonthlyStatsData() {
             .reduce((acc, item) => acc + item.amount, 0);
 
         // 月末時点での総残高（累積）
-        const balance = history
+        const balance = state.history
             .filter(item => new Date(item.date) <= endOfMonth)
             .reduce((acc, item) => item.type === 'income' ? acc + item.amount : acc - item.amount, 0);
 
@@ -35,10 +38,15 @@ function getMonthlyStatsData() {
 
     return { monthlyBalances, monthlyIncomes, monthlyExpenses };
 }
-
+ 
 export function renderCircleChart(catTotals) {
     const ctx = document.getElementById('expenseChart');
     if (!ctx) return;
+
+    //前のページのグラフを消去
+    if (state.myChart) {
+        state.myChart.destroy();
+    }
 
     // グラフに表示するデータ
     const data = {
@@ -64,11 +72,8 @@ export function renderCircleChart(catTotals) {
         }]
     };
 
-    if (myChart) {
-        myChart.destroy();
-    }
-
-    myChart = new Chart(ctx, {
+    //グラフの作成
+    state.myChart = new Chart(ctx, {
         type: 'doughnut',
         data: data,
         options: {
@@ -89,16 +94,17 @@ export function renderCircleChart(catTotals) {
             }
         }
     });
-}
+
+};
 
 export function renderLineChart() {
     const ctx = document.getElementById('lineChart');
     if (!ctx) return;
-    if (lineChart) lineChart.destroy();
+    if (state.lineChart) state.lineChart.destroy();
 
     const stats = getMonthlyStatsData();
 
-    lineChart = new Chart(ctx, {
+    state.lineChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],

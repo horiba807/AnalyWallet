@@ -1,5 +1,11 @@
-function updateHistoryDisplay() {
-    updateText('display-year', currentYear);
+import { categoryOptions } from "./constant.js";
+import { fetchTransactions } from './api.js';
+import { state, moneyForm } from './state.js';
+import { renderCircleChart, renderLineChart } from './chart.js';
+
+
+export function updateHistoryDisplay() {
+    updateText('display-year', state.currentYear);
 
     const historyList = document.getElementById('history-list');
     if (!historyList) return;
@@ -21,12 +27,22 @@ function updateHistoryDisplay() {
 
     // 6. 前月比の計算とグラフの更新
     calculatePrevMonthDiff(stats.monthlyIncome, stats.monthlyExpense);
+
+    if (state.currentMonth === 'annual') {
+        document.getElementById('annual-chart-container').style.display = 'block';
+        document.getElementById('expense-chart-container').style.display = 'none'; // 円グラフの親
+        renderLineChart();
+    } else {
+        document.getElementById('annual-chart-container').style.display = 'none';
+        document.getElementById('expense-chart-container').style.display = 'block';
+        renderCircleChart(stats.catTotals); //円グラフ
+    }
 }
 
 // ダッシュボードの前月日・前年比を切り替え
 function updateDiffLabels() {
     const diffLabels = document.querySelectorAll('.js-diff-label');
-    const labelText = (currentMonth === 'annual') ? '前年比' : '前月比';
+    const labelText = (state.currentMonth === 'annual') ? '前年比' : '前月比';
     diffLabels.forEach(label => {
         label.innerText = labelText;
     });
@@ -35,21 +51,21 @@ function updateDiffLabels() {
 // (選択されている月・年のみに）データのソート & 抽出を行う関数
 function getFilteredHistory() {
     // 日付の新しい順にソート
-    history.sort((a, b) => new Date(b.date) - new Date(a.date));
+    state.history.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     // 条件に合うデータをフィルター
-    return history.filter(item => {
+    return state.history.filter(item => {
         const D = new Date(item.date);
-        const isYearMatch = D.getFullYear() === currentYear;
-        const isMonthMatch = (currentMonth === 'annual') || ((D.getMonth() + 1) === currentMonth);
-        const isCategoryMatch = (currentCategory === 'all') || (item.category === currentCategory);
+        const isYearMatch = D.getFullYear() === state.currentYear;
+        const isMonthMatch = (state.currentMonth === 'annual') || ((D.getMonth() + 1) === state.currentMonth);
+        const isCategoryMatch = (state.currentCategory === 'all') || (item.category === state.currentCategory);
 
         return isYearMatch && isMonthMatch && isCategoryMatch;
     });
 }
 
 // ③ 集計処理（計算だけを行う関数  HTMLの操作はしない）
-function calculateStats(filteredHistory) {
+export function calculateStats(filteredHistory) {
     let monthlyIncome = 0;
     let monthlyExpense = 0;
     let carryOverAmount = 0;
@@ -65,7 +81,6 @@ function calculateStats(filteredHistory) {
         pocketMoney: 0,
         otherInc: 0
     };
-
     // 今月・今年の分（月別・カテゴリー別）を集計
     filteredHistory.forEach(item => {
         if (item.type === 'income') {
@@ -90,8 +105,8 @@ function calculateStats(filteredHistory) {
     });
 
     // 選択された月の末日時点での総残高（累積和）を計算
-    const lastDayOfMonth = new Date(currentYear, currentMonth === 'annual' ? 12 : currentMonth, 0);
-    const historyUpToNow = history.filter(item => new Date(item.date) <= lastDayOfMonth);
+    const lastDayOfMonth = new Date(state.currentYear, state.currentMonth === 'annual' ? 12 : state.currentMonth, 0);
+    const historyUpToNow = state.history.filter(item => new Date(item.date) <= lastDayOfMonth);
     const currentBalance = historyUpToNow.reduce((acc, item) => {
         return item.type === 'income' ? acc + item.amount : acc - item.amount;
     }, 0);
@@ -114,7 +129,7 @@ function renderSummaryDOM(stats) {
     }
 
     // 繰越金表示
-    if (currentMonth === 'annual') {
+    if (state.currentMonth === 'annual') {
         updateText('carry-over-display', `前年からの繰越: ¥ ${stats.carryOverAmount.toLocaleString()}`);
     }
 
@@ -185,7 +200,7 @@ function updateChartVisibility(catTotals) {
 
     if (!annualChartContainer || !expenseChartContainer) return;
 
-    if (currentMonth === 'annual') {
+    if (state.currentMonth === 'annual') {
         annualChartContainer.style.display = 'block';
         expenseChartContainer.style.display = 'none';
         renderLineChart(); // 折れ線グラフ（年間）
@@ -197,7 +212,7 @@ function updateChartVisibility(catTotals) {
 }
 
 // 画面切り替え
-function toggleView(user) {
+export function toggleView(user) {
     const authView = document.getElementById('auth-container');
     const appView = document.getElementById('app-container');
 
@@ -222,7 +237,7 @@ function getCategoryLabel(val) {
     return opt ? opt.label : val;
 }
 
-function updateCategoryMenu(type) {
+export function updateCategoryMenu(type) {
     const sel = document.getElementById('category');
     if (!sel) return;
     sel.innerHTML = '';
@@ -248,11 +263,11 @@ function calculatePrevMonthDiff(currInc, currExp) {
     let prevInc = 0;
     let prevExp = 0;
 
-    if (currentMonth === 'annual') {
+    if (state.currentMonth === 'annual') {
         // --- 年間サマリーモード：前年（去年1年間）のデータを抽出 ---
-        const prevYearData = history.filter(item => {
+        const prevYearData = state.history.filter(item => {
             const d = new Date(item.date);
-            return d.getFullYear() === currentYear - 1; // 去年のデータ
+            return d.getFullYear() === state.currentYear - 1; // 去年のデータ
         });
 
         prevYearData.forEach(item => {
@@ -263,10 +278,10 @@ function calculatePrevMonthDiff(currInc, currExp) {
         });
     } else {
         // --- 通常モード：前月のデータを抽出（既存のロジック） ---
-        const pm = currentMonth === 1 ? 12 : currentMonth - 1;
-        const py = currentMonth === 1 ? currentYear - 1 : currentYear;
+        const pm = state.currentMonth === 1 ? 12 : state.currentMonth - 1;
+        const py = state.currentMonth === 1 ? state.currentYear - 1 : state.currentYear;
 
-        const prevMonthData = history.filter(item => {
+        const prevMonthData = state.history.filter(item => {
             const d = new Date(item.date);
             return d.getFullYear() === py && (d.getMonth() + 1) === pm;
         });

@@ -1,18 +1,22 @@
-import { supabaseClient } from 'supabase.js';
-import { categoryOptions } from 'constant.js';
-import { updateHistoryDisplay } from 'ui.js';
-import { renderCircleChart, renderLineChart } from 'chart.js';
-import { fetchTransactions, deleteTransaction, signUp, signIn, signOut } from 'api.js';
-import { state, moneyForm } from 'state.js';
+import { supabaseClient } from './supabase.js';
+import { categoryOptions } from './constant.js';
+import { updateHistoryDisplay, toggleView, updateCategoryMenu, calculateStats } from './ui.js';
+import { fetchTransactions, deleteTransaction, signUp, signIn, signOut } from './api.js';
+import { state, moneyForm } from './state.js';
 
 //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ログイン画面■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+// 認証状態を監視（リロードしてもログインを維持するための重要コード）
+supabaseClient.auth.onAuthStateChange((event, session) => {
+    toggleView(session?.user);
+});
+
 // ログインフォーム
 document.getElementById('auth-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('auth-email').value;
     const password = document.getElementById('auth-password').value;
 
-    if (isLoginMode) {
+    if (state.isLoginMode) {
         // ログイン
         const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
         if (error) alert("ログイン失敗: " + error.message);
@@ -25,10 +29,10 @@ document.getElementById('auth-form').addEventListener('submit', async (e) => {
 });
 // ログイン/新規登録のモード切替
 document.getElementById('auth-toggle').addEventListener('click', () => {
-    isLoginMode = !isLoginMode;
-    document.getElementById('auth-title').innerText = isLoginMode ? "AnalyWallet へようこそ！" : "新規登録";
-    document.getElementById('auth-submit-btn').innerText = isLoginMode ? "ログイン" : "登録する";
-    document.getElementById('auth-toggle').innerText = isLoginMode ? "新規登録はこちら" : "ログインはこちら";
+    state.isLoginMode = !state.isLoginMode;
+    document.getElementById('auth-title').innerText = state.isLoginMode ? "AnalyWallet へようこそ！" : "新規登録";
+    document.getElementById('auth-submit-btn').innerText = state.isLoginMode ? "ログイン" : "登録する";
+    document.getElementById('auth-toggle').innerText = state.isLoginMode ? "新規登録はこちら" : "ログインはこちら";
 });
 
 // ログアウト処理
@@ -36,23 +40,18 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
     await supabaseClient.auth.signOut();
 });
 
-// 認証状態を監視（リロードしてもログインを維持するための重要コード）
-supabaseClient.auth.onAuthStateChange((event, session) => {
-    toggleView(session?.user);
-});
-
 //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■通常画面■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 // 初期起動
 updateCategoryMenu('expense');
-const initialBtn = document.querySelector(`.month_btn[data-month="${currentMonth}"]`);
+const initialBtn = document.querySelector(`.month_btn[data-month="${state.currentMonth}"]`);
 if (initialBtn) initialBtn.classList.add('active');
 fetchTransactions();
 
 //■■■■■■■■■■■■■■■■■■ダッシュボード■■■■■■■■■■■■■■■■■■
 // 年切り替え
-document.getElementById('prev-year')?.addEventListener('click', () => { currentYear--; updateHistoryDisplay(); }
+document.getElementById('prev-year')?.addEventListener('click', () => { state.currentYear--; updateHistoryDisplay(); }
 );
-document.getElementById('next-year')?.addEventListener('click', () => { currentYear++; updateHistoryDisplay(); }
+document.getElementById('next-year')?.addEventListener('click', () => { state.currentYear++; updateHistoryDisplay(); }
 );
 // 月切り替え
 document.querySelectorAll('.month_btn').forEach(btn => {
@@ -60,13 +59,13 @@ document.querySelectorAll('.month_btn').forEach(btn => {
         document.querySelectorAll('.month_btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const val = btn.dataset.month;
-        currentMonth = val === 'annual' ? 'annual' : Number(val);
+        state.currentMonth = val === 'annual' ? 'annual' : Number(val);
         updateHistoryDisplay();
     });
 });
 
 document.getElementById('filter-category')?.addEventListener('change', (e) => {
-    currentCategory = e.target.value;
+    state.currentCategory = e.target.value;
     updateHistoryDisplay(); // 選択が変わるたびに再描画
 });
 //■■■■■■■■■■■■■■■■■■フォーム■■■■■■■■■■■■■■■■■■

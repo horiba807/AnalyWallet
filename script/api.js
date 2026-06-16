@@ -1,4 +1,8 @@
-async function fetchTransactions() {
+import { supabaseClient } from "./supabase.js";
+import { state, moneyForm } from './state.js';
+import { updateHistoryDisplay, toggleView, updateCategoryMenu } from './ui.js';
+
+export async function fetchTransactions() {
     const { data, error } = await supabaseClient
         .from('transactions')
         .select('*');
@@ -6,12 +10,12 @@ async function fetchTransactions() {
     if (error) {
         console.error("読み込みエラー:", error);
     } else {
-        history = data || [];
+        state.history = data || [];
         updateHistoryDisplay();
     }
 }
 
-async function deleteTransaction(id) {
+export async function deleteTransaction(id) {
     if (!confirm("本当に削除しますか？")) return;
     const { error } = await supabaseClient.from('transactions').delete().eq('id', id);
     if (error) alert("削除失敗");
@@ -19,7 +23,7 @@ async function deleteTransaction(id) {
 }
 
 // サインアップ（新規登録）
-async function signUp(email, password) {
+export async function signUp(email, password) {
     const { data, error } = await supabaseClient.auth.signUp({
         email: email,
         password: password,
@@ -29,7 +33,7 @@ async function signUp(email, password) {
 }
 
 // ログイン
-async function signIn(email, password) {
+export async function signIn(email, password) {
     const { data, error } = await supabaseClient.auth.signInWithPassword({
         email: email,
         password: password,
@@ -42,7 +46,7 @@ async function signIn(email, password) {
 }
 
 // ログアウト
-async function signOut() {
+export async function signOut() {
     await supabaseClient.auth.signOut();
     history = []; // データを空にする
     updateHistoryDisplay();
