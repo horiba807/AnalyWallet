@@ -1,6 +1,7 @@
+import { createClient } from '@supabase/supabase-js';
 import { fetchTransactions } from './api.js';
 
-const SUPABASE_URL = 'https://zrkfgkrnaqyjvgmldyso.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpya2Zna3JuYXF5anZnbWxkeXNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMjY5NTMsImV4cCI6MjA4NjkwMjk1M30.Oc3XPZnK71UNwUGiDpfvFnZAxbiyPdXCJNQNN4C2wYs';
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+export const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
