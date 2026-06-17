@@ -1,0 +1,24 @@
+{
+  "name": "analy_wallet",
+  "version": "1.0.0",
+  "description": "supabaseを用いた簡易的な家計簿です",
+  "homepage": "https://github.com/horiba807/household-account-book#readme",
+  "bugs": {
+    "url": "https://github.com/horiba807/household-account-book/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horiba807/household-account-book.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "./js/main.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.108.2",
+    "vite": "^8.0.16"
+  }
+}
