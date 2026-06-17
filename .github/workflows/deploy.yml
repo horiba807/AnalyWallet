@@ -1,0 +1,52 @@
+name: Deploy Vite App to GitHub Pages
+
+# ① いつ動かすか（トリガー）
+on:
+  push:
+    branches:
+      - main # mainブランチにプッシュされた時だけ動く
+
+# ページ公開のための特別な権限を与える設定
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時実行の調整（古い実行を自動でキャンセルする）
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+# ② どこで動かすか（ジョブ）
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps:deployment.outputs.page_url }}
+    runs-on: ubuntu-latest # Linux環境を用意
+
+    # ③ 何をさせるか（ステップ）
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4 # あなたのコードをクラウドPCにコピーする
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4 # Node.jsをインストールする
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci # ライブラリを高速・安全にインストールする
+
+      - name: Build
+        run: npm run build # Viteで dist フォルダを書き出す
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # 完成した dist フォルダをアップロードする
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # 実際にネット上に公開
