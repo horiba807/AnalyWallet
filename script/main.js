@@ -1,3 +1,4 @@
+import { createClient } from '@supabase/supabase-js';
 import { supabaseClient } from './supabase.js';
 import { categoryOptions } from './constant.js';
 import { updateHistoryDisplay, toggleView, updateCategoryMenu, calculateStats } from './ui.js';
