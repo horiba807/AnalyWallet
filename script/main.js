@@ -2,8 +2,9 @@ import { createClient } from '@supabase/supabase-js';
 import { supabaseClient } from './supabase.js';
 import { categoryOptions } from './constant.js';
 import { updateHistoryDisplay, toggleView, updateCategoryMenu, calculateStats } from './ui.js';
-import { fetchTransactions, deleteTransaction, signUp, signIn, signOut } from './api.js';
+import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction,  signUp, signIn, signOut } from './api.js';
 window.deleteTransaction = deleteTransaction; // グローバルスコープをモジュールスコープに変更
+window.openEditModal = openEditModal;
 import { state, moneyForm } from './state.js';
 
 //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ログイン画面■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
@@ -74,6 +75,8 @@ document.getElementById('filter-category')?.addEventListener('change', (e) => {
 // フォームの日付を今日にする
 function setDefaultDate() {
     const dateInput = document.querySelector('input[name="date"]');
+
+
     if (!dateInput) return;
     // YYYY-MM-DD形式に変換
     const now = new Date();
@@ -105,8 +108,82 @@ moneyForm?.addEventListener('submit', async (e) => {
     }]);
 
     if (error) alert("保存に失敗しました...");
-    else { alert("保存しました"); moneyForm.reset(); updateCategoryMenu('expense'); fetchTransactions(); }
+    else { alert("保存しました"); 
+        moneyForm.reset(); 
+        updateCategoryMenu('expense'); 
+        fetchTransactions(); }
 });
 
 // 初期実行に加える
 setDefaultDate();
+
+//■■■■■■■■■■■■■■■■■■モーダル表示■■■■■■■■■■■■■■■■■■
+//ﾊﾞﾂボタンでモーダル削除
+document.getElementById('close_editform_btn').addEventListener("click", () => {
+    document.getElementById('edit-modal').classList.remove('active');
+    return;
+});
+
+//カテゴリーの選択し書き換え
+
+// ①「収入」ラジオボタンが選ばれたら、編集用カテゴリーを「income」に書き換える
+document.getElementById('edit_type-income').addEventListener('change', (e) => {
+    if (e.target.checked) {
+        updateCategoryMenu('income', 'edit_category');
+    }
+});
+
+// ②「支出」ラジオボタンが選ばれたら、編集用カテゴリーを「expense」に書き換える
+document.getElementById('edit_type-expense').addEventListener('change', (e) => {
+        if (e.target.checked) {
+        updateCategoryMenu('expense', 'edit_category');
+    }
+});
+
+// モーダルの保存ボタン
+const saveBtn = document.getElementById('edit_btn');
+
+saveBtn.addEventListener('click', async () => {
+
+    // チェック（編集中のIDが空なら処理しない）
+    if (!state.editingId) return;
+
+    // 選択されているラジオボタンの value を取得する
+    const selectedType = document.querySelector('input[name="edit_transactions-type"]:checked').value;
+
+    // 2. フォームに入力された最新の値を取得する
+    const updatedData = {
+        type: selectedType, // income or expence
+        date: document.getElementById('edit_date').value,
+        amount: Number(document.getElementById('edit_amount').value),
+        category: document.getElementById('edit_category').value,
+        memo: document.getElementById('edit_memo').value
+    };
+    
+    try {
+        // 3. 読み込み中などを表すためにボタンを無効化（任意）
+        saveBtn.disabled = true;
+
+        // 4. api.jsの関数を呼び出して、Supabaseのデータを更新する
+        await updateTransaction(state.editingId, updatedData);
+
+        // 5. 成功したらモーダルを閉じる
+        document.getElementById('edit-modal').classList.remove('active');
+
+        // 6. 編集中のIDをリセットする
+        state.editingId = null;
+
+        // 7. 【超重要】画面を最新の状態にする
+        // すでに実装されている、データを再取得して再描画する関数を呼び出します
+        await fetchTransactions();
+
+        alert('変更を保存しました！');
+
+    } catch (error) {
+        alert('保存に失敗しました。もう一度お試しください。');
+     } 
+     finally {
+        // ボタンを元に戻す
+        saveBtn.disabled = false;
+    }
+});

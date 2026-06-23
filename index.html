@@ -38,7 +38,10 @@
             </form>
 
             <p id="auth-toggle">新規登録はこちら</p>
-            <a href="About/index.html" class="login-page-link">このWebサイトについて</a>
+            <p class="login-page-link">
+                <a href="About/index.html">このWebサイトについて</a>
+                <a href="About/index.html">プライバシーポリシー</a>
+            </p>
             <p class="auth-copyright">© 2026 AnalyWallet.</p>
         </div>
     </div>
@@ -252,7 +255,7 @@
                         <textarea id="memo" name="memo" placeholder="備考を入力"></textarea>
                     </div>
 
-                    <button type="submit" class="submit_btn">保存する</button>
+                    <button type="submit" class="submit_btn" >保存する</button>
                 </form>
             </section>
             <section id="history_container">
@@ -293,11 +296,49 @@
                     </table>
                 </div>
             </section>
-
+            <div class="editModal"  id="edit-modal">
+                <div class="editform_container">
+                    <h2>編集</h2>
+                    <div class="btn_wrapper">
+                        <btn class="close_btn" id="close_editform_btn"><span class="material-icons">close</span></btn>
+                    </div>
+                    <form id="money-form" class="register_form">
+                        <div class="form_group">
+                            <label class="req">収支選択</label>
+                            <div class="radio_wrapper">
+                                <input type="radio" id="edit_type-expense" name="edit_transactions-type" value="expense" checked>
+                                <label for="edit_type-expense">支出</label>
+                
+                                <input type="radio" id="edit_type-income" name="edit_transactions-type" value="income">
+                                <label for="edit_type-income">収入</la3ebel>
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <label for="date" class="req">日付</label>
+                            <input type="date" id="edit_date" name="date" required>
+                        </div>
+                        <div class="form_group">
+                            <label for="amount" class="req">金額</label>
+                            <input type="number" id="edit_amount" name="amount" placeholder="金額を入力" required>
+                            <p class="yen_char">円</p>
+                        </div>
+                        <div class="form_group">
+                            <label for="category" class="req category">カテゴリー</label>
+                            <select id="edit_category" name="category" required>
+                            </select>
+                        </div>
+                        <div class="form_group">
+                            <label for="memo">メモ</label>
+                            <textarea id="edit_memo" name="memo" placeholder="備考を入力"></textarea>
+                        </div>
+                        <button type="submit" class="form_btn" id="edit_btn">保存する</button>
+                    </form>
+                </div>
+            </div>
         </main>
         <footer>
             <p class="copyright">© 2026 AnalyWallet.</p>
-                        <p class="message">2026/02/18</p>
+                        <p id="app-version"></p>
             <a target="_blank" href="https://supabase.com/dashboard/org/gbaaccsyievdmutnuero">supabase</a>
             <div id="app-container foot">
                 <button id="logout-btn">ログアウト</button>

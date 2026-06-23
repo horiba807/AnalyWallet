@@ -1,6 +1,6 @@
 {
   "name": "analy_wallet",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "supabaseを用いた簡易的な家計簿です",
   "homepage": "https://github.com/obasanz087/household-account-book#readme",
   "bugs": {

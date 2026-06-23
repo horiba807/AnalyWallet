@@ -2,6 +2,7 @@ import { categoryOptions } from "./constant.js";
 import { fetchTransactions } from './api.js';
 import { state, moneyForm } from './state.js';
 import { renderCircleChart, renderLineChart } from './chart.js';
+import pkg from '../package.json';
 
 
 export function updateHistoryDisplay() {
@@ -164,7 +165,11 @@ function renderTableDOM(historyList, filteredHistory) {
             <td>${getCategoryLabel(item.category)}</td>
             <td class="${amountClass}">${sign} ¥${item.amount.toLocaleString()}</td>
             <td>${item.memo || '-'}</td>
-            <td class="btn_wrapper"><button class="delete-btn" onclick="deleteTransaction('${item.id}')">削除</button></td>
+            <td class="btn_wrapper">
+                <button class="column-btn delete" onclick="deleteTransaction('${item.id}')">削除する</button>
+                <button class="column-btn edit" onclick="openEditModal('${item.id}')">編集する</button>
+
+            </td>
         `;
         historyList.appendChild(tr);
 
@@ -211,7 +216,7 @@ function updateChartVisibility(catTotals) {
     }
 }
 
-// 画面切り替え
+// 画面切り替え(ログイン画面と通常画面)
 export function toggleView(user) {
     const authView = document.getElementById('auth-container');
     const appView = document.getElementById('app-container');
@@ -237,8 +242,8 @@ function getCategoryLabel(val) {
     return opt ? opt.label : val;
 }
 
-export function updateCategoryMenu(type) {
-    const sel = document.getElementById('category');
+export function updateCategoryMenu(type, targetId = 'category') {
+    const sel = document.getElementById(targetId);
     if (!sel) return;
     sel.innerHTML = '';
     categoryOptions[type].forEach(opt => {
@@ -277,7 +282,7 @@ function calculatePrevMonthDiff(currInc, currExp) {
             }
         });
     } else {
-        // --- 通常モード：前月のデータを抽出（既存のロジック） ---
+        // --- 通常モード：前月のデータを抽出 ---
         const pm = state.currentMonth === 1 ? 12 : state.currentMonth - 1;
         const py = state.currentMonth === 1 ? state.currentYear - 1 : state.currentYear;
 
@@ -299,3 +304,6 @@ function calculatePrevMonthDiff(currInc, currExp) {
     setDiffText('prev-diff-expense', currExp - prevExp, true);
     setDiffText('prev-diff-net', (currInc - currExp) - (prevInc - prevExp), false);
 }
+
+// 画面の要素にバージョンを代入する
+document.getElementById('app-version').textContent = `Ver ${pkg.version}`;

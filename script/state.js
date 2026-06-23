@@ -6,5 +6,7 @@ export let state = {
     currentYear: new Date().getFullYear(),
     currentMonth: new Date().getMonth() + 1,
     currentCategory: 'all',
-    isLoginMode: true // ログインか新規登録かのフラグ
+    isLoginMode: true, // ログインか新規登録かのフラグ
+    editingId: null, // 編集中のID
+    transactions: []
 };

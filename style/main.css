@@ -1,7 +1,6 @@
 @charset "UTF-8";
 * {
   margin: 0 auto;
-  max-width: 1360px;
 }
 
 body {
@@ -21,6 +20,7 @@ body {
           align-items: center;
   height: 100vh;
   font-family: "Albert Sans", sans-serif;
+  max-width: 1360px;
 }
 #auth-container .auth_box {
   background: #fff;
@@ -53,6 +53,12 @@ body {
           transform: translateX(-50%);
   color: #a8a8a8;
   text-decoration: underline;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+#auth-container .auth_box .login-page-link a {
+  margin: 0 10px;
 }
 #auth-container .auth_box input {
   width: 100%;
@@ -93,7 +99,20 @@ body {
 
 header {
   line-height: 100px;
-  padding: 0 5%;
+  padding: 0 3.5%;
+}
+@media screen and (min-width: 600px) {
+  header {
+    margin: 0 auto;
+    max-width: 1360px;
+  }
+}
+@media screen and (max-width: 599px) {
+  header {
+    margin: 0 auto;
+    max-width: 1360px;
+    padding: 0 5%;
+  }
 }
 header .hedaer_logo {
   position: relative;
@@ -211,16 +230,22 @@ header .sm_header_navlist .sm_navlist_item a:hover {
   }
 }
 
-main {
-  padding: 0 5%;
-}
 main h2 {
   font-weight: 500;
   margin-bottom: 25px;
   font-size: 20px;
 }
 main section {
-  margin: 30px 0 90px;
+  padding: 30px 3.5% 90px;
+  margin: 0 auto;
+  max-width: 1360px;
+}
+@media screen and (max-width: 599px) {
+  main section {
+    margin: 0 auto;
+    max-width: 1360px;
+    padding: 30px 5% 90px;
+  }
 }
 main .year_select_wrapper {
   padding-bottom: 15px;
@@ -485,7 +510,7 @@ main form .form_group .radio_wrapper input[type=radio]:checked + label {
   color: #fff;
   font-weight: 500;
 }
-main form .submit_btn {
+main form button {
   padding: 15px 30px;
   border: 2px solid #f7f1e9;
   border-radius: 10px;
@@ -494,7 +519,7 @@ main form .submit_btn {
   transition: all 0.3s ease;
   color: #102C57;
 }
-main form .submit_btn:hover {
+main form button:hover {
   background-color: #102C57;
   border-color: #102C57;
   color: #fff;
@@ -538,6 +563,21 @@ main #transaction-table td {
 main #transaction-table td.btn_wrapper {
   padding: 0 !important;
 }
+main #transaction-table td:nth-of-type(1) {
+  width: 130px;
+}
+main #transaction-table td:nth-of-type(2) {
+  width: 105px;
+}
+main #transaction-table td:nth-of-type(3) {
+  width: 100px;
+}
+main #transaction-table td:nth-of-type(4) {
+  width: 320px;
+}
+main #transaction-table td:nth-of-type(5) {
+  width: 200px;
+}
 main #transaction-table tr:hover {
   background-color: #f7f1e9;
 }
@@ -561,26 +601,111 @@ main .history-item {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  /* 内容とボタンを左右に分ける */
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
-main .delete-btn {
-  background-color: #f5b6b6;
+main .column-btn {
   padding: 16.5px 15px 11.5px;
-  margin-left: 15px;
   border: none;
   cursor: pointer;
   font-size: 12px;
 }
-main .delete-btn:hover {
-  background-color: #fd8585;
+main .column-btn.delete {
+  background-color: #f5b6b6;
+}
+main .column-btn.delete:hover {
+  background-color: #d95252;
+}
+main .column-btn.edit {
+  background-color: #EADBC8;
+  margin-right: 15px;
+}
+main .column-btn.edit:hover {
+  background-color: #102C57;
+  color: #FEFAF6;
+}
+main #edit-modal {
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+main #edit-modal .editform_container {
+  position: fixed;
+  width: 90%;
+  max-width: calc(1360px - 10%);
+  padding: 50px;
+}
+@media screen and (max-width: 599px) {
+  main #edit-modal .editform_container {
+    padding: 30px;
+  }
+}
+main #edit-modal .editform_container {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: #FEFAF6;
+  border-radius: 20px;
+}
+main #edit-modal.active {
+  display: block;
+}
+main #edit-modal .btn_wrapper {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+}
+@media screen and (max-width: 599px) {
+  main #edit-modal .btn_wrapper {
+    top: 30px;
+    right: 30px;
+  }
+}
+main #edit-modal .close_btn {
+  position: relative;
+  display: inline-block;
+  background: #EADBC8;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+main #edit-modal .close_btn span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-51.5%, -47.5%);
+          transform: translate(-51.5%, -47.5%);
+}
+main #edit-modal .close_btn:hover {
+  background: #d95252;
+  color: #FEFAF6;
+}
+main #edit-modal h2 {
+  line-height: 50px;
 }
 
 footer {
-  margin: 0 5%;
+  margin: 0 auto;
+  padding: 0 3.5%;
+  max-width: 1360px;
   position: relative;
+}
+@media screen and (max-width: 599px) {
+  footer {
+    margin: 0 auto;
+    max-width: 1360px;
+    padding: 0 5%;
+  }
 }
 footer .copyright {
   font-size: 13px;
@@ -588,14 +713,15 @@ footer .copyright {
   color: #a8a8a8;
   font-family: "Albert Sans", sans-serif;
 }
-footer .message {
-  font-size: 7px;
-  color: #f0f0f0;
+footer #app-version {
+  font-size: 13px;
+  color: #a8a8a8;
   margin-top: -35px;
   margin-right: 130px;
+  font-family: "Albert Sans", sans-serif;
 }
 @media screen and (max-width: 599px) {
-  footer .message {
+  footer #app-version {
     display: none;
   }
 }

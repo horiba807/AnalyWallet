@@ -17,9 +17,10 @@ $acc2: #EADBC8;
 $acc3: #DAC0A3;
 $acc4: #102C57;
 
+$warning: #d95252;
+
 * {
     margin: 0 auto;
-    max-width: 1360px;
 }
 body{
     font-family: 'Noto Sans JP',sans-serif;
@@ -32,6 +33,7 @@ body{
     align-items: center;
     height: 100vh;
     font-family: 'Albert Sans', sans-serif;
+    max-width: 1360px;
     
 
     .auth_box {
@@ -63,6 +65,10 @@ body{
             transform: translateX(-50%);
             color: #a8a8a8;
             text-decoration: underline;
+            display:flex;
+            a{
+                margin:0 10px;
+            }
         }
 
         input {
@@ -110,7 +116,19 @@ body{
 
 header{
     line-height: 100px;
-    padding: 0 5%;
+    padding: 0 3.5%;
+    @include mq(tb) {
+        margin: 0 auto;
+        max-width: 1360px;
+    }
+    @include mq(sm) {
+        margin: 0 auto;
+        max-width: 1360px;
+        padding: 0 5%;
+    }
+
+
+
     .hedaer_logo{
         position: relative;
         z-index: -1;
@@ -217,14 +235,20 @@ header{
 
 }
 main{
-    padding:0 5%;
     h2{
         font-weight: 500;
         margin-bottom:25px;
         font-size:20px;
     }
     section{
-        margin:30px 0 90px;
+        padding:30px 3.5% 90px;
+        margin:0 auto;
+        max-width:1360px;
+        @include mq(sm) {
+            margin: 0 auto;
+            max-width: 1360px;
+            padding: 30px 5% 90px;
+        }        
     }
     .year_select_wrapper{
         padding-bottom:15px;
@@ -392,7 +416,6 @@ main{
 
         }
     }
-    
 
     form{
         margin:50px 0;
@@ -463,7 +486,7 @@ main{
                 }
             }
         }
-        .submit_btn{
+        button{
             padding: 15px 30px;
             border: 2px solid $acc1;
             border-radius: 10px;
@@ -516,6 +539,23 @@ main{
         &.btn_wrapper{
             padding: 0!important;
         }
+        &:nth-of-type(1){
+            width: 130px;
+        }
+        &:nth-of-type(2){
+            width: 105px;
+        }
+        &:nth-of-type(3){
+            width: 100px;
+        }
+        &:nth-of-type(4){
+            width: 320px;
+        }
+        &:nth-of-type(5){
+            width: 200px;
+        }
+
+        
     }
     tr{
         &:hover{
@@ -545,29 +585,101 @@ main{
 .history-item {
     display: flex;
     justify-content: space-between;
-    /* 内容とボタンを左右に分ける */
     align-items: center;
 }
 
-.delete-btn {
-    background-color: #f5b6b6;
+.column-btn {
     padding: 16.5px 15px 11.5px;
-    margin-left:15px;
     border: none;
     cursor: pointer;
     font-size: 12px;
+    &.delete{
+        background-color: #f5b6b6;
+        &:hover{
+            background-color: $warning;
+        } 
+    }
+    &.edit{
+        background-color: $acc2;
+        margin-right: 15px;
+        &:hover{
+            background-color: $acc4;
+            color:$white;
+        }
+    }
 }
+#edit-modal{
+    position: fixed;
+    width:100vw;
+    height: 100%;
+    top:0;
+    left:50%;
+    transform:translateX(-50%) ;
+    background: rgba(0,0,0,0.5);
+    display:none;
+    .editform_container{
+        position: fixed;
+        width:90%;
+        max-width: calc(1360px - 10%);
+        padding: 50px;
+        @include mq(sm){
+            padding:30px;
+        }
+        left:50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+        background: $white;
+        border-radius: 20px;
+    }
+    &.active{
+        display:block;
+    }
+    .btn_wrapper{
+        position: absolute;
+        top:50px;
+        right:50px;
+        @include mq(sm) {
+            top: 30px;
+            right: 30px;
+        }
+    }
+    .close_btn{
+        position: relative;
+        display:inline-block;
+        background: $acc2;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        transition: .2s;
+        span{
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-51.5%, -47.5%);
+        }
+        &:hover{
+            background:#d95252;
+            color:$white;
+        }
+    }
+    h2{
+        line-height: 50px;
+    }
 
-.delete-btn:hover {
-    background-color: #fd8585;
 }
-
 
 
 }
 footer{
-    margin: 0 5%;
+    margin: 0 auto;
+    padding:0 3.5%;
+    max-width:1360px;
     position: relative;
+    @include mq(sm) {
+        margin: 0 auto;
+        max-width: 1360px;
+        padding: 0 5%;
+    }
 
     .copyright{
         font-size:13px;
@@ -575,11 +687,12 @@ footer{
         color:#a8a8a8;
         font-family: 'Albert Sans', sans-serif;
     }
-    .message{
-        font-size:7px;
-        color:#f0f0f0;
+    #app-version{
+        font-size:13px;
+        color: #a8a8a8;
         margin-top:-35px;
         margin-right:130px;
+        font-family: 'Albert Sans', sans-serif;
         @include mq(sm) {
             display:none;
 
