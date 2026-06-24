@@ -100,6 +100,7 @@ body {
 header {
   line-height: 100px;
   padding: 0 3.5%;
+  position: relative;
 }
 @media screen and (min-width: 600px) {
   header {
@@ -118,11 +119,6 @@ header .hedaer_logo {
   position: relative;
   z-index: -1;
 }
-@media screen and (max-width: 599px) {
-  header .hedaer_logo {
-    line-height: 75px;
-  }
-}
 header .hedaer_logo h1 {
   font-size: 22px;
   font-weight: 500;
@@ -135,6 +131,11 @@ header .hedaer_logo h1 {
     margin-left: 45px;
     font-size: 20px;
   }
+}
+header .hedaer_logo h1 span {
+  font-size: 12px;
+  color: #818181;
+  margin-left: 10px;
 }
 header .hedaer_logo .logo_img {
   width: 45px;
@@ -171,12 +172,13 @@ header p span {
 header .header__navlist {
   list-style: none;
   text-align: right;
-  margin: -100px 0 0 0;
+  margin: -100px 70px 0 0;
   letter-spacing: 0.05rem;
 }
 header .header__navlist li {
   display: inline;
-  margin-left: 2%;
+  margin-left: 20px;
+  position: relative;
 }
 header .header__navlist li a {
   text-decoration: none;
@@ -188,6 +190,27 @@ header .header__navlist li a:visited {
 }
 header .header__navlist li a:hover {
   border-bottom: #DAC0A3 solid 2px;
+}
+header .menu_icon {
+  background: #f7f1e9;
+  position: absolute;
+  right: 3.5%;
+}
+@media screen and (max-width: 599px) {
+  header .menu_icon {
+    right: 5%;
+    top: 12.5px;
+  }
+}
+header .menu_icon {
+  top: 25px;
+  padding: 13px 13px;
+  border-radius: 10px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+header .menu_icon:hover {
+  background: #EADBC8;
 }
 @media screen and (max-width: 599px) {
   header .header__navlist {
@@ -390,8 +413,10 @@ main .smm_grid_wrapper .grid_inner .grid_inner-flex_wrapper .grid_inner-flex_wra
 main .smm_grid_wrapper .grid_inner .chart {
   -webkit-box-flex: 1;
       -ms-flex: 1;
-          flex: 1; /* 追加：親の余った高さをすべて使う */
-  width: 100% !important; /* 重要：px指定を消して100%に */
+          flex: 1;
+  /* 追加：親の余った高さをすべて使う */
+  width: 100% !important;
+  /* 重要：px指定を消して100%に */
   height: 100% !important;
   position: relative;
   padding: 20px 0;
@@ -448,16 +473,24 @@ main form .form_group {
   display: flex;
   position: relative;
 }
-main form .form_group input, main form .form_group textarea, main form .form_group .radio_wrapper, main form .form_group select {
+main form .form_group input,
+main form .form_group textarea,
+main form .form_group .radio_wrapper,
+main form .form_group select {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   line-height: 2;
 }
-main form .form_group input::-webkit-scrollbar, main form .form_group textarea::-webkit-scrollbar, main form .form_group .radio_wrapper::-webkit-scrollbar, main form .form_group select::-webkit-scrollbar {
+main form .form_group input::-webkit-scrollbar,
+main form .form_group textarea::-webkit-scrollbar,
+main form .form_group .radio_wrapper::-webkit-scrollbar,
+main form .form_group select::-webkit-scrollbar {
   display: none;
 }
-main form .form_group input, main form .form_group textarea, main form .form_group select {
+main form .form_group input,
+main form .form_group textarea,
+main form .form_group select {
   border-bottom: solid 2px #f7f1e9;
 }
 main form .form_group label {
