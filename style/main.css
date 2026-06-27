@@ -247,6 +247,7 @@ header .menu_wrapper .menu_container .menu_inner .menu_detail {
   -webkit-box-flex: 4;
       -ms-flex: 4;
           flex: 4;
+  padding-left: 15px;
 }
 
 main h2 {
