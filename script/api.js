@@ -52,6 +52,7 @@ export async function openEditModal(id){
     document.getElementById('edit_memo').value = target.memo;
     // 4. モーダルを表示する
     document.getElementById('edit-modal').classList.add('active');
+    document.body.classList.add('no-scroll');
 }
 
 // 項目の更新

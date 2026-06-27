@@ -1,0 +1,112 @@
+$breakpoints: (
+    'sm': 'screen and (max-width: 599px)',
+    'tb': 'screen and (min-width: 600px)',
+    ) !default;
+
+@mixin mq($breakpoint) {
+    @media #{map-get($breakpoints, $breakpoint)} {
+        @content;
+    }
+}
+
+$white: #FEFAF6;
+
+$acc1: #f7f1e9;
+$acc1-2: #efeeec;
+$acc2: #EADBC8;
+$acc3: #DAC0A3;
+$acc4: #102C57;
+
+$warning: #d95252;
+
+* {
+    margin: 0 auto;
+}
+#auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Albert Sans',
+        sans-serif;
+    max-width: 1360px;
+
+
+    .auth_box {
+        background: #fff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+
+    h2 {
+        margin-bottom: 15px;
+    }
+
+    .auth-copyright {
+        font-size: 12px;
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #a8a8a8;
+    }
+
+    .login-page-link {
+        font-size: 12px;
+        position: fixed;
+        bottom: 65px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #a8a8a8;
+        text-decoration: underline;
+        display: flex;
+
+        a {
+            margin: 0 10px;
+        }
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 2px solid $acc1;
+        border-radius: 10px;
+        font-size: 16px;
+        font-family: 'Albert Sans';
+
+        &:focus {
+            border-color: $acc4;
+            outline: none;
+        }
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: $acc4;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: .3s;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+
+    #auth-toggle {
+        margin-top: 20px;
+        font-size: 13px;
+        color: $acc4;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
+}

@@ -71,6 +71,27 @@ document.getElementById('filter-category')?.addEventListener('change', (e) => {
     state.currentCategory = e.target.value;
     updateHistoryDisplay(); // 選択が変わるたびに再描画
 });
+
+//■■■■■■■■■■■■■■■■■■メニューボタン■■■■■■■■■■■■■■■■■■
+document.getElementById('header_menu_icon').addEventListener("click", () => {
+    const headerMenu = document.getElementById('header_menu');
+    const icon = document.getElementById('icon');
+
+    headerMenu.classList.toggle('active');
+
+    if (headerMenu.classList.contains('active')) {
+        // メニューが開いたとき
+        icon.textContent = "close";                  
+        document.body.classList.add('no-scroll');// 背景をロック
+    } else {
+        // メニューが閉じたとき
+        icon.textContent = "menu";                   
+        document.body.classList.remove('no-scroll'); 
+    }
+});
+
+
+
 //■■■■■■■■■■■■■■■■■■フォーム■■■■■■■■■■■■■■■■■■
 // フォームの日付を今日にする
 function setDefaultDate() {
@@ -121,6 +142,7 @@ setDefaultDate();
 //ﾊﾞﾂボタンでモーダル削除
 document.getElementById('close_editform_btn').addEventListener("click", () => {
     document.getElementById('edit-modal').classList.remove('active');
+    document.body.classList.remove('no-scroll');
     return;
 });
 
@@ -169,6 +191,7 @@ saveBtn.addEventListener('click', async () => {
 
         // 5. 成功したらモーダルを閉じる
         document.getElementById('edit-modal').classList.remove('active');
+        document.body.classList.remove('no-scroll');
 
         // 6. 編集中のIDをリセットする
         state.editingId = null;

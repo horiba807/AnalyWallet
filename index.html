@@ -5,9 +5,10 @@
     <title>AnalyWallet</title>
     <link rel="stylesheet" href="style/destyle.css">
     <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/auth.css">
     <link
-        href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Sans+JP:wght@100..900&display=swap"
-        rel="stylesheet">
+        href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@100..900&display=swap"
+    rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, viewport-fit=cover">
     <link rel="icon" href="img/favicon.ico">
@@ -47,27 +48,64 @@
     </div>
     <div id="app-container">
         <header>
-            <div class="hedaer_logo">
-                <span class="logo_img">
-                    <img src="img/logo.png">
-                </span>
-                <h1>AnalyWallet</h1>
+            <div class=header_wrapper>
+                <div class="hedaer_logo">
+                    <span class="logo_img">
+                        <img src="img/logo.png">
+                    </span>
+                    <h1>AnalyWallet</h1>
+                </div>
+                <ul class="header__navlist">
+                    <li><a href="index.html#summary_container">ダッシュボード</a></li>
+                    <li><a href="index.html#register_container">収支登録</a></li>
+                    <li><a href="index.html#history_container">登録履歴</a></li>
+                </ul>
+                <button id="header_menu_icon" class="menu_icon" href="index.html#history_container"><span class="material-icons" id="icon">menu</span></button>
+                <nav class="sm_header_navlist">
+                    <div class="sm_navlist_item">
+                        <a href="index.html#summary_container">ダッシュボード</a>
+                    </div>
+                    <div class="sm_navlist_item center">
+                        <a href="index.html#register_container">収支登録</a>
+                    </div>
+                    <div class="sm_navlist_item">
+                        <a href="index.html#history_container">登録履歴</a>
+                    </div>
+                </nav>
             </div>
-            <ul class="header__navlist">
-                <li><a href="index.html#summary_container">ダッシュボード</a></li>
-                <li><a href="index.html#register_container">収支登録</a></li>
-                <li><a href="index.html#history_container">登録履歴</a></li>
-            </ul>
-            <button class="menu_icon" href="index.html#history_container"><span class="material-icons">menu</span></button>
-            <div class="sm_header_navlist">
-                <div class="sm_navlist_item">
-                    <a href="index.html#summary_container">ダッシュボード</a>
-                </div>
-                <div class="sm_navlist_item center">
-                    <a href="index.html#register_container">収支登録</a>
-                </div>
-                <div class="sm_navlist_item">
-                    <a href="index.html#history_container">登録履歴</a>
+            <div class="menu_wrapper" id="header_menu">
+                <div class="menu_container">
+                    <div class="menu_inner">
+                        <ul class="menubar">
+                            <li class="menu_btn_wrapper">
+                                <a>カテゴリー設定</a>
+                            </li>
+                            <li class="menu_btn_wrapper">
+                                <a>サブスク管理</a>
+                            </li>
+                            <li class="menu_btn_wrapper">
+                                <a>アカウント情報</a>
+                            </li>
+                            <li class="menu_btn_wrapper">
+                                <a>その他設定（アカ消去）</a>
+                            </li>
+                            <li class="menu_btn_wrapper small">
+                                <a>AnalyWalletについて<span class="material-symbols-outlined">open_in_new</span></a>
+                            </li>
+                            <li class="menu_btn_wrapper small">
+                                <a>プライバシーポリシー<span class="material-symbols-outlined">open_in_new</span></a>
+                            </li>
+                            <li class="menu_btn_wrapper small">
+                                <a>利用規約<span class="material-symbols-outlined">open_in_new</span></a>
+                            </li>
+                            <li class="menu_btn_wrapper small">
+                                <a>お問い合わせ・ご要望<span class="material-symbols-outlined">open_in_new</span></a>
+                            </li>
+                        </ul>
+                        <div class="menu_detail">
+                            aaaa
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
