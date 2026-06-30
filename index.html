@@ -77,19 +77,19 @@
                 <div class="menu_container">
                     <div class="menu_inner">
                         <ul class="menubar">
-                            <li class="menu_btn_wrapper">
-                                <a>カテゴリー設定</a>
+                            <li class="menu_btn_wrapper btn active" id="menu_btn_01" data-target="category_settings">
+                                カテゴリー<span class="line_break"><br></span>設定
                             </li>
-                            <li class="menu_btn_wrapper">
-                                <a>サブスク管理</a>
+                            <li class="menu_btn_wrapper btn" id="menu_btn_02" data-target="subsc_settings">
+                                サブスク<span class="line_break"><br></span>管理
                             </li>
-                            <li class="menu_btn_wrapper">
-                                <a>アカウント情報</a>
+                            <li class="menu_btn_wrapper btn" id="menu_btn_03" data-target="account_settings">
+                                アカウント<span class="line_break"><br></span>情報
                             </li>
-                            <li class="menu_btn_wrapper">
-                                <a>その他設定（アカ消去）</a>
+                            <li class="menu_btn_wrapper btn" id="menu_btn_04" data-target="other_settings">
+                                その他の<span class="line_break"><br></span>情報
                             </li>
-                            <li class="menu_btn_wrapper small">
+                            <!-- <li class="menu_btn_wrapper small">
                                 <a>AnalyWalletについて<span class="material-symbols-outlined">open_in_new</span></a>
                             </li>
                             <li class="menu_btn_wrapper small">
@@ -100,10 +100,41 @@
                             </li>
                             <li class="menu_btn_wrapper small">
                                 <a>お問い合わせ・ご要望<span class="material-symbols-outlined">open_in_new</span></a>
-                            </li>
+                            </li> -->
                         </ul>
                         <div class="menu_detail">
-                            aaaa
+                            <div class="menu_item_container active" id="category_settings" data-target="category_settings">
+                                <h3>カテゴリー設定</h3>
+                                <div class="flex_wrapper">
+                                    <div class="category_box">
+                                        <h4>支出</h4>
+                                        <div class="category-form">
+                                            <input type="text" id="new-expense-name" placeholder="カテゴリーを追加">
+                                            <button id="add-expense-btn" class="add_btn">追加する</button>
+                                        </div>
+                                        <ul id="expense-category-list" class="category-list">
+                                        </ul>
+                                    </div>
+                                    <div class="category_box">
+                                        <h4>収入</h4>
+                                        <div class="category-form">
+                                            <input type="text" id="new-income-name" placeholder="カテゴリーを追加">
+                                            <button id="add-income-btn" class="add_btn">追加する</button>
+                                        </div>
+                                        <ul id="income-category-list" class="category-list">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu_item_container" id="subsc_settings" data-target="subsc_settings">
+                                <h3>サブスク管理</h3>
+                            </div>
+                            <div class="menu_item_container" id="account_settings" data-target="account_settings">
+                                <h3>アカウント情報</h3>
+                            </div>
+                            <div class="menu_item_container" id="other_settings" data-target="other_settings">
+                                <h3>その他</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -137,107 +168,33 @@
                         <h3>支出</h3>
                         <p class="grid_yen" id="display-expense">0</p>
                         <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper js-diff-label">
-                                前月比
-                            </div>
+                            <div class="grid_inner-flex_wrapper js-diff-label">前月比</div>
                             <div class="grid_inner-flex_wrapper">
                                 <p id="prev-diff-expense">¥ 0</p>
                             </div>
                         </div>
                         <div class="line"></div>
-                        <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper">
-                                食費
-                            </div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="cat-food">¥ 0</p>
-                            </div>
-                        </div>
-                        <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper">
-                                交通費
-                            </div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="cat-transport">¥ 0</p>
-                            </div>
-                        </div>
-                        <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper">
-                                交際費
-                            </div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="cat-entertainment">¥ 0</p>
-                            </div>
-                        </div>
-                        <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper">
-                                趣味嗜好
-                            </div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="cat-hobby">¥ 0</p>
-                            </div>
-                        </div>
-                        <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper">
-                                サブスク
-                            </div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="cat-subsc">¥ 0</p>
-                            </div>
-                        </div>
-                        <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper">
-                                その他支出
-                            </div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="cat-other-exp">¥ 0</p>
-                            </div>
-                        </div>
+            
+                        <div id="expense-categories-list"></div>
                     </div>
                     <div class="grid_inner s2">
                         <h3>収入</h3>
                         <p class="grid_yen" id="display-income">0</p>
                         <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper js-diff-label">
-                                前月比
-                            </div>
+                            <div class="grid_inner-flex_wrapper js-diff-label">前月比</div>
                             <div class="grid_inner-flex_wrapper">
                                 <p id="prev-diff-income">¥ 0</p>
                             </div>
                         </div>
                         <div class="line"></div>
-                        <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper">
-                                バイト
-                            </div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="cat-salary">¥ 0</p>
-                            </div>
-                        </div>
-                        <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper">
-                                おこづかい
-                            </div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="cat-pocket-money">¥ 0</p>
-                            </div>
-                        </div>
-                        <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper">
-                                その他収入
-                            </div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="cat-other-inc">¥ 0</p>
-                            </div>
-                        </div>
+            
+                        <div id="income-categories-list"></div>
                     </div>
                     <div class="grid_inner s3">
                         <h3>収入 - 支出</h3>
                         <p class="grid_yen" id="display-diff">0</p>
                         <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper js-diff-label">
-                                前月比
-                            </div>
+                            <div class="grid_inner-flex_wrapper js-diff-label">前月比</div>
                             <div class="grid_inner-flex_wrapper">
                                 <p id="prev-diff-net">¥ 0</p>
                             </div>
@@ -309,20 +266,6 @@
                                     <div class="filter_wrapper">
                                         <select id="filter-category" class="filter_select">
                                             <option value="all">カテゴリー</option>
-                                            <optgroup label="支出">
-                                                <option value="food">食費</option>
-                                                <option value="transport">交通費</option>
-                                                <option value="entertainment">交際費</option>
-                                                <option value="hobby">趣味・嗜好</option>
-                                                <option value="subsc">サブスク</option>
-                                                <option value="otherExp">その他支出</option>
-                                            </optgroup>
-                                            <optgroup label="収入">
-                                                <option value="salary">給与</option>
-                                                <option value="income">お小遣い</option>
-                                                <option value="carry_over">繰越金</option>
-                                                <option value="otherInc">その他収入</option>
-                                            </optgroup>
                                         </select>
                                     </div>
                                 </th>

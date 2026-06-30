@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 import { supabaseClient } from './supabase.js';
 import { categoryOptions } from './constant.js';
-import { updateHistoryDisplay, toggleView, updateCategoryMenu, calculateStats } from './ui.js';
-import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction,  signUp, signIn, signOut } from './api.js';
+import { updateHistoryDisplay, toggleView, updateCategoryMenu, calculateStats, renderFilterCategoryDOM, renderCategorySettingsDOM } from './ui.js';
+import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction, fetchCategories, signUp, signIn, signOut, setupCategorySettingsEvents } from './api.js';
 window.deleteTransaction = deleteTransaction; // グローバルスコープをモジュールスコープに変更
 window.openEditModal = openEditModal;
 import { state, moneyForm } from './state.js';
@@ -44,11 +44,28 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
 });
 
 //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■通常画面■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-// 初期起動
-updateCategoryMenu('expense');
+
+//■■■■■■■■■■■■■■■■■■ init app ■■■■■■■■■■■■■■■■■■
 const initialBtn = document.querySelector(`.month_btn[data-month="${state.currentMonth}"]`);
 if (initialBtn) initialBtn.classList.add('active');
+
+// 1. まず先にカテゴリーをSupabaseから読み込む（最優先！）
+await fetchCategories();
+
+renderCategorySettingsDOM();
+setupCategorySettingsEvents();
+
+// 2. 読み込みが終わってから、画面のドロップダウンを生成する（新関数に統一）
+updateCategoryMenu('expense', 'category');      // 登録用フォーム
+updateCategoryMenu('expense', 'edit_category'); // 編集用モーダル
+
+// 3. フィルター側の選択肢も一緒に自動生成
+renderFilterCategoryDOM();
+
+// 4. 履歴を読み込む
 fetchTransactions();
+
+console.log("現在のstate内のカテゴリー:", state.categories);
 
 //■■■■■■■■■■■■■■■■■■ダッシュボード■■■■■■■■■■■■■■■■■■
 // 年切り替え
@@ -90,7 +107,27 @@ document.getElementById('header_menu_icon').addEventListener("click", () => {
     }
 });
 
+// 1. 画面内にあるすべてのメニューボタン（.menu-btn）を取得する
+const menuButtons = document.querySelectorAll('.menu_btn_wrapper.btn');
 
+menuButtons.forEach(btn => {
+    btn.addEventListener("click", function () {
+
+        // 2. すべてのボタンと設定画面から 'active' を消す
+        menuButtons.forEach(b => {
+            b.classList.remove('active'); // ボタンの光を消す
+
+            const targetId = b.dataset.target;
+            document.getElementById(targetId)?.classList.remove('active'); // 画面を非表示にする
+        });
+
+        // 3. 今クリックされたボタンと画面だけに 'active' をつける
+        this.classList.add('active'); // クリックされたボタンを光らせる
+
+        const currentTargetId = this.dataset.target;
+        document.getElementById(currentTargetId)?.classList.add('active'); // 対応する画面を表示する
+    });
+});
 
 //■■■■■■■■■■■■■■■■■■フォーム■■■■■■■■■■■■■■■■■■
 // フォームの日付を今日にする
@@ -117,11 +154,6 @@ moneyForm?.addEventListener('submit', async (e) => {
     const fd = new FormData(moneyForm);
     const type = fd.get('transaction-type');
     const cat = fd.get('category');
-
-    // バリデーション
-    if (type === 'income' && ['food', 'transport', 'entertainment'].includes(cat)) {
-        alert("収支とカテゴリーが矛盾しています"); return;
-    }
 
     const { error } = await supabaseClient.from('transactions').insert([{
         type: type, date: fd.get('date'), amount: Number(fd.get('amount')),

@@ -7,6 +7,9 @@ function getMonthlyStatsData() {
     const monthlyIncomes = [];
     const monthlyExpenses = [];
 
+    // 💡 繰越金カテゴリーのIDを動的に特定しておく
+    const carryOverCat = (state.categories.income || []).find(c => c.label === '繰越金');
+
     for (let m = 1; m <= 12; m++) {
         // その月の開始日と末日
         const startOfMonth = new Date(state.currentYear, m - 1, 1);
@@ -18,8 +21,13 @@ function getMonthlyStatsData() {
             return d >= startOfMonth && d <= endOfMonth;
         });
 
+        // 💡 繰越金以外の収入を集計（動的IDに対応）
         const inc = currentMonthData
-            .filter(item => item.type === 'income' && item.category !== 'carry_over')
+            .filter(item => {
+                const catValue = String(item.category);
+                const isCarryOver = item.category === 'carry_over' || (carryOverCat && catValue === carryOverCat.value);
+                return item.type === 'income' && !isCarryOver;
+            })
             .reduce((acc, item) => acc + item.amount, 0);
 
         const exp = currentMonthData
@@ -43,36 +51,47 @@ export function renderCircleChart(catTotals) {
     const ctx = document.getElementById('expenseChart');
     if (!ctx) return;
 
-    //前のページのグラフを消去
+    // 前のページのグラフを消去
     if (state.myChart) {
         state.myChart.destroy();
     }
 
-    // グラフに表示するデータ
+    // 💡 1. グラフ用の空の配列を用意する
+    const chartLabels = [];
+    const chartData = [];
+    const chartColors = [];
+
+    // カラーパレット（カテゴリーが将来増えてもいいように多めに用意）
+    const colorPalette = [
+        '#FF6384', '#36A2EB', '#FFCE56', '#9966ff',
+        '#87aa66', '#4BC0C0', '#ff9f40', '#ff6384',
+        '#c9cbcf', '#4bc0c0', '#36a2eb', '#ffcd56'
+    ];
+
+    // 💡 2. 支出カテゴリーの配列をループして、金額があるものだけをグラフに詰める
+    (state.categories.expense || []).forEach((cat, index) => {
+        const amount = catTotals[cat.value] || 0;
+
+        // グラフがゴチャつかないよう、0円より大きいカテゴリーだけ表示
+        if (amount > 0) {
+            chartLabels.push(cat.label); // 「食費」などの日本語名
+            chartData.push(amount);      // そのカテゴリーの合計金額
+            // 色を順番に割り当て（足りなくなったら最初に戻るように % を使用）
+            chartColors.push(colorPalette[index % colorPalette.length]);
+        }
+    });
+
+    // グラフに表示するデータ構造を組み立て
     const data = {
-        labels: ['食費', '交通費', '交際費', '趣味・嗜好', 'サブスク', 'その他'],
+        labels: chartLabels, // 👈 動的配列
         datasets: [{
-            data: [
-                catTotals.food,
-                catTotals.transport,
-                catTotals.entertainment,
-                catTotals.hobby,
-                catTotals.subsc,
-                catTotals.otherExp
-            ],
-            backgroundColor: [
-                '#FF6384', // 食費
-                '#36A2EB', // 交通費
-                '#FFCE56', // 交際費
-                '#9966ff',  // 趣味嗜好
-                '#87aa66',  // サブスク
-                '#4BC0C0'  // その他
-            ],
+            data: chartData, // 👈 動的配列
+            backgroundColor: chartColors, // 👈 動的配列
             hoverOffset: 4
         }]
     };
 
-    //グラフの作成
+    // グラフの作成
     state.myChart = new Chart(ctx, {
         type: 'doughnut',
         data: data,
@@ -80,22 +99,14 @@ export function renderCircleChart(catTotals) {
             responsive: true,
             maintainAspectRatio: false,
             layout: {
-                padding: {
-                    left: 30,
-                    right: 30,
-                    top: 30,
-                    bottom: 30
-                }
+                padding: { left: 30, right: 30, top: 30, bottom: 30 }
             },
             plugins: {
-                legend: {
-                    position: 'bottom',
-                }
+                legend: { position: 'bottom' }
             }
         }
     });
-
-};
+}
 
 export function renderLineChart() {
     const ctx = document.getElementById('lineChart');
@@ -140,28 +151,21 @@ export function renderLineChart() {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                x: {
-                    grid: { display: false }
-                },
+                x: { grid: { display: false } },
                 y: {
                     type: 'linear',
                     display: true,
                     position: 'left',
-                    title: { display: false, text: '総資産' },
                     beginAtZero: false,
                     grace: '5%',
                     ticks: {
-                        // ラベルの表示形式をカスタマイズ
-                        callback: function (value, index, values) {
+                        callback: function (value) {
                             if (Math.abs(value) >= 1000) {
                                 return (value / 10000) + '万';
                             }
                             return value;
                         },
-                        // フォントサイズ
-                        font: {
-                            size: 10
-                        }
+                        font: { size: 10 }
                     }
                 },
                 y1: {
@@ -169,19 +173,14 @@ export function renderLineChart() {
                     display: true,
                     position: 'right',
                     grid: { drawOnChartArea: false },
-                    title: { display: false, text: '月間収支' },
                     ticks: {
-                        // ラベルの表示形式をカスタマイズ
-                        callback: function (value, index, values) {
+                        callback: function (value) {
                             if (Math.abs(value) >= 1000) {
                                 return (value / 10000) + '万';
                             }
                             return value;
                         },
-                        // フォントサイズ
-                        font: {
-                            size: 10
-                        }
+                        font: { size: 10 }
                     }
                 }
             }
