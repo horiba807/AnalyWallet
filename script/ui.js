@@ -433,3 +433,36 @@ function createCategoryRow(cat) {
     `;
     return li;
 }
+
+// サブスク表示
+
+// サブスク一覧を HTML にレンダリングする
+export function renderSubscriptionsDOM() {
+    const subscListElement = document.getElementById('subsc-list');
+    if (!subscListElement) return;
+
+    // 一旦中身を空っぽにする
+    subscListElement.innerHTML = '';
+
+    if (state.subscriptions.length === 0) {
+        subscListElement.innerHTML = '<li class="empty-message">登録されているサブスクはありません。</li>';
+        return;
+    }
+
+    // データがある分だけ li を作成して追加
+    state.subscriptions.forEach(sub => {
+        const tr = document.createElement('tr');
+        tr.className = 'subsc-item';
+        tr.innerHTML = `
+                <td class="subsc-item-name">${sub.name}</td>
+                <td class="subsc-item-details">${sub.billing_day}日</td>
+                <td class="subsc-item-amount">¥${sub.amount.toLocaleString()}</td>
+                <td>
+                    <button class="btn-subsc-delete" data-id="${sub.id}" data-name="${sub.name}">
+                        削除する
+                    </button>
+                </td>
+        `;
+        subscListElement.appendChild(tr);
+    });
+}

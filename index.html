@@ -6,10 +6,7 @@
     <link rel="stylesheet" href="style/destyle.css">
     <link rel="stylesheet" href="style/main.css">
     <link rel="stylesheet" href="style/auth.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@100..900&display=swap"
-    rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, viewport-fit=cover">
     <link rel="icon" href="img/favicon.ico">
     <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
@@ -29,7 +26,7 @@
 </head>
 
 <body>
-    <div id="auth-container">
+    <!-- <div id="auth-container">
         <div class="auth_box">
             <h2 id="auth-title"><span>AnalyWallet</span> へようこそ！</h2>
             <form id="auth-form">
@@ -45,7 +42,7 @@
             </p>
             <p class="auth-copyright">© 2026 AnalyWallet.</p>
         </div>
-    </div>
+    </div> -->
     <div id="app-container">
         <header>
             <div class=header_wrapper>
@@ -60,7 +57,8 @@
                     <li><a href="index.html#register_container">収支登録</a></li>
                     <li><a href="index.html#history_container">登録履歴</a></li>
                 </ul>
-                <button id="header_menu_icon" class="menu_icon" href="index.html#history_container"><span class="material-icons" id="icon">menu</span></button>
+                <button id="header_menu_icon" class="menu_icon" href="index.html#history_container"><span
+                        class="material-icons" id="icon">menu</span></button>
                 <nav class="sm_header_navlist">
                     <div class="sm_navlist_item">
                         <a href="index.html#summary_container">ダッシュボード</a>
@@ -89,7 +87,7 @@
                             <li class="menu_btn_wrapper btn" id="menu_btn_04" data-target="other_settings">
                                 その他の<span class="line_break"><br></span>情報
                             </li>
-                            <!-- <li class="menu_btn_wrapper small">
+                            <li class="menu_btn_wrapper small">
                                 <a>AnalyWalletについて<span class="material-symbols-outlined">open_in_new</span></a>
                             </li>
                             <li class="menu_btn_wrapper small">
@@ -100,11 +98,12 @@
                             </li>
                             <li class="menu_btn_wrapper small">
                                 <a>お問い合わせ・ご要望<span class="material-symbols-outlined">open_in_new</span></a>
-                            </li> -->
+                            </li>
                         </ul>
                         <div class="menu_detail">
-                            <div class="menu_item_container active" id="category_settings" data-target="category_settings">
-                                <h3>カテゴリー設定</h3>
+                            <div class="menu_item_container active" id="category_settings"
+                                data-target="category_settings">
+                                <h3>カテゴリー設定<span>登録の際に用いるカテゴリーをカスタマイズします。</span></h3>
                                 <div class="flex_wrapper">
                                     <div class="category_box">
                                         <h4>支出</h4>
@@ -112,6 +111,7 @@
                                             <input type="text" id="new-expense-name" placeholder="カテゴリーを追加">
                                             <button id="add-expense-btn" class="add_btn">追加する</button>
                                         </div>
+                                        <h4>登録済みのカテゴリー</h4>
                                         <ul id="expense-category-list" class="category-list">
                                         </ul>
                                     </div>
@@ -121,19 +121,84 @@
                                             <input type="text" id="new-income-name" placeholder="カテゴリーを追加">
                                             <button id="add-income-btn" class="add_btn">追加する</button>
                                         </div>
+                                        <h4>登録済みのカテゴリー</h4>
                                         <ul id="income-category-list" class="category-list">
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="menu_item_container" id="subsc_settings" data-target="subsc_settings">
-                                <h3>サブスク管理</h3>
+                                <h3>サブスク管理<span>毎月自動で追加されるサブスクサービスを登録します。</span></h3>
+                                <h4>登録</h4>
+                                <form id="subsc-form" class="subsc-form">
+                                    <div class="form_group">
+                                        <label for="subsc-name">サービス名</label>
+                                        <div class="input_wrapper">
+                                            <input type="text" id="subsc-name" placeholder="サービス名を入力" required>
+                                        </div>
+                                    </div>
+                                    <div class="form_group">
+                                        <label for="subsc-amount">金額</label>
+                                        <div class="input_wrapper">
+                                            <input type="number" id="subsc-amount" placeholder="金額を入力" min="1" required>
+                                        </div>
+                                    </div>
+                                    <div class="form_group">
+                                        <label for="subsc-day">支払日</label>
+                                        <div class="input_wrapper">
+                                            <div>毎月</div>
+                                            <select id="subsc-day" required>
+                                                <option value="">日にちを選択</option>
+                                                <script>
+                                                    // 1〜31日
+                                                    for (let i = 1; i <= 31; i++) {
+                                                        document.write(`<option value="${i}">${i}日</option>`);
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn-submit">登録する</button>
+                                </form>
+                                <h4>現在契約中のサブスク</h4>
+                                <div class="subsc-table-wrapper">
+                                    <table class="subsc-table"> 
+                                        <thead>
+                                            <tr>
+                                                <th>サービス名</th>
+                                                <th>支払日</th>
+                                                <th>金額</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="subsc-list">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="menu_item_container" id="account_settings" data-target="account_settings">
                                 <h3>アカウント情報</h3>
                             </div>
                             <div class="menu_item_container" id="other_settings" data-target="other_settings">
-                                <h3>その他</h3>
+                                <h3>その他の情報</h3>
+                                <ul>
+                                    <li>
+                                        <a class="link_text">AnalyWalletについて<span
+                                                class="material-symbols-outlined">open_in_new</span></a>
+                                    </li>
+                                    <li>
+                                        <a class="link_text">プライバシーポリシー<span
+                                                class="material-symbols-outlined">open_in_new</span></a>
+                                    </li>
+                                    <li>
+                                        <a class="link_text">利用規約<span
+                                                class="material-symbols-outlined">open_in_new</span></a>
+                                    </li>
+                                    <li>
+                                        <a class="link_text">お問い合わせ・ご要望<span
+                                                class="material-symbols-outlined">open_in_new</span></a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -150,18 +215,12 @@
                 </div>
                 <div class="month_select_wrapper">
                     <button type="button" class="month_btn" data-month="annual">サマリー</button>
-                    <button type="button" class="month_btn" data-month="1">1月</button>
-                    <button type="button" class="month_btn" data-month="2">2月</button>
-                    <button type="button" class="month_btn" data-month="3">3月</button>
-                    <button type="button" class="month_btn" data-month="4">4月</button>
-                    <button type="button" class="month_btn" data-month="5">5月</button>
-                    <button type="button" class="month_btn" data-month="6">6月</button>
-                    <button type="button" class="month_btn" data-month="7">7月</button>
-                    <button type="button" class="month_btn" data-month="8">8月</button>
-                    <button type="button" class="month_btn" data-month="9">9月</button>
-                    <button type="button" class="month_btn" data-month="10">10月</button>
-                    <button type="button" class="month_btn" data-month="11">11月</button>
-                    <button type="button" class="month_btn" data-month="12">12月</button>
+                    <script>
+                    // 1〜31日
+                        for (let i = 1; i <= 12; i++) {
+                            document.write(`<button type="button" class="month_btn" data-month="${i}">${i}月</button>`);
+                        }
+                    </script>
                 </div>
                 <div class="smm_grid_wrapper">
                     <div class="grid_inner amount">
@@ -174,7 +233,7 @@
                             </div>
                         </div>
                         <div class="line"></div>
-            
+
                         <div id="expense-categories-list"></div>
                     </div>
                     <div class="grid_inner s2">
@@ -187,7 +246,7 @@
                             </div>
                         </div>
                         <div class="line"></div>
-            
+
                         <div id="income-categories-list"></div>
                     </div>
                     <div class="grid_inner s3">
@@ -252,7 +311,7 @@
                         <textarea id="memo" name="memo" placeholder="備考を入力"></textarea>
                     </div>
 
-                    <button type="submit" class="submit_btn" >保存する</button>
+                    <button type="submit" class="submit_btn">保存する</button>
                 </form>
             </section>
             <section id="history_container">
@@ -279,7 +338,7 @@
                     </table>
                 </div>
             </section>
-            <div class="editModal"  id="edit-modal">
+            <div class="editModal" id="edit-modal">
                 <div class="editform_container">
                     <h2>編集</h2>
                     <div class="btn_wrapper">
@@ -289,9 +348,10 @@
                         <div class="form_group">
                             <label class="req">収支選択</label>
                             <div class="radio_wrapper">
-                                <input type="radio" id="edit_type-expense" name="edit_transactions-type" value="expense" checked>
+                                <input type="radio" id="edit_type-expense" name="edit_transactions-type" value="expense"
+                                    checked>
                                 <label for="edit_type-expense">支出</label>
-                
+
                                 <input type="radio" id="edit_type-income" name="edit_transactions-type" value="income">
                                 <label for="edit_type-income">収入</la3ebel>
                             </div>
@@ -321,7 +381,7 @@
         </main>
         <footer>
             <p class="copyright">© 2026 AnalyWallet.</p>
-                        <p id="app-version"></p>
+            <p id="app-version"></p>
             <a target="_blank" href="https://supabase.com/dashboard/org/gbaaccsyievdmutnuero">supabase</a>
             <div id="app-container foot">
                 <button id="logout-btn">ログアウト</button>

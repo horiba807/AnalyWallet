@@ -1,6 +1,6 @@
 import { supabaseClient } from "./supabase.js";
 import { state, moneyForm } from './state.js';
-import { updateHistoryDisplay, toggleView, updateCategoryMenu, renderCategorySettingsDOM, renderFilterCategoryDOM } from './ui.js';
+import { updateHistoryDisplay, toggleView, updateCategoryMenu, renderCategorySettingsDOM, renderFilterCategoryDOM, renderSubscriptionsDOM } from './ui.js';
 
 export async function fetchTransactions() {
     // ⭕️ 1. まずSupabaseからカテゴリーを取得し、画面の初期描画をすべて行う
@@ -267,4 +267,207 @@ export function setupCategorySettingsEvents() {
 
     document.getElementById('expense-category-list')?.addEventListener('click', handleListClick);
     document.getElementById('income-category-list')?.addEventListener('click', handleListClick);
+}
+
+
+//サブスク管理
+
+// 1. Supabaseからサブスク一覧を取得して画面に描画
+export async function fetchSubscriptions() {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+
+    const { data, error } = await supabaseClient
+        .from('subscriptions')
+        .select('*')
+        .eq('user_id', user.id);
+
+    if (error) {
+        console.error("サブスク読み込みエラー:", error);
+        return;
+    }
+
+    state.subscriptions = data || [];
+    renderSubscriptionsDOM(); // 👈 ステップ3で作るUI描画関数
+}
+
+// 2. 新しいサブスクを登録する
+async function handleAddSubscription(e) {
+    e.preventDefault(); // リロード防止
+
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+
+    const nameInput = document.getElementById('subsc-name');
+    const amountInput = document.getElementById('subsc-amount');
+    const daySelect = document.getElementById('subsc-day');
+
+    const newSubsc = {
+        user_id: user.id,
+        name: nameInput.value.trim(),
+        amount: Number(amountInput.value),
+        billing_day: Number(daySelect.value),
+        last_charged_month: "" // 初期状態は空文字
+    };
+
+    const { error } = await supabaseClient
+        .from('subscriptions')
+        .insert([newSubsc]);
+
+    if (error) {
+        console.error("サブスク登録失敗:", error);
+        alert("登録に失敗しました。");
+        return;
+    }
+
+    console.log("登録に成功しました。");
+
+    // フォームをリセットして最新一覧を再取得
+    document.getElementById('subsc-form').reset();
+    await fetchSubscriptions();
+}
+
+// 3. サブスクを削除する
+async function handleDeleteSubscription(id, name) {
+    if (!confirm(`「${name}」のサブスク登録を解除しますか？\n（※これまでの家計簿データは消えません）`)) return;
+
+    const { error } = await supabaseClient
+        .from('subscriptions')
+        .delete()
+        .eq('id', id);
+
+    if (error) {
+        console.error("サブスク削除失敗:", error);
+        alert("削除に失敗しました。");
+        return;
+    }
+
+    await fetchSubscriptions(); // 最新一覧に更新
+}
+
+// 4. サブスク画面のイベントリスナーを一括設定する
+export function setupSubscriptionEvents() {
+    // フォームの送信（登録ボタン）
+    document.getElementById('subsc-form')?.addEventListener('submit', handleAddSubscription);
+
+    // ゴミ箱ボタンのクリック（イベントデリゲーション）
+    document.getElementById('subsc-list')?.addEventListener('click', (e) => {
+        const deleteBtn = e.target.closest('.btn-subsc-delete');
+        if (!deleteBtn) return;
+
+        const id = deleteBtn.dataset.id;
+        const name = deleteBtn.dataset.name;
+        handleDeleteSubscription(id, name);
+    });
+}
+
+
+//サブスクを追加する
+export async function checkAndProcessSubscriptions() {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+
+    // 1. 登録されているサブスク一覧をSupabaseから取得
+    const { data: subs, error } = await supabaseClient
+        .from('subscriptions')
+        .select('*')
+        .eq('user_id', user.id);
+
+    if (error || !subs || subs.length === 0) return;
+
+    // ==========================================================
+    // 2. ⭕️「サブスク」カテゴリーを自動チェック＆作成（DB直接確認方式）
+    // ==========================================================
+    // 💡 stateから探すのをやめて、Supabaseに直接「すでにあるか」を問い合わせる
+    const { data: existingCat, error: findError } = await supabaseClient
+        .from('categories') // ◀ お使いのカテゴリーテーブル名
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('name', 'サブスク') // ◀「サブスク」という名前の
+        .eq('type', 'expense') // ◀ 支出カテゴリーがあるか？
+        .maybeSingle(); // あれば1件取得、なければ null が返ってくる
+
+    if (findError) {
+        console.error("カテゴリーの重複チェックに失敗しました:", findError);
+        return;
+    }
+
+    let categoryId;
+
+    // データベースにまだ「サブスク」が無かった場合だけ、新しく作る
+    if (!existingCat) {
+        console.log("「サブスク」カテゴリーがデータベースに無いため、1回目のみ自動作成します...");
+
+        const { data: newCat, error: catError } = await supabaseClient
+            .from('categories')
+            .insert([{
+                user_id: user.id,
+                name: 'サブスク',
+                type: 'expense'
+            }])
+            .select()
+            .single();
+
+        if (catError) {
+            console.error("サブスクカテゴリーの自動作成に失敗しました:", catError);
+            return;
+        }
+
+        // 新しく作られた通し番号をセット
+        categoryId = newCat.id;
+        console.log(`「サブスク」カテゴリーを新規作成しました。ID: ${categoryId}`);
+
+        // アプリ全体のカテゴリー情報を最新にする（関数があれば実行）
+        if (typeof fetchCategories === 'function') await fetchCategories();
+
+    } else {
+        // 💡 2回目以降：すでにデータベースにあれば、その通し番号をそのまま使い回す！
+        categoryId = existingCat.id;
+        console.log(`既存の「サブスク」カテゴリー（ID: ${categoryId}）を使用します。`);
+    }
+    // ==========================================================
+
+    // 3. 今日の日付情報を取得（※ここから下は前のコードと同じでOKです！）
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
+    const currentDay = today.getDate();
+    const currentYearMonth = `${currentYear}-${currentMonth}`;
+
+    let hasAddedNewTransaction = false;
+
+    // 4. サブスクを1件ずつチェック
+    for (const sub of subs) {
+        if (currentDay >= sub.billing_day && sub.last_charged_month !== currentYearMonth) {
+
+            // A. transactions（家計簿）テーブルに支出として自動挿入
+            const { error: insertError } = await supabaseClient
+                .from('transactions')
+                .insert([{
+                    user_id: user.id,
+                    type: 'expense',
+                    category: categoryId, // ◀ 1回目でも2回目でも、正しいIDがここに入ります
+                    amount: sub.amount,
+                    memo: `${sub.name}（自動追加）`,
+                    date: `${currentYear}-${currentMonth}-${String(sub.billing_day).padStart(2, '0')}`
+                }]);
+
+            if (insertError) {
+                console.error(`${sub.name} の自動追加に失敗:`, insertError);
+                continue;
+            }
+
+            // B. 二重登録を防ぐため更新
+            await supabaseClient
+                .from('subscriptions')
+                .update({ last_charged_month: currentYearMonth })
+                .eq('id', sub.id);
+
+            hasAddedNewTransaction = true;
+        }
+    }
+
+    if (hasAddedNewTransaction && typeof fetchTransactions === 'function') {
+        await fetchTransactions();
+    }
 }

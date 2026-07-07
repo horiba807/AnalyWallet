@@ -12,6 +12,7 @@ export let state = {
     categories: {
         expense: [],
         income: []
-    }
+    },
+    subscriptions: []
     
 };

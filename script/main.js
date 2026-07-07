@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { supabaseClient } from './supabase.js';
 import { categoryOptions } from './constant.js';
 import { updateHistoryDisplay, toggleView, updateCategoryMenu, calculateStats, renderFilterCategoryDOM, renderCategorySettingsDOM } from './ui.js';
-import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction, fetchCategories, signUp, signIn, signOut, setupCategorySettingsEvents } from './api.js';
+import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction, fetchCategories, signUp, signIn, signOut, setupCategorySettingsEvents, setupSubscriptionEvents, fetchSubscriptions, checkAndProcessSubscriptions } from './api.js';
 window.deleteTransaction = deleteTransaction; // グローバルスコープをモジュールスコープに変更
 window.openEditModal = openEditModal;
 import { state, moneyForm } from './state.js';
@@ -54,6 +54,7 @@ await fetchCategories();
 
 renderCategorySettingsDOM();
 setupCategorySettingsEvents();
+setupSubscriptionEvents();
 
 // 2. 読み込みが終わってから、画面のドロップダウンを生成する（新関数に統一）
 updateCategoryMenu('expense', 'category');      // 登録用フォーム
@@ -61,6 +62,13 @@ updateCategoryMenu('expense', 'edit_category'); // 編集用モーダル
 
 // 3. フィルター側の選択肢も一緒に自動生成
 renderFilterCategoryDOM();
+
+//サブスクテーブルからデータを取得
+fetchSubscriptions();
+
+
+//もしあったら、サブスクを自動追加
+await checkAndProcessSubscriptions();
 
 // 4. 履歴を読み込む
 fetchTransactions();
