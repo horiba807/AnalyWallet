@@ -157,6 +157,9 @@ header .sm_header_navlist {
   display: flex;
   margin-top: 0px;
 }
+header .sm_header_navlist.remove {
+  display: none;
+}
 header .sm_header_navlist .sm_navlist_item {
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -221,17 +224,16 @@ header .menu_wrapper .menu_container .menu_inner {
   max-width: 1360px;
   height: 650px;
   padding: 100px 3.5% 0;
-}
-@media screen and (max-width: 599px) {
-  header .menu_wrapper .menu_container .menu_inner {
-    padding: 160px 0% 0;
-    height: 100%;
-  }
-}
-header .menu_wrapper .menu_container .menu_inner {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_container .menu_inner {
+    padding: 100px 0% 0;
+    height: 100%;
+    display: block;
+  }
 }
 header .menu_wrapper .menu_container .menu_inner .menubar {
   border-right: solid 2px #f7f1e9;
@@ -239,6 +241,13 @@ header .menu_wrapper .menu_container .menu_inner .menubar {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_container .menu_inner .menubar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
 }
 header .menu_wrapper .menu_container .menu_inner .menubar .menu_btn_wrapper {
   padding: 13px 0;
@@ -254,9 +263,11 @@ header .menu_wrapper .menu_container .menu_inner .menubar .menu_btn_wrapper .lin
     text-align: center;
     border-top: solid #f7f1e9 2px;
     border-bottom: solid #f7f1e9 2px;
-    margin-top: -2px;
+    border-left: solid #f7f1e9 1px;
+    border-right: solid #f7f1e9 1px;
     text-decoration: none;
     padding: 20px 0;
+    width: 100%;
   }
   header .menu_wrapper .menu_container .menu_inner .menubar .menu_btn_wrapper .line_break {
     display: inline;
@@ -321,25 +332,17 @@ header .menu_wrapper .menu_container .menu_inner .menubar .menu_btn_wrapper.acti
   }
 }
 header .menu_wrapper .menu_container .menu_inner .menu_detail {
-  -webkit-box-flex: 4;
-      -ms-flex: 4;
-          flex: 4;
   padding-left: 30px;
 }
 @media screen and (max-width: 599px) {
   header .menu_wrapper .menu_container .menu_inner .menu_detail {
-    -webkit-box-flex: 3;
-        -ms-flex: 3;
-            flex: 3;
-    padding-left: 3vw;
-    padding-right: 1.5vw;
-    padding-top: 20px;
+    padding: 5vw 5% 0;
     margin-top: -2px;
     border-top: solid 2px #f7f1e9;
   }
 }
 header .menu_wrapper .menu_detail {
-  height: 550px;
+  max-height: 625px;
   overflow: hidden;
 }
 @media screen and (max-width: 599px) {

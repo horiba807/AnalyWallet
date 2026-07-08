@@ -60,7 +60,6 @@ header {
     }
 
 
-
     .hedaer_logo {
         position: relative;
         z-index: -1;
@@ -186,7 +185,9 @@ p {
 .sm_header_navlist {
     display: flex;
     margin-top: 0px;
-
+    &.remove{
+        display:none;
+    }
     .sm_navlist_item {
         flex: 1;
         font-size: 13px;
@@ -240,7 +241,6 @@ p {
         width: 100%;
         height: 650px;
         border-radius: 0 0px 50px 50px;
-
         @include mq(sm) {
             height: 90%;
             border-radius: 0 0 30px 30px;
@@ -254,18 +254,22 @@ p {
             max-width: 1360px;
             height: 650px;
             padding: 100px 3.5% 0;
+            display: flex;
 
             @include mq(sm) {
-                padding: 160px 0% 0;
+                padding: 100px 0% 0;
                 height: 100%;
+                display:block;
             }
 
-            display: flex;
 
             .menubar {
                 border-right: solid 2px $acc1;
                 text-align: left;
                 flex: 1;
+                @include mq(sm){
+                    display:flex
+                }
 
                 .menu_btn_wrapper {
                     padding: 13px 0;
@@ -281,9 +285,11 @@ p {
                         text-align: center;
                         border-top: solid $acc1 2px;
                         border-bottom: solid $acc1 2px;
-                        margin-top: -2px;
+                        border-left: solid $acc1 1px;
+                        border-right: solid $acc1 1px;
                         text-decoration: none;
                         padding: 20px 0;
+                        width: 100%;
 
                         .line_break {
                             display: inline;
@@ -352,14 +358,10 @@ p {
             }
 
             .menu_detail {
-                flex: 4;
                 padding-left: 30px;
 
                 @include mq(sm) {
-                    flex: 3;
-                    padding-left: 3vw;
-                    padding-right: 1.5vw;
-                    padding-top: 20px;
+                    padding:5vw 5% 0;
                     margin-top: -2px;
                     border-top: solid 2px $acc1;
                 }
@@ -368,7 +370,7 @@ p {
     }
 
     .menu_detail {
-        height: calc(650px - 100px);
+        max-height: 625px;
         overflow: hidden;
 
         @include mq(sm) {

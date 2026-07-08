@@ -113,8 +113,10 @@ document.getElementById('filter-category')?.addEventListener('change', (e) => {
 document.getElementById('header_menu_icon').addEventListener("click", () => {
     const headerMenu = document.getElementById('header_menu');
     const icon = document.getElementById('icon');
+    const headerNav = document.getElementById('sm_navlist');
 
     headerMenu.classList.toggle('active');
+    headerNav.classList.toggle('remove');
 
     if (headerMenu.classList.contains('active')) {
         // メニューが開いたとき
