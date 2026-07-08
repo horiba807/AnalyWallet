@@ -150,7 +150,6 @@ p {
     background: $acc1;
     position: absolute;
     right: 0%;
-    font-family: 'Material Icons';
     width:44px;
     height:44px;
     @include mq(sm) {
@@ -158,6 +157,8 @@ p {
         top: 12.5px;
     }
     span{
+        font-family: 'Material Icons';
+        font-feature-settings: 'liga' 1; /* iOSで合字（アイコン化）を強制的に有効にする */
         position: absolute;
         top:50%;
         left:50%;
@@ -797,8 +798,7 @@ main {
                 font-weight: 500;
             }
 
-            &:active,
-            &.active {
+            &:active {
                 background-color: $acc4;
                 border-color: $acc4;
                 color: #fff;
@@ -816,6 +816,7 @@ main {
         @include mq(sm) {
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 160px 160px 160px 500px;
+            gap:7.5px;
         }
 
         .grid_inner {

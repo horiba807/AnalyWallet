@@ -115,7 +115,6 @@ header .menu_icon {
   background: #f7f1e9;
   position: absolute;
   right: 0%;
-  font-family: "Material Icons";
   width: 44px;
   height: 44px;
 }
@@ -126,6 +125,9 @@ header .menu_icon {
   }
 }
 header .menu_icon span {
+  font-family: "Material Icons";
+  -webkit-font-feature-settings: "liga" 1;
+          font-feature-settings: "liga" 1; /* iOSで合字（アイコン化）を強制的に有効にする */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -739,7 +741,7 @@ main .month_select_wrapper button:hover {
   border: 2px solid #DAC0A3;
   font-weight: 500;
 }
-main .month_select_wrapper button:active, main .month_select_wrapper button.active {
+main .month_select_wrapper button:active {
   background-color: #102C57;
   border-color: #102C57;
   color: #fff;
@@ -755,6 +757,7 @@ main .smm_grid_wrapper {
   main .smm_grid_wrapper {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 160px 160px 160px 500px;
+    gap: 7.5px;
   }
 }
 main .smm_grid_wrapper .grid_inner {
