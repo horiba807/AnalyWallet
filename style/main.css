@@ -729,7 +729,7 @@ main .month_select_wrapper {
 main .month_select_wrapper::-webkit-scrollbar {
   display: none;
 }
-main .month_select_wrapper button {
+main .month_select_wrapper .month_btn {
   padding: 10px 20px;
   border: 2px solid #f7f1e9;
   border-radius: 10px;
@@ -741,11 +741,11 @@ main .month_select_wrapper button {
   -ms-flex-negative: 0;
       flex-shrink: 0;
 }
-main .month_select_wrapper button:hover {
+main .month_select_wrapper .month_btn:hover {
   border: 2px solid #DAC0A3;
   font-weight: 500;
 }
-main .month_select_wrapper button:active {
+main .month_select_wrapper .month_btn.active {
   background-color: #102C57;
   border-color: #102C57;
   color: #fff;

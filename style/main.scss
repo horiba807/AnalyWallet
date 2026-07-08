@@ -786,7 +786,7 @@ main {
             display: none;
         }
 
-        button {
+        .month_btn {
             padding: 10px 20px;
             border: 2px solid $acc1;
             border-radius: 10px;
@@ -801,7 +801,7 @@ main {
                 font-weight: 500;
             }
 
-            &:active {
+            &.active {
                 background-color: $acc4;
                 border-color: $acc4;
                 color: #fff;
