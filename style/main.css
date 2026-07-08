@@ -769,6 +769,11 @@ main .smm_grid_wrapper .grid_inner {
   padding: 15px;
   position: relative;
 }
+@media screen and (max-width: 599px) {
+  main .smm_grid_wrapper .grid_inner {
+    padding: 12.5px;
+  }
+}
 main .smm_grid_wrapper .grid_inner .grid_yen {
   font-family: "Inter", sans-serif;
   font-size: clamp(25px, 2.5vw, 35px);
@@ -811,6 +816,28 @@ main .smm_grid_wrapper .grid_inner .line {
   background: #EADBC8;
   margin: 12px 0 15px 0;
 }
+main .smm_grid_wrapper .grid_inner #expense-categories-list {
+  max-height: 180px;
+}
+@media screen and (max-width: 599px) {
+  main .smm_grid_wrapper .grid_inner #expense-categories-list {
+    max-height: 195px;
+  }
+}
+main .smm_grid_wrapper .grid_inner #expense-categories-list {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+main .smm_grid_wrapper .grid_inner #expense-categories-list::-webkit-scrollbar {
+  width: 2px;
+}
+main .smm_grid_wrapper .grid_inner #expense-categories-list::-webkit-scrollbar-thumb {
+  background: #EADBC8;
+}
+main .smm_grid_wrapper .grid_inner #expense-categories-list {
+  scrollbar-width: 1px;
+  scrollbar-color: #ded9d2;
+}
 main .smm_grid_wrapper .grid_inner .grid_inner-flex_wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -828,6 +855,12 @@ main .smm_grid_wrapper .grid_inner .grid_inner-flex_wrapper .grid_inner-flex_wra
   font-family: "Inter", sans-serif;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.04rem;
+}
+main .smm_grid_wrapper .grid_inner .grid_inner-flex_wrapper .grid_inner-flex_wrapper.label {
+  -webkit-box-flex: 1.35;
+      -ms-flex: 1.35;
+          flex: 1.35;
+  font-size: 11px;
 }
 main .smm_grid_wrapper .grid_inner .chart {
   -webkit-box-flex: 1;
@@ -902,6 +935,7 @@ main form .form_group select {
           flex: 1;
   line-height: 2;
   color: #222;
+  text-align: left;
 }
 main form .form_group input::-webkit-scrollbar,
 main form .form_group textarea::-webkit-scrollbar,
@@ -913,6 +947,9 @@ main form .form_group input,
 main form .form_group textarea,
 main form .form_group select {
   border-bottom: solid 2px #f7f1e9;
+}
+main form .form_group .radio_wrapper {
+  border-bottom: none;
 }
 main form .form_group label {
   -webkit-box-flex: 0.5;

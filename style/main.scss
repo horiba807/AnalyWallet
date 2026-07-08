@@ -827,6 +827,9 @@ main {
             border-radius: 15px;
             padding: 15px;
             position: relative;
+            @include mq(sm){
+                padding:12.5px;
+            }
 
             .grid_yen {
                 font-family: 'Inter', sans-serif;
@@ -871,6 +874,25 @@ main {
                 margin: 12px 0 15px 0;
             }
 
+            #expense-categories-list{
+                max-height:180px;
+                @include mq(sm){
+                    max-height: 195px;
+                }
+                overflow:hidden;
+                overflow-y:scroll;
+                &::-webkit-scrollbar {
+                    width: 2px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: $acc2;
+                }
+
+                scrollbar-width: 1px;
+                scrollbar-color: $acc1-3;
+            }
+
             .grid_inner-flex_wrapper {
                 display: flex;
                 margin-bottom: 3px;
@@ -879,11 +901,14 @@ main {
                 .grid_inner-flex_wrapper {
                     flex: 1;
                     color: $black;
-
                     p {
                         font-family: 'Inter', sans-serif;
                         font-variant-numeric: tabular-nums; // 等幅
                         letter-spacing: -0.04rem;
+                    }
+                    &.label{
+                        flex:1.35;
+                        font-size:11px;
                     }
                 }
             }
@@ -960,16 +985,20 @@ main {
                 flex: 1;
                 line-height: 2;
                 color: $black;
+                text-align: left;
 
                 &::-webkit-scrollbar {
                     display: none;
                 }
             }
-
             input,
             textarea,
             select {
                 border-bottom: solid 2px $acc1;
+            }
+
+            .radio_wrapper{
+                border-bottom:none;
             }
 
             label {

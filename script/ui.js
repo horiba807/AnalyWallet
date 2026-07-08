@@ -148,7 +148,7 @@ function renderSummaryDOM(stats) {
             const wrapper = document.createElement('div');
             wrapper.className = 'grid_inner-flex_wrapper';
             wrapper.innerHTML = `
-                <div class="grid_inner-flex_wrapper">${cat.label}</div>
+                <div class="grid_inner-flex_wrapper label">${cat.label}</div>
                 <div class="grid_inner-flex_wrapper">
                     <p>¥ ${amount.toLocaleString()}</p>
                 </div>
