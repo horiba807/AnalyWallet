@@ -7,6 +7,7 @@ html {
   color: #222;
   font-family: "Noto Sans JP", sans-serif;
   width: 90%;
+  max-width: 400px;
 }
 
 body {
