@@ -2,91 +2,198 @@
   margin: 0 auto;
 }
 
-#auth-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 100vh;
-  font-family: "Albert Sans", sans-serif;
-  max-width: 1360px;
+html {
+  background: #FEFAF6;
+  color: #222;
+  font-family: "Noto Sans JP", sans-serif;
+  width: calc(400px + 10%);
 }
-#auth-container .auth_box {
-  background: #fff;
-  padding: 40px;
-  border-radius: 20px;
-  -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+
+body {
+  position: relative;
+  margin: 0 auto;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+header .header_wrapper {
+  position: relative;
+  z-index: 3;
+  line-height: 100px;
+}
+header .hedaer_logo {
+  position: relative;
+  z-index: -1;
+}
+header .hedaer_logo h1 {
+  font-size: 22px;
+  font-weight: 500;
+  display: inline-block;
+  margin-left: 60px;
+  font-family: "Albert Sans", sans-serif;
+}
+@media screen and (max-width: 599px) {
+  header .hedaer_logo h1 {
+    margin-left: 45px;
+    font-size: 20px;
+  }
+}
+header .hedaer_logo h1 span {
+  font-size: 12px;
+  color: #818181;
+  margin-left: 10px;
+}
+header .hedaer_logo .logo_img {
+  width: 45px;
+  height: 45px;
+}
+@media screen and (max-width: 599px) {
+  header .hedaer_logo .logo_img {
+    width: 35px;
+    height: 35px;
+  }
+}
+header .hedaer_logo .logo_img {
+  display: inline-block;
+  position: absolute;
+  top: 47.5%;
+  left: 0;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+header .hedaer_logo .logo_img img {
+  width: 100%;
+  height: 100%;
+}
+
+main {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  left: 5%;
   width: 90%;
-  max-width: 400px;
+}
+
+.auth_box {
+  width: 100%;
+  border: solid 1px #EADBC8;
+  background-color: #f7f1e9;
+  border-radius: 20px;
+  padding: 40px 50px 50px;
+}
+@media screen and (max-width: 599px) {
+  .auth_box {
+    padding: 30px 30px 40px;
+  }
+}
+.auth_box .title {
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.auth_box form input, .auth_box form button {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+}
+.auth_box form input {
+  border: solid 1px #EADBC8;
+  padding: 10px;
+  font-family: "Inter", sans-serif;
+}
+.auth_box form input:nth-of-type(1) {
+  margin-bottom: 20px;
+}
+.auth_box form input:focus {
+  border: solid 1px #102C57;
+  outline: 0;
+}
+.auth_box form button {
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px 0;
+  background: #102C57;
+  text-align: center;
+  color: #FEFAF6;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  border: solid 1px #102C57;
+}
+.auth_box form button:hover {
+  background: #f7f1e9;
+  border: solid 1px #102C57;
+  color: #222;
+  font-weight: 600;
+}
+
+.resetPass_btn_wrapper {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.register_btn_wrapper {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.register_btn, .resetPass_btn {
+  color: #102C57;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   text-align: center;
 }
-#auth-container .auth_box h2 {
-  margin-bottom: 15px;
+.register_btn:hover, .resetPass_btn:hover {
+  text-decoration-thickness: 2px;
 }
-#auth-container .auth_box .auth-copyright {
+
+.resetPass_btn {
+  color: #9e9e9e;
   font-size: 12px;
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  color: #a8a8a8;
 }
-#auth-container .auth_box .login-page-link {
-  font-size: 12px;
-  position: fixed;
-  bottom: 65px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  color: #a8a8a8;
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  left: 5%;
+  padding-bottom: 20px;
+}
+footer .auth-link_wrapper {
+  margin: 50px 0 30px;
+  text-align: center;
+}
+footer .auth-link {
+  padding: 5px;
+  display: inline-block;
+  text-align: center;
+}
+footer .auth-link a {
+  color: #9e9e9e;
   text-decoration: underline;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  text-underline-offset: 3px;
+  -webkit-text-decoration-skip-ink: none;
+          text-decoration-skip-ink: none;
+  font-size: 14px;
 }
-#auth-container .auth_box .login-page-link a {
-  margin: 0 10px;
+footer .auth-link a:hover {
+  text-decoration-thickness: 3px;
 }
-#auth-container .auth_box input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 2px solid #f7f1e9;
-  border-radius: 10px;
-  font-size: 16px;
-  font-family: "Albert Sans";
+footer .copyright {
+  font-family: "Inter", sans-serif;
+  color: #9e9e9e;
+  font-size: 14px;
+  margin-top: -16px;
+  text-align: left;
 }
-#auth-container .auth_box input:focus {
-  border-color: #102C57;
-  outline: none;
-}
-#auth-container .auth_box button {
-  width: 100%;
-  padding: 12px;
-  background: #102C57;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 20px;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-#auth-container .auth_box button:hover {
-  opacity: 0.9;
-}
-#auth-container .auth_box #auth-toggle {
-  margin-top: 20px;
-  font-size: 13px;
-  color: #102C57;
-  cursor: pointer;
-  text-decoration: underline;
+footer #app-version {
+  font-family: "Inter", sans-serif;
+  color: #9e9e9e;
+  font-size: 14px;
+  text-align: right;
 }

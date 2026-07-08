@@ -30,7 +30,8 @@ $warning-light: #f5b6b6;
 html {
     scrollbar-gutter: stable;
     scroll-behavior: smooth;
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: 'Noto Sans JP',
+        sans-serif;
     background: $white;
 }
 
@@ -69,8 +70,7 @@ header {
             font-weight: 500;
             display: inline-block;
             margin-left: 60px;
-            font-family: 'Albert Sans',
-                sans-serif;
+            font-family: 'Albert Sans',sans-serif;
 
             @include mq(sm) {
                 margin-left: 45px;
@@ -150,10 +150,18 @@ p {
     background: $acc1;
     position: absolute;
     right: 0%;
-
+    font-family: 'Material Icons';
+    width:44px;
+    height:44px;
     @include mq(sm) {
         right: 0%;
         top: 12.5px;
+    }
+    span{
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
     }
 
     top: 25px;
@@ -232,8 +240,8 @@ p {
         border-radius: 0 0px 50px 50px;
 
         @include mq(sm) {
-        height: 90%;
-        border-radius: 0 0 30px 30px ;
+            height: 90%;
+            border-radius: 0 0 30px 30px;
         }
 
         background: $white;
@@ -247,7 +255,7 @@ p {
 
             @include mq(sm) {
                 padding: 160px 0% 0;
-                height:100%;
+                height: 100%;
             }
 
             display: flex;
@@ -284,9 +292,10 @@ p {
                     &.small {
                         font-size: 12px;
                         padding: 8px 0;
-                         @include mq(sm){
-                            display:none;
-                         }
+
+                        @include mq(sm) {
+                            display: none;
+                        }
 
                         span {
                             font-family: 'Material Icons';
@@ -377,10 +386,12 @@ p {
 
             .scroll-container::-webkit-scrollbar {
                 display: none;
-            }                        
+            }
+
             ::-webkit-scrollbar {
                 width: 2px;
             }
+
             &::-webkit-scrollbar-thumb {
                 background: $acc2;
             }
@@ -390,12 +401,13 @@ p {
                 font-size: 20px;
                 font-weight: 500;
                 margin-bottom: 30px;
-                span{
-                   font-size:14px;
-                   display:block;
-                   font-weight: 400;
-                   margin-top:10px; 
-                   line-height:1.5
+
+                span {
+                    font-size: 14px;
+                    display: block;
+                    font-weight: 400;
+                    margin-top: 10px;
+                    line-height: 1.5
                 }
             }
 
@@ -418,21 +430,25 @@ p {
 
                 .category_box {
                     flex: 1;
-                    @include mq(sm){
-                        margin-bottom:30px;
+
+                    @include mq(sm) {
+                        margin-bottom: 30px;
                     }
 
                     .category-list {
                         height: 300px;
                         overflow: hidden;
                         overflow-y: scroll;
-                        @include mq(sm){
-                            overflow:visible;
+
+                        @include mq(sm) {
+                            overflow: visible;
                             height: auto;
                         }
+
                         &::-webkit-scrollbar {
                             width: 2px;
                         }
+
                         &::-webkit-scrollbar-thumb {
                             background: $acc2;
                         }
@@ -447,6 +463,7 @@ p {
                         padding: 10px;
                         border-radius: 10px;
                         width: calc(100% - 96px - 10px - 15px);
+
                         @include mq(sm) {
                             width: calc(100% - 96px - 1.5%);
                             font-size: 14px;
@@ -472,8 +489,9 @@ p {
                         }
                     }
                 }
-                .category-form{
-                    margin-bottom:30px;
+
+                .category-form {
+                    margin-bottom: 30px;
                 }
 
                 ul {
@@ -529,6 +547,7 @@ p {
 
         #subsc_settings {
             width: 100%;
+
             .form_group {
                 display: flex;
                 margin-bottom: 15px;
@@ -537,28 +556,33 @@ p {
                 label {
                     flex: 1;
                     line-height: 40.39px;
+
                     @include mq(sm) {
-                        font-size:14px;
+                        font-size: 14px;
                     }
                 }
-                @include mq(sm){
-                    gap:7.5px;
-                    flex:1;
+
+                @include mq(sm) {
+                    gap: 7.5px;
+                    flex: 1;
                 }
 
                 .input_wrapper {
                     flex: 3;
-                    @include mq(sm){
-                        flex:2.5;
+
+                    @include mq(sm) {
+                        flex: 2.5;
                     }
 
-                    input, select {
+                    input,
+                    select {
                         width: 100%;
                         border: solid 1px $acc2;
                         background: $acc1;
                         padding: 10px;
                         border-radius: 10px;
                     }
+
                     div {
                         display: inline-block;
                         padding-right: 15px;
@@ -569,7 +593,8 @@ p {
                         width: calc(100% - 51px);
                     }
                 }
-                &::after{
+
+                &::after {
                     display: inline-block;
                     position: absolute;
                     color: $black;
@@ -577,14 +602,16 @@ p {
                     right: 15px;
                     transform: translateY(-50%);
                 }
+
                 &:nth-of-type(2)::after {
                     content: '円';
                 }
-                &:nth-of-type(3)::after{
+
+                &:nth-of-type(3)::after {
                     content: '\e313';
                     font-family: 'Material Icons';
-                    font-size:20px;
-                    right:13.5px;
+                    font-size: 20px;
+                    right: 13.5px;
                 }
             }
 
@@ -593,10 +620,12 @@ p {
                 margin-bottom: 30px;
                 padding: 15px 30px;
                 border-radius: 10px;
+
                 @include mq(sm) {
                     font-size: 14px;
                     margin-left: 1.5% !important;
                 }
+
                 transition: .2s;
 
                 &:hover {
@@ -604,38 +633,46 @@ p {
                     color: $white;
                 }
             }
-            .subsc-info{
-                display:flex;
-                span{
-                    flex:1;
+
+            .subsc-info {
+                display: flex;
+
+                span {
+                    flex: 1;
                 }
             }
-            .subsc-table-wrapper{
+
+            .subsc-table-wrapper {
                 position: relative;
                 overflow: hidden;
                 overflow-x: scroll;
             }
-            .subsc-table{
+
+            .subsc-table {
                 min-width: 500px;
-                font-size:14px;
+                font-size: 14px;
                 overflow: hidden;
                 overflow-x: scroll;
-                thead{
-                    background:$acc2;
-                    th{
-                        padding:10px 15px;
+
+                thead {
+                    background: $acc2;
+
+                    th {
+                        padding: 10px 15px;
                         font-weight: 500;
                     }
                 }
-                tbody{
-                    td{
-                        padding:7.5px 15px;
+
+                tbody {
+                    td {
+                        padding: 7.5px 15px;
                         border-top: solid 1px $acc1-2;
-                        button{
+
+                        button {
                             padding: 5px 10px;
                             background: $warning-light;
                             border-radius: 50px;
-                            font-family: 'Noto Sans JP',sans-serif;
+                            font-family: 'Noto Sans JP', sans-serif;
                             font-size: 10px;
 
                             &:hover {
@@ -718,7 +755,7 @@ main {
         }
 
         #display-year {
-            font-family: 'Google Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0 15px;
             font-weight: 600;
         }
@@ -749,7 +786,7 @@ main {
             padding: 10px 20px;
             border: 2px solid $acc1;
             border-radius: 10px;
-            cursor: poGoogle Sans;
+            cursor: poInter;
             transition: all 0.3s ease;
             color: $acc4;
             text-align: center;
@@ -790,7 +827,7 @@ main {
             position: relative;
 
             .grid_yen {
-                font-family: 'Google Sans', sans-serif;
+                font-family: 'Inter', sans-serif;
                 font-size: clamp(25px, 2.5vw, 35px); //clamp(最小値, 可変部分, 最大値）
                 font-variant-numeric: tabular-nums; // 等幅
                 color: $black;
@@ -842,7 +879,7 @@ main {
                     color: $black;
 
                     p {
-                        font-family: 'Google Sans', sans-serif;
+                        font-family: 'Inter', sans-serif;
                         font-variant-numeric: tabular-nums; // 等幅
                         letter-spacing: -0.04rem;
                     }
@@ -971,7 +1008,7 @@ main {
                     padding: 5px 20px;
                     border: 2px solid $acc1;
                     border-radius: 10px;
-                    cursor: poGoogle Sans;
+                    cursor: poInter;
                     transition: all 0.3s ease;
                     color: $acc4;
 
@@ -995,7 +1032,7 @@ main {
             padding: 15px 30px;
             border: 2px solid $acc1;
             border-radius: 10px;
-            cursor: poGoogle Sans;
+            cursor: poInter;
             transition: all 0.3s ease;
             color: $acc4;
 
@@ -1020,7 +1057,8 @@ main {
     #transaction-table {
         width: 100%;
         min-width: 800px;
-        border-collapse: collapse; /* 枠線を1本にまとめる */
+        border-collapse: collapse;
+        /* 枠線を1本にまとめる */
         font-size: 14px;
         color: $black;
 
@@ -1088,7 +1126,7 @@ main {
         }
 
         tbody {
-            font-family: 'Google Sans', 'Noto Sans JP', sans-serif;
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
             line-height: 1;
         }
     }
@@ -1110,7 +1148,7 @@ main {
     .column-btn {
         padding: 16.5px 15px 11.5px;
         border: none;
-        cursor: poGoogle Sans;
+        cursor: poInter;
         font-size: 12px;
         transition: .2s;
 
@@ -1186,12 +1224,14 @@ main {
             height: 50px;
             border-radius: 50px;
             transition: .2s;
+            font-family: 'Material Icons';
 
             span {
+                font-size:18px;
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                transform: translate(-51.5%, -47.5%);
+                transform: translate(-50%, -50%);
             }
 
             &:hover {
@@ -1225,7 +1265,7 @@ footer {
         font-size: 13px;
         line-height: 100px;
         color: #a8a8a8;
-        font-family: 'Google Sans', sans-serif;
+        font-family: 'Inter', sans-serif;
     }
 
     #app-version {
@@ -1233,7 +1273,7 @@ footer {
         color: #a8a8a8;
         margin-top: -35px;
         margin-right: 130px;
-        font-family: 'Google Sans', sans-serif;
+        font-family: 'Inter', sans-serif;
 
         @include mq(sm) {
             display: none;
@@ -1273,7 +1313,7 @@ footer {
         top: 80%;
         transform: translateY(-50%);
         right: 120px;
-        font-family: 'Google Sans', sans-serif;
+        font-family: 'Inter', sans-serif;
         color: #a8a8a8;
 
         &:hover {

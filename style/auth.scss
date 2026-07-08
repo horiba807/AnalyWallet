@@ -10,103 +10,208 @@ $breakpoints: (
 }
 
 $white: #FEFAF6;
+$black: #222;
+$gray: #9e9e9e;
 
 $acc1: #f7f1e9;
+$acc1-3: #ded9d2;
 $acc1-2: #efeeec;
 $acc2: #EADBC8;
 $acc3: #DAC0A3;
 $acc4: #102C57;
 
+$green: #3d9b3d;
 $warning: #d95252;
+$warning-light: #f5b6b6;
 
 * {
-    margin: 0 auto;
+    margin: 0 auto; 
 }
-#auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: 'Albert Sans',
-        sans-serif;
-    max-width: 1360px;
+html{
+    background: $white;
+    color:$black;
+    font-family:'Noto Sans JP', sans-serif;
+    width: calc(400px + 10%);
+}
+body{
+    position: relative;
+    margin:0 auto;
+}
+
+header {
+    position: absolute;
+    top:0;
+    left:50%;
+    transform: translateX(-50%);
+    .header_wrapper {
+        position: relative;
+        z-index: 3;
+        line-height: 100px;
+    }
+    .hedaer_logo {
+        position: relative;
+        z-index: -1;
+
+        h1 {
+            font-size: 22px;
+            font-weight: 500;
+            display: inline-block;
+            margin-left: 60px;
+            font-family: 'Albert Sans',
+                sans-serif;
+
+            @include mq(sm) {
+                margin-left: 45px;
+                font-size: 20px;
+            }
+
+            span {
+                font-size: 12px;
+                color: #818181;
+                margin-left: 10px;
+            }
+        }
+
+        .logo_img {
+            width: 45px;
+            height: 45px;
+
+            @include mq(sm) {
+                width: 35px;
+                height: 35px;
+            }
+
+            display:inline-block;
+            position: absolute;
+            top:47.5%;
+            left:0;
+            transform: translateY(-50%);
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
 
 
-    .auth_box {
-        background: #fff;
-        padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-        width: 90%;
-        max-width: 400px;
+main{
+    position: absolute;
+    top:50%;
+    transform:translateY(-50%);
+    left:5%;
+    width: 90%;
+}
+
+.auth_box{
+    width: 100%;
+    border: solid 1px $acc2;
+    background-color: $acc1;
+    border-radius: 20px;
+    padding:40px 50px 50px;
+    @include mq(sm){
+        padding:30px 30px 40px;
+    }
+    .title {
+        font-size: 25px;
         text-align: center;
-
-    h2 {
-        margin-bottom: 15px;
+        margin-bottom: 50px;    
     }
-
-    .auth-copyright {
-        font-size: 12px;
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #a8a8a8;
-    }
-
-    .login-page-link {
-        font-size: 12px;
-        position: fixed;
-        bottom: 65px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #a8a8a8;
-        text-decoration: underline;
-        display: flex;
-
-        a {
-            margin: 0 10px;
+    form{
+        input,button{
+            display:block;
+            width: 100%;
+            border-radius: 10px;
         }
-    }
-
-    input {
-        width: 100%;
-        padding: 12px;
-        margin: 10px 0;
-        border: 2px solid $acc1;
-        border-radius: 10px;
-        font-size: 16px;
-        font-family: 'Albert Sans';
-
-        &:focus {
-            border-color: $acc4;
-            outline: none;
+        input{
+            border: solid 1px $acc2;
+            padding:10px;
+            font-family: 'Inter', sans-serif;
+            &:nth-of-type(1){
+                margin-bottom:20px;
+            }
+            &:focus{
+                border: solid 1px $acc4;
+                outline:0;
+            }
         }
-    }
-
-    button {
-        width: 100%;
-        padding: 12px;
-        background: $acc4;
-        color: #fff;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 20px;
-        transition: .3s;
-
-        &:hover {
-            opacity: 0.9;
+        button{
+            margin-top:30px;
+            width:100%;
+            padding:15px 0;
+            background: $acc4;
+            text-align: center;
+            color:$white;
+            transition: .2s;
+            border:solid 1px $acc4;
+            &:hover{
+                background: $acc1;
+                border:solid 1px $acc4;
+                color:$black;
+                font-weight: 600;
+            }
         }
-    }
-
-    #auth-toggle {
-        margin-top: 20px;
-        font-size: 13px;
-        color: $acc4;
-        cursor: pointer;
-        text-decoration: underline;
     }
 }
+.resetPass_btn_wrapper{
+    text-align: right;
+    margin-top: 15px;
+}
+.register_btn_wrapper{
+    text-align: center;
+    margin-top:30px;
+}
+
+.register_btn, .resetPass_btn {
+    color: $acc4;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-align: center;
+    &:hover {
+        text-decoration-thickness: 2px;
+    }
+}
+.resetPass_btn {
+    color: $gray;
+    font-size:12px;
+}
+footer{
+    position: absolute;
+    bottom:0;
+    width:90%;
+    left:5%;
+    padding-bottom:20px;
+    .auth-link_wrapper{
+        margin: 50px 0 30px;
+        text-align: center;
+    }
+    .auth-link{
+        padding:5px;
+        display:inline-block;
+        text-align: center;
+        a{
+            color:$gray;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-skip-ink: none;
+            font-size:14px;
+            &:hover{
+                text-decoration-thickness: 3px;
+            }
+        }
+    }
+    .copyright{
+        font-family: 'Inter', sans-serif;
+        color:$gray;
+        font-size:14px;
+        margin-top:-16px;
+        text-align: left;
+    }
+    #app-version{
+        font-family: 'Inter', sans-serif;
+        color: $gray;
+        font-size: 14px;
+        text-align: right;
+    }
 }

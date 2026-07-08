@@ -355,8 +355,12 @@ export function updateCategoryMenu(type, targetId = 'category') {
         selectEl.appendChild(option);
     });
 }
+
 // 画面の要素にバージョンを代入する
-document.getElementById('app-version').textContent = `Ver. ${pkg.version}`;
+const appVerElement = document.getElementById('app-version');
+if (appVerElement) {
+    appVerElement.textContent = `Ver. ${pkg.version}`;
+}
 
 export function renderFilterCategoryDOM() {
     const filterSelect = document.getElementById('filter-category');

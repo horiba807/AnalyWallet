@@ -115,12 +115,22 @@ header .menu_icon {
   background: #f7f1e9;
   position: absolute;
   right: 0%;
+  font-family: "Material Icons";
+  width: 44px;
+  height: 44px;
 }
 @media screen and (max-width: 599px) {
   header .menu_icon {
     right: 0%;
     top: 12.5px;
   }
+}
+header .menu_icon span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 header .menu_icon {
   top: 25px;
@@ -538,7 +548,8 @@ header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper {
             flex: 2.5;
   }
 }
-header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper input, header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper select {
+header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper input,
+header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper select {
   width: 100%;
   border: solid 1px #EADBC8;
   background: #f7f1e9;
@@ -688,7 +699,7 @@ main .year_select_wrapper button:hover {
   color: #fff;
 }
 main .year_select_wrapper #display-year {
-  font-family: "Google Sans", sans-serif;
+  font-family: "Inter", sans-serif;
   margin: 0 15px;
   font-weight: 600;
 }
@@ -716,7 +727,7 @@ main .month_select_wrapper button {
   padding: 10px 20px;
   border: 2px solid #f7f1e9;
   border-radius: 10px;
-  cursor: poGoogle Sans;
+  cursor: poInter;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   color: #102C57;
@@ -755,7 +766,7 @@ main .smm_grid_wrapper .grid_inner {
   position: relative;
 }
 main .smm_grid_wrapper .grid_inner .grid_yen {
-  font-family: "Google Sans", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: clamp(25px, 2.5vw, 35px);
   font-variant-numeric: tabular-nums;
   color: #222;
@@ -810,7 +821,7 @@ main .smm_grid_wrapper .grid_inner .grid_inner-flex_wrapper .grid_inner-flex_wra
   color: #222;
 }
 main .smm_grid_wrapper .grid_inner .grid_inner-flex_wrapper .grid_inner-flex_wrapper p {
-  font-family: "Google Sans", sans-serif;
+  font-family: "Inter", sans-serif;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.04rem;
 }
@@ -935,7 +946,7 @@ main form .form_group .radio_wrapper label {
   padding: 5px 20px;
   border: 2px solid #f7f1e9;
   border-radius: 10px;
-  cursor: poGoogle Sans;
+  cursor: poInter;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   color: #102C57;
@@ -953,7 +964,7 @@ main form button {
   padding: 15px 30px;
   border: 2px solid #f7f1e9;
   border-radius: 10px;
-  cursor: poGoogle Sans;
+  cursor: poInter;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   color: #102C57;
@@ -974,7 +985,8 @@ main .table-wrapper {
 main #transaction-table {
   width: 100%;
   min-width: 800px;
-  border-collapse: collapse; /* 枠線を1本にまとめる */
+  border-collapse: collapse;
+  /* 枠線を1本にまとめる */
   font-size: 14px;
   color: #222;
 }
@@ -1024,7 +1036,7 @@ main #transaction-table tr.is-day-start td {
   border-top: solid 2px #EADBC8;
 }
 main #transaction-table tbody {
-  font-family: "Google Sans", "Noto Sans JP", sans-serif;
+  font-family: "Inter", "Noto Sans JP", sans-serif;
   line-height: 1;
 }
 main .daily-total-row {
@@ -1047,7 +1059,7 @@ main .history-item {
 main .column-btn {
   padding: 16.5px 15px 11.5px;
   border: none;
-  cursor: poGoogle Sans;
+  cursor: poInter;
   font-size: 12px;
   -webkit-transition: 0.2s;
   transition: 0.2s;
@@ -1123,13 +1135,15 @@ main #edit-modal .close_btn {
   border-radius: 50px;
   -webkit-transition: 0.2s;
   transition: 0.2s;
+  font-family: "Material Icons";
 }
 main #edit-modal .close_btn span {
+  font-size: 18px;
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-51.5%, -47.5%);
-          transform: translate(-51.5%, -47.5%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 main #edit-modal .close_btn:hover {
   background: #d95252;
@@ -1156,14 +1170,14 @@ footer .copyright {
   font-size: 13px;
   line-height: 100px;
   color: #a8a8a8;
-  font-family: "Google Sans", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 footer #app-version {
   font-size: 13px;
   color: #a8a8a8;
   margin-top: -35px;
   margin-right: 130px;
-  font-family: "Google Sans", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 @media screen and (max-width: 599px) {
   footer #app-version {
@@ -1202,7 +1216,7 @@ footer a {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   right: 120px;
-  font-family: "Google Sans", sans-serif;
+  font-family: "Inter", sans-serif;
   color: #a8a8a8;
 }
 footer a:hover {

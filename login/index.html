@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>AnalyWallet</title>
+    <link rel="stylesheet" href="../style/destyle.css">
+    <link rel="stylesheet" href="../style/auth.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover">
+    <link rel="icon" href="../img/favicon.ico">
+    <link rel="manifest" href="../manifest.json" crossorigin="use-credentials">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="家計簿">
+    <link rel="apple-touch-icon" href="../img/icon-192.png">
+</head>
+
+<body>
+    <header>
+        <div class=header_wrapper>
+            <div class="hedaer_logo">
+                <span class="logo_img">
+                    <img src="../img/logo.png">
+                </span>
+                <h1>AnalyWallet</h1>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="auth_box">
+            <h2 class="title">ログイン</h2>
+            <form id="auth-form">
+                <input type="email" id="auth-email" placeholder="メールアドレス" required>
+                <input type="password" id="auth-password" placeholder="パスワード" required>
+                <button type="submit" id="auth-submit-btn">ログインする</button>
+            </form>
+            <div class="resetPass_btn_wrapper">
+                <a class="resetPass_btn">パスワードをお忘れの場合</a>
+            </div>
+        </div>
+        
+        <div class="register_btn_wrapper">
+            <a class="register_btn">新規登録はこちら</a>
+        </div>
+    </main>
+    <footer>
+        <div class="auth-link_wrapper">
+            <div class="auth-link">
+                <a href="about/index.html">AnalyWalletについて</a>
+            </div>
+            <div class="auth-link">
+                <a href="about/index.html">利用規約</a>
+            </div>
+            <div class="auth-link">
+                <a href="about/index.html">プライバシーポリシー</a>
+            </div>
+        </div>
+        <p id="app-version"></p>
+        <p class="copyright">© 2026 AnalyWallet.</p>
+    </footer>
+    <script type="module" src="../script/login.js"></script>
+</body>
+
+</html>
