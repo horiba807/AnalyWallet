@@ -1,6 +1,16 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-    // GitHubのリポジトリ名
     base: '/AnalyWallet/',
+
+    build: {
+        rollupOptions: {
+            input: {
+                main: resolve(__dirname, 'index.html'),
+                login: resolve(__dirname, 'login/index.html'),
+                login: resolve(__dirname, 'about/index.html'),
+
+            },
+        },
+    },
 });
