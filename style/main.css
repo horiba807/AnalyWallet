@@ -133,6 +133,7 @@ header .menu_icon span {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+  font-size: 18px;
 }
 header .menu_icon {
   top: 25px;
