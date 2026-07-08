@@ -370,7 +370,7 @@ p {
     }
 
     .menu_detail {
-        max-height: 625px;
+        max-height: calc(90vh - 100px - 81px);
         overflow: hidden;
 
         @include mq(sm) {

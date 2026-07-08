@@ -342,7 +342,7 @@ header .menu_wrapper .menu_container .menu_inner .menu_detail {
   }
 }
 header .menu_wrapper .menu_detail {
-  max-height: 625px;
+  max-height: calc(90vh - 100px - 81px);
   overflow: hidden;
 }
 @media screen and (max-width: 599px) {
