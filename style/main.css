@@ -79,16 +79,6 @@ header .hedaer_logo .logo_img img {
   width: 100%;
   height: 100%;
 }
-header p {
-  margin-left: 5%;
-  letter-spacing: 0.05rem;
-  font-size: 1.1rem;
-}
-header p span {
-  color: #f7f1e9;
-  padding-left: 1rem;
-  font-size: 0.94rem;
-}
 header .header__navlist {
   list-style: none;
   text-align: right;
@@ -145,6 +135,7 @@ header .menu_icon {
 }
 header .menu_icon:hover {
   background: #EADBC8;
+  border: solid 1px #DAC0A3;
 }
 @media screen and (max-width: 599px) {
   header .header__navlist {
@@ -333,6 +324,9 @@ header .menu_wrapper .menu_container .menu_inner .menubar .menu_btn_wrapper.acti
 }
 header .menu_wrapper .menu_container .menu_inner .menu_detail {
   padding-left: 30px;
+  -webkit-box-flex: 4;
+      -ms-flex: 4;
+          flex: 4;
 }
 @media screen and (max-width: 599px) {
   header .menu_wrapper .menu_container .menu_inner .menu_detail {
@@ -554,8 +548,7 @@ header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper {
             flex: 2.5;
   }
 }
-header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper input,
-header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper select {
+header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper input, header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper select {
   width: 100%;
   border: solid 1px #EADBC8;
   background: #f7f1e9;
@@ -624,6 +617,7 @@ header .menu_wrapper .menu_detail #subsc_settings .subsc-table-wrapper {
   overflow-x: scroll;
 }
 header .menu_wrapper .menu_detail #subsc_settings .subsc-table {
+  width: 100%;
   min-width: 500px;
   font-size: 14px;
   overflow: hidden;
@@ -648,6 +642,122 @@ header .menu_wrapper .menu_detail #subsc_settings .subsc-table tbody td button {
   font-size: 10px;
 }
 header .menu_wrapper .menu_detail #subsc_settings .subsc-table tbody td button:hover {
+  background: #d95252;
+  color: #FEFAF6;
+}
+header .menu_wrapper .menu_detail #account_settings .setting_items {
+  margin-bottom: 30px;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area {
+  display: none;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area.active {
+  display: block;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #btn-mfa-enroll {
+  border: solid 1px #ded9d2;
+  padding: 10px 20px;
+  border-radius: 10px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #btn-mfa-enroll:hover {
+  background: #102C57;
+  color: #FEFAF6;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #mfa-setup-area {
+  display: none;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #mfa-setup-area.active {
+  display: block;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #mfa-setup-area p {
+  margin: 20px 0 20px 0;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #mfa-setup-area code {
+  background-color: #ded9d2;
+  margin: 10px 0;
+  padding: 15px 20px;
+  border-radius: 7.5px;
+  display: block;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #mfa-setup-area input {
+  border: solid 1px #ded9d2;
+  padding: 10Px 20px;
+  border-radius: 10px;
+  background: #f7f1e9;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #mfa-setup-area input:focus {
+  background: #EADBC8;
+  outline: 0;
+  border: solid 1px #102C57;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #mfa-setup-area button {
+  border: solid 1px #ded9d2;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-left: 15px;
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #mfa-setup-area button {
+    font-size: 14px;
+    margin-left: 1.5% !important;
+  }
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #mfa-setup-area button {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area #mfa-setup-area button:hover {
+  background: #102C57;
+  color: #FEFAF6;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-registered-area {
+  display: none;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-registered-area.active {
+  display: block;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-registered-area .stats {
+  position: relative;
+  padding-left: 20px;
+  display: inline-block;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-registered-area .stats::before {
+  content: "";
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  position: absolute;
+  background: #3d9b3d;
+  top: 55%;
+  left: 0px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-registered-area .date {
+  font-size: 14px;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-registered-area #btn-mfa-unenroll {
+  border: solid 1px #ded9d2;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 15px 0 30px;
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_detail #account_settings #mfa-registered-area #btn-mfa-unenroll {
+    font-size: 14px;
+    margin-left: 1.5% !important;
+  }
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-registered-area #btn-mfa-unenroll {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+header .menu_wrapper .menu_detail #account_settings #mfa-registered-area #btn-mfa-unenroll:hover {
   background: #d95252;
   color: #FEFAF6;
 }
@@ -1153,8 +1263,8 @@ main #edit-modal .editform_container {
           transform: translate(-50%, -50%);
   background: #FEFAF6;
   border-radius: 20px;
-  -webkit-box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
 }
 main #edit-modal.active {
   display: block;

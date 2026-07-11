@@ -471,3 +471,79 @@ export async function checkAndProcessSubscriptions() {
         await fetchTransactions();
     }
 }
+
+
+// 🔐 MFAの登録準備（シークレットキーを発行する）
+export async function enrollMFA() {
+    const { data, error } = await supabaseClient.auth.mfa.enroll({
+        factorType: 'totp' // Time-based One-Time Password（認証アプリ方式）
+    });
+
+    if (error) {
+        console.error("MFA登録開始エラー:", error.message);
+        return null;
+    }
+
+    // dataの中には、登録用のID（factorId）やシークレットキー（secret）が入っています
+    return data;
+}
+
+// 🔐 MFAの有効化（最初の6桁コードを検証して、正式に有効にする）
+export async function challengeAndVerifyMFA(factorId, code) {
+    // 1. まずチャレンジ（検証の準備）を行う
+    const { data: challengeData, error: challengeError } = await supabaseClient.auth.mfa.challenge({
+        factorId: factorId
+    });
+
+    if (challengeError) {
+        console.error("MFAチャレンジエラー:", challengeError.message);
+        return false;
+    }
+
+    // 2. ユーザーが入力した6桁のコード（code）を検証する
+    const { error: verifyError } = await supabaseClient.auth.mfa.verify({
+        factorId: factorId,
+        challengeId: challengeData.id,
+        code: code
+    });
+
+    if (verifyError) {
+        alert(`コードが正しくありません: ${verifyError.message}`);
+        return false;
+    }
+
+    return true;
+}
+
+// 🔐 MFAの登録状況（ステータス）を取得する
+export async function getMFAStatus() {
+    const { data, error } = await supabaseClient.auth.mfa.listFactors();
+
+    if (error) {
+        console.error("MFAステータス取得エラー:", error.message);
+        return null;
+    }
+
+    // data.all の中に登録された認証方式のリストが入っています
+    // その中から「検証が完了している（verified）」TOTP設定を探して返します
+    const activeFactor = data.all.find(
+        factor => factor.factor_type === 'totp' && factor.status === 'verified'
+    );
+
+    return activeFactor; // 登録されていればそのデータオブジェクト、なければ undefined が返ります
+}
+
+// 🔐 MFAを解除（削除）する
+export async function unenrollMFA(factorId) {
+    const { error } = await supabaseClient.auth.mfa.unenroll({
+        factorId: factorId
+    });
+
+    if (error) {
+        console.error("MFA解除エラー:", error.message);
+        alert("解除できませんでした");
+        return false;
+    }
+
+    return true;
+}

@@ -170,6 +170,31 @@
                             </div>
                             <div class="menu_item_container" id="account_settings" data-target="account_settings">
                                 <h3>アカウント情報</h3>
+                                <h4>メールアドレス</h4>
+                                <h4>パスワード</h4>
+                                <div class="setting_items">
+                                    <h4>二段階認証（MFA）</h4>
+                                    <div id="mfa-unregistered-area" class="">
+                                        <button id="btn-mfa-enroll">二段階認証を有効にする</button>
+                                    
+                                        <div id="mfa-setup-area">
+                                            <p>1. 以下のキーをコピーして、Google Authenticator などの認証アプリに登録してください：</p>
+                                            <code id="mfa-secret-key"></code>
+                                    
+                                            <p>2. アプリに表示された6桁のコードを入力してください：</p>
+                                            <input type="text" id="mfa-code-input" maxlength="6">
+                                            <button id="btn-mfa-verify">連携を完了する</button>
+                                        </div>
+                                    </div>
+                                    <div id="mfa-registered-area" class="">
+                                        <p class="stats">二段階認証（MFA）は有効です</p>
+                                        <p class="date">設定日時: <span id="mfa-activated-at">-</span></p>
+                                        <button id="btn-mfa-unenroll">二段階認証を解除する</button>
+                                    </div>
+                                </div>
+                                <h4>アカウントを削除する</h4>
+                                <h4>サポート用情報</h4>
+
                             </div>
                             <div class="menu_item_container" id="other_settings" data-target="other_settings">
                                 <h3>その他の情報</h3>
@@ -374,7 +399,6 @@
         <footer>
             <p class="copyright">© 2026 AnalyWallet.</p>
             <p id="app-version"></p>
-            <a target="_blank" href="https://supabase.com/dashboard/org/gbaaccsyievdmutnuero">supabase</a>
             <div id="app-container foot">
                 <button id="logout-btn">ログアウト</button>
             </div>

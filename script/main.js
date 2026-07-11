@@ -2,7 +2,9 @@ import { createClient } from '@supabase/supabase-js';
 import { supabaseClient } from './supabase.js';
 import { categoryOptions } from './constant.js';
 import { updateHistoryDisplay, toggleView, updateCategoryMenu, calculateStats, renderFilterCategoryDOM, renderCategorySettingsDOM } from './ui.js';
-import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction, fetchCategories, signUp, signIn, signOut, setupCategorySettingsEvents, setupSubscriptionEvents, fetchSubscriptions, checkAndProcessSubscriptions } from './api.js';
+import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction, fetchCategories, signUp, signIn, signOut, setupCategorySettingsEvents,
+        setupSubscriptionEvents, fetchSubscriptions, checkAndProcessSubscriptions, enrollMFA, challengeAndVerifyMFA,
+        getMFAStatus, unenrollMFA, } from './api.js';
 window.deleteTransaction = deleteTransaction; // グローバルスコープをモジュールスコープに変更
 window.openEditModal = openEditModal;
 import { state, moneyForm } from './state.js';
@@ -45,9 +47,15 @@ if (initialBtn) initialBtn.classList.add('active');
 async function checkLoginAndInit() {
     // 現在のログイン状況をチェック
     const { data: { user } } = await supabaseClient.auth.getUser();
-
-    // ログインしていなければ、即座にログイン画面へ強制リダイレクト
     if (!user) {
+        window.location.href = './login/index.html';
+        return;
+    }
+
+    // URLから直接アクセスした場合
+    const { data: mfaData } = await supabaseClient.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (mfaData.currentLevel === 'aal1' && mfaData.nextLevel === 'aal2') {
+        //MFAを通過してないのでログイン画面に強制遷移
         window.location.href = './login/index.html';
         return;
     }
@@ -55,8 +63,11 @@ async function checkLoginAndInit() {
     //ログアウト処理
     setupLogoutEvent();
 
-    // 初期化処理
+    //初期化処理
     console.log("ログイン確認OK:", user.email);
+
+    //MFA
+    checkAndRenderMFA();
 
     await fetchCategories();
     renderCategorySettingsDOM();
@@ -64,8 +75,8 @@ async function checkLoginAndInit() {
     setupSubscriptionEvents();
 
     //画面のドロップダウンを生成
-    updateCategoryMenu('expense', 'category');      // 登録用フォーム
-    updateCategoryMenu('expense', 'edit_category'); // 編集用モーダル
+    updateCategoryMenu('expense', 'category');      //登録用フォーム
+    updateCategoryMenu('expense', 'edit_category'); //編集用モーダル
 
     renderFilterCategoryDOM(); // フィルターの選択肢を生成
 
@@ -135,16 +146,15 @@ const menuButtons = document.querySelectorAll('.menu_btn_wrapper.btn');
 menuButtons.forEach(btn => {
     btn.addEventListener("click", function () {
 
-        // 2. すべてのボタンと設定画面から 'active' を消す
+        // すべてのボタンと設定画面からactiveを消す
         menuButtons.forEach(b => {
-            b.classList.remove('active'); // ボタンの光を消す
+            b.classList.remove('active');
 
             const targetId = b.dataset.target;
             document.getElementById(targetId)?.classList.remove('active'); // 画面を非表示にする
         });
 
-        // 3. 今クリックされたボタンと画面だけに 'active' をつける
-        this.classList.add('active'); // クリックされたボタンを光らせる
+        this.classList.add('active');
 
         const currentTargetId = this.dataset.target;
         document.getElementById(currentTargetId)?.classList.add('active'); // 対応する画面を表示する
@@ -192,31 +202,29 @@ moneyForm?.addEventListener('submit', async (e) => {
 // 初期実行に加える
 setDefaultDate();
 
-//■■■■■■■■■■■■■■■■■■モーダル表示■■■■■■■■■■■■■■■■■■
-//ﾊﾞﾂボタンでモーダル削除
+//■■■■■■■■■■■■■■■■■■編集モーダル表示■■■■■■■■■■■■■■■■■■
+//ﾊﾞﾂボダン
 document.getElementById('close_editform_btn').addEventListener("click", () => {
     document.getElementById('edit-modal').classList.remove('active');
     document.body.classList.remove('no-scroll');
     return;
 });
 
-//カテゴリーの選択し書き換え
-
-// ①「収入」ラジオボタンが選ばれたら、編集用カテゴリーを「income」に書き換える
+// 収入ラジオボタンが選ばれたら、編集用カテゴリーを「income」に書き換える
 document.getElementById('edit_type-income').addEventListener('change', (e) => {
     if (e.target.checked) {
         updateCategoryMenu('income', 'edit_category');
     }
 });
 
-// ②「支出」ラジオボタンが選ばれたら、編集用カテゴリーを「expense」に書き換える
+// 支出ラジオボタンが選ばれたら、編集用カテゴリーを「expense」に書き換える
 document.getElementById('edit_type-expense').addEventListener('change', (e) => {
         if (e.target.checked) {
         updateCategoryMenu('expense', 'edit_category');
     }
 });
 
-// モーダルの保存ボタン
+// モーダルの保存
 const saveBtn = document.getElementById('edit_btn');
 
 saveBtn.addEventListener('click', async () => {
@@ -224,10 +232,10 @@ saveBtn.addEventListener('click', async () => {
     // チェック（編集中のIDが空なら処理しない）
     if (!state.editingId) return;
 
-    // 選択されているラジオボタンの value を取得する
+    // 選択されているラジオボタンのvalueを取得
     const selectedType = document.querySelector('input[name="edit_transactions-type"]:checked').value;
 
-    // 2. フォームに入力された最新の値を取得する
+    // フォームに入力された最新の値を取得する
     const updatedData = {
         type: selectedType, // income or expence
         date: document.getElementById('edit_date').value,
@@ -237,21 +245,20 @@ saveBtn.addEventListener('click', async () => {
     };
     
     try {
-        // 3. 読み込み中などを表すためにボタンを無効化（任意）
+        // ボタンを無効化
         saveBtn.disabled = true;
 
-        // 4. api.jsの関数を呼び出して、Supabaseのデータを更新する
+        // api.jsの関数を呼び出してSupabaseのデータを更新
         await updateTransaction(state.editingId, updatedData);
 
-        // 5. 成功したらモーダルを閉じる
+        // 成功したらモーダルを閉じる
         document.getElementById('edit-modal').classList.remove('active');
         document.body.classList.remove('no-scroll');
 
-        // 6. 編集中のIDをリセットする
+        // 編集中のIDをリセットする
         state.editingId = null;
 
-        // 7. 【超重要】画面を最新の状態にする
-        // すでに実装されている、データを再取得して再描画する関数を呼び出します
+        // データを再取得して再描画
         await fetchTransactions();
 
         alert('変更を保存しました！');
@@ -264,3 +271,102 @@ saveBtn.addEventListener('click', async () => {
         saveBtn.disabled = false;
     }
 });
+
+
+
+//==========================================================================
+//MFA
+//==========================================================================
+function setupMFAEvent() {
+    const enrollBtn = document.getElementById('btn-mfa-enroll');
+    const setupArea = document.getElementById('mfa-setup-area');
+    const secretKeyElement = document.getElementById('mfa-secret-key');
+    const verifyBtn = document.getElementById('btn-mfa-verify');
+    const registeredArea = document.getElementById('mfa-registered-area');
+    const unregisteredArea = document.getElementById('mfa-unregistered-area');
+
+
+
+    let currentFactorId = null; // 発行されたMFAのIDを一時的に保存する変数
+
+    if (enrollBtn) {
+        enrollBtn.onclick = async () => {
+            // SupabaseにMFAの秘密鍵を発行してもらう
+            const mfaData = await enrollMFA();
+
+            if (mfaData) {
+                currentFactorId = mfaData.id;
+                // 画面にシークレットキーを表示・入力エリアをオープン
+                secretKeyElement.textContent = mfaData.totp.secret;
+                setupArea.classList.add('active');
+                enrollBtn.disabled = true; // 二重押し防止
+            }
+        };
+    }
+
+    if (verifyBtn) {
+        verifyBtn.addEventListener('click', async () => {
+            const codeInput = document.getElementById('mfa-code-input').value;
+
+            if (codeInput.length !== 6) {
+                alert("6桁の数字を入力してください。");
+                return;
+            }
+
+            // 6桁のコードを検証しに行く
+            const success = await challengeAndVerifyMFA(currentFactorId, codeInput);
+
+            if (success) {
+                alert("🎉 二段階認証の設定が完全に完了しました！次回ログイン時からコードが必要になります。");
+                unregisteredArea.classList.remove('active');
+                registeredArea.classList.add('active');
+            }
+        });
+    }
+}
+
+//mfaの登録状況をチェック
+async function checkAndRenderMFA() {
+    const unregisteredArea = document.getElementById('mfa-unregistered-area');
+    const registeredArea = document.getElementById('mfa-registered-area');
+    const activatedAtSpan = document.getElementById('mfa-activated-at');
+    const unenrollBtn = document.getElementById('btn-mfa-unenroll');
+    const setupArea = document.getElementById('mfa-setup-area');
+
+    // Supabaseから現在のMFA登録状況をゲット
+    const activeFactor = await getMFAStatus();
+
+    if (activeFactor) {
+        // すでに登録済みのパターン
+        unregisteredArea?.classList.remove('active');
+        registeredArea?.classList.add('active');
+        
+
+        // 登録日時を日本時間に変換して表示
+        const enrollDate = new Date(activeFactor.created_at);
+        if (activatedAtSpan) {
+            activatedAtSpan.textContent = enrollDate.toLocaleString('ja-JP');
+        }
+
+        // 解除ボタンのイベント
+        if (unenrollBtn) {
+            unenrollBtn.onclick = async () => {
+                if (!confirm("本当に二段階認証を解除しますか？\nアカウントのセキュリティ強度が低下します。")) return;
+
+                const success = await unenrollMFA(activeFactor.id);
+                if (success) {
+                    alert("二段階認証を解除しました。");
+                    // 画面を最新の状態にリフレッシュ
+                    checkAndRenderMFA();
+                }
+            };
+        }
+    } else {
+        // まだ未登録のパターン
+        unregisteredArea?.classList.add('active');
+        registeredArea?.classList.remove('active');
+        //セットアップ関数を呼び出す（上にあり）
+        setupMFAEvent();
+    }
+    
+}

@@ -198,3 +198,167 @@ footer #app-version {
   font-size: 12px;
   text-align: right;
 }
+
+.modal-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: 0;
+  display: none;
+}
+.modal-wrapper.active {
+  display: block;
+}
+.modal-wrapper h2 {
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.modal-wrapper p {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+#signup-modal_wrapper .modal {
+  position: fixed;
+  width: 500px;
+  background: #FEFAF6;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 30px;
+  padding: 40px 50px;
+  -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
+}
+#signup-modal_wrapper .modal .close_btn_wrapper {
+  position: relative;
+}
+#signup-modal_wrapper .modal .close_btn_wrapper .close_btn {
+  position: absolute;
+  background: #EADBC8;
+  width: 50px;
+  height: 50px;
+  right: 0px;
+  top: 0px;
+  border-radius: 50%;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+#signup-modal_wrapper .modal .close_btn_wrapper .close_btn span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-family: "Material Icons";
+}
+#signup-modal_wrapper .modal .close_btn_wrapper .close_btn:hover {
+  background: #d95252;
+}
+#signup-modal_wrapper .modal .close_btn_wrapper .close_btn:hover span {
+  color: #FEFAF6;
+}
+#signup-modal_wrapper .modal .logo_wrapper {
+  margin-bottom: 30px;
+}
+#signup-modal_wrapper .modal .logo_wrapper div {
+  height: 50px;
+  display: inline-block;
+}
+#signup-modal_wrapper .modal .logo_wrapper div span {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+}
+#signup-modal_wrapper .modal .logo_wrapper div span img {
+  width: 100%;
+  height: 100%;
+}
+#signup-modal_wrapper .modal .logo_wrapper div h1 {
+  line-height: 50px;
+  margin: -48px 0 0 60px;
+  font-size: 22px;
+  font-family: "Albert Sans", sans-serif;
+  font-weight: 500;
+}
+#signup-modal_wrapper .modal #signup-form {
+  margin: 0;
+}
+#signup-modal_wrapper .modal p {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+#signup-modal_wrapper .modal input[type=email],
+#signup-modal_wrapper .modal input[type=password] {
+  display: block;
+  border: solid 1px #EADBC8;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-family: "Inter", sans-serif;
+}
+#signup-modal_wrapper #signup-submit-btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px 0;
+  background: #102C57;
+  text-align: center;
+  color: #FEFAF6;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  border: solid 1px #102C57;
+  border-radius: 10px;
+}
+#signup-modal_wrapper #signup-submit-btn:hover {
+  background: #FEFAF6;
+  border: solid 1px #102C57;
+  color: #222;
+  font-weight: 600;
+}
+
+#loginMFA-modal_wrapper .modal {
+  position: fixed;
+  width: 400px;
+  background: #FEFAF6;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 30px;
+  padding: 40px 50px;
+  -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
+}
+#loginMFA-modal_wrapper .modal #login-mfa-code {
+  width: 100%;
+  font-size: 20px;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 30px;
+  padding: 15px 0;
+  border: solid 1px #ded9d2;
+  border-radius: 10px;
+}
+#loginMFA-modal_wrapper .modal #btn-login-mfa-verify {
+  display: block;
+  background: #FEFAF6;
+  width: 100%;
+  padding: 15px 0;
+  border-radius: 10px;
+  border: solid 1px #ded9d2;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+#loginMFA-modal_wrapper .modal #btn-login-mfa-verify:hover {
+  background: #102C57;
+  color: #FEFAF6;
+}

@@ -48,7 +48,7 @@
         </div>
         
         <div class="register_btn_wrapper">
-            <a class="register_btn">新規登録はこちら</a>
+            <a class="register_btn" id="displayModalBtn">新規登録はこちら</a>
         </div>
     </main>
     <footer>
@@ -67,6 +67,52 @@
         <p class="copyright">© 2026 AnalyWallet.</p>
     </footer>
     <script type="module" src="../script/login.js"></script>
+
+
+
+    <div class="modal-wrapper" id="signup-modal_wrapper">
+        <div id="signup-modal" class="modal">
+            <div class="close_btn_wrapper">
+                <button class="close_btn" id="close_modal_btn"><span class="material-icons">close</span></button>
+            </div>
+            <div class="logo_wrapper">
+                <div>
+                    <span class="logo_img">
+                        <img src="../img/logo.png">
+                    </span>
+                    <h1>AnalyWallet</h1>
+                </div>
+            </div>
+
+            <div class="modal-content">
+                <h2>新規アカウント作成</h2>
+                <p>ご利用にはアカウント作成が必要です。<br>以下のフォームからご登録ください。</p>
+        
+                <form id="signup-form">
+                    <div class="input_wrapper">
+                        <input type="email" id="signup-email" placeholder="メールアドレス" required>
+                    </div>
+                    <div class="input_wrapper">
+                        <input type="password" id="signup-password" placeholder="パスワード" required>
+                    </div>
+                    <div class="input_wrapper">
+                        <input type="checkbox">利用規約・プライバシーポリシーに同意する
+                    </div>
+                    <button type="submit" id="signup-submit-btn">登録する</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-wrapper" id="loginMFA-modal_wrapper">
+        <div id="loginMFA-modal" class="modal">
+            <div class="modal-content" style="text-align: center;">
+                <h2>二段階認証コードの入力</h2>
+                <p>認証アプリに表示されている6桁のコードを入力してください。</p>
+                <input type="text" id="login-mfa-code" placeholder="123456" maxlength="6">
+                <button id="btn-login-mfa-verify">認証する</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -106,18 +106,6 @@ header {
     }
 }
 
-p {
-    margin-left: 5%;
-    letter-spacing: 0.05rem;
-    font-size: 1.1rem;
-
-    span {
-        color: $acc1;
-        padding-left: 1rem;
-        font-size: 0.94rem;
-    }
-}
-
 .header__navlist {
     list-style: none;
     text-align: right;
@@ -173,6 +161,7 @@ p {
 
     &:hover {
         background: $acc2;
+        border: solid 1px $acc3;
     }
 }
 
@@ -359,6 +348,7 @@ p {
 
             .menu_detail {
                 padding-left: 30px;
+                flex:4;
 
                 @include mq(sm) {
                     padding:5vw 5% 0;
@@ -499,7 +489,6 @@ p {
                 }
 
                 ul {
-
                     @include mq(sm) {
                         margin-top: 15px;
                     }
@@ -578,8 +567,7 @@ p {
                         flex: 2.5;
                     }
 
-                    input,
-                    select {
+                    input, select {
                         width: 100%;
                         border: solid 1px $acc2;
                         background: $acc1;
@@ -653,6 +641,7 @@ p {
             }
 
             .subsc-table {
+                width:100%;
                 min-width: 500px;
                 font-size: 14px;
                 overflow: hidden;
@@ -684,6 +673,116 @@ p {
                                 color: $white;
                             }
                         }
+                    }
+                }
+            }
+        }
+        #account_settings{
+            .setting_items{
+                margin-bottom: 30px;
+            }
+            #mfa-unregistered-area{
+                display:none;
+                &.active{
+                    display:block;
+                }
+                #btn-mfa-enroll{
+                    border:solid 1px $acc1-3;
+                    padding:10px 20px;
+                    border-radius: 10px;
+                    transition: .2s;
+                    &:hover{
+                        background: $acc4;
+                        color:$white;
+                    }
+                }
+                #mfa-setup-area{
+                    display:none;
+                    &.active{
+                        display:block;
+                    }
+                    p{
+                        margin: 20px 0 20px 0;
+                    }
+                    code{
+                        background-color: $acc1-3;
+                        margin:10px 0;
+                        padding:15px 20px;
+                        border-radius: 7.5px;
+                        display:block;
+                    }
+                    input{
+                        border: solid 1px $acc1-3;
+                        padding:10Px 20px;
+                        border-radius: 10px;
+                        background: $acc1;
+                        &:focus{
+                            background: $acc2;
+                            outline:0;
+                            border: solid 1px $acc4;
+                        }
+                    }
+                    button{
+                        border: solid 1px $acc1-3;
+                        padding: 10px 20px;
+                        border-radius: 10px;
+                        margin-left:15px;
+
+                        @include mq(sm) {
+                            font-size: 14px;
+                            margin-left: 1.5% !important;
+                        }
+
+                        transition: .2s;
+
+                        &:hover {
+                            background: $acc4;
+                            color: $white;
+                        }
+                    }
+                }
+            }
+            #mfa-registered-area{
+                display:none;
+                &.active{
+                    display:block;
+                }
+                .stats{
+                    position: relative;
+                    padding-left:20px;
+                    display:inline-block;
+                    border-radius: 10px;
+                    font-size: 16px;
+                    margin-bottom:10px;
+                    
+                    &::before{
+                        content:'';
+                        width: 13px;
+                        height: 13px;
+                        border-radius: 50%;
+                        position: absolute;
+                        background: $green;
+                        top:55%;
+                        left:0px;
+                        transform:translateY(-50%);
+                    }
+                }
+                .date{
+                    font-size:14px;
+                }
+                #btn-mfa-unenroll{
+                    border: solid 1px $acc1-3;
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                    margin:15px 0 30px;
+                    @include mq(sm) {
+                        font-size: 14px;
+                        margin-left: 1.5% !important;
+                    }
+                    transition: .2s;
+                    &:hover {
+                        background: $warning;
+                        color: $white;
                     }
                 }
             }
@@ -1216,6 +1315,7 @@ main {
         background: rgba(0, 0, 0, 0.1);
         display: none;
 
+
         .editform_container {
             position: fixed;
             width: 90%;
@@ -1231,7 +1331,7 @@ main {
             transform: translate(-50%, -50%);
             background: $white;
             border-radius: 20px;
-            box-shadow:0px 0px 50px 20px rgba(0, 0, 0, 0.1);
+            box-shadow:(0px 0px 30px 10px rgba(0, 0, 0, 0.05)); 
         }
 
         &.active {

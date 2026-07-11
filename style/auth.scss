@@ -216,3 +216,184 @@ footer{
         text-align: right;
     }
 }
+
+
+//===
+//各種モーダル
+//===
+.modal-wrapper{
+    position: fixed;
+    width: 100%;
+    height:100%;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.1);
+    top:0;
+    left:0;
+    display:none;
+    &.active{
+        display:block;
+    }
+    h2 {
+        font-size: 25px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    p {
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 30px;
+        line-height: 1.5;
+    }
+}
+#signup-modal_wrapper {
+    .modal {
+        position: fixed;
+        width: 500px;
+        background: $white;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 30px;
+        padding: 40px 50px;
+        box-shadow: (0px 0px 30px 10px rgba(0, 0, 0, 0.05));
+
+        .close_btn_wrapper {
+            position: relative;
+
+            .close_btn {
+                position: absolute;
+                background: $acc2;
+                width: 50px;
+                height: 50px;
+                right: 0px;
+                top: 0px;
+                border-radius: 50%;
+                transition: .2s;
+
+                span {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-family: 'Material Icons';
+                }
+
+                &:hover {
+                    background: $warning;
+
+                    span {
+                        color: $white;
+                    }
+                }
+            }
+
+
+        }
+
+        .logo_wrapper {
+            margin-bottom: 30px;
+
+            div {
+                height: 50px;
+                display: inline-block;
+
+                span {
+                    width: 50px;
+                    height: 50px;
+                    display: inline-block;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                h1 {
+                    line-height: 50px;
+                    margin: -48px 0 0 60px;
+                    font-size: 22px;
+                    font-family: 'Albert Sans', sans-serif;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        #signup-form {
+            margin: 0;
+        }
+
+        p {
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            display: block;
+            border: solid 1px $acc2 ;
+            padding: 10px;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-family: 'Inter', sans-serif;
+        }
+
+    }
+
+    #signup-submit-btn {
+        margin-top: 30px;
+        width: 100%;
+        padding: 15px 0;
+        background: $acc4;
+        text-align: center;
+        color: $white;
+        transition: .2s;
+        border: solid 1px $acc4;
+        border-radius: 10px;
+
+        &:hover {
+            background: $white;
+            border: solid 1px $acc4;
+            color: $black;
+            font-weight: 600;
+        }
+    }
+}
+#loginMFA-modal_wrapper{
+    .modal{
+        position: fixed;
+        width: 400px;
+        background: $white;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 30px;
+        padding: 40px 50px;
+        box-shadow: (0px 0px 30px 10px rgba(0, 0, 0, 0.05));
+        #login-mfa-code{
+            width: 100%;
+            font-size:20px;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 30px;
+            padding:15px 0;
+            border:solid 1px $acc1-3;
+            border-radius: 10px;
+
+        }
+        #btn-login-mfa-verify{
+            display:block;
+            background: $white;
+            width: 100%;
+            padding:15px 0;
+            border-radius: 10px;
+            border: solid 1px $acc1-3;
+            transition: .2s;
+            &:hover{
+                background: $acc4;
+                color:$white;
+            }
+        }
+    }
+}
