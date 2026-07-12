@@ -4,7 +4,9 @@ import { state, moneyForm } from './state.js';
 import { renderCircleChart, renderLineChart } from './chart.js';
 import pkg from '../package.json';
 
-
+//==========================================================================
+// メイン-ダッシュボード：ダッシュボードの更新関数
+//==========================================================================
 export function updateHistoryDisplay() {
     updateText('display-year', state.currentYear);
 
@@ -65,19 +67,20 @@ function getFilteredHistory() {
     });
 }
 
-// ③ 集計処理（計算だけを行う関数  HTMLの操作はしない）
-// 🔄 ui.js の「calculateStats」をこれに丸ごと差し替え
+//==========================================================================
+// メイン-集計処理
+//==========================================================================
 export function calculateStats(filteredHistory) {
     let monthlyIncome = 0;
     let monthlyExpense = 0;
     let carryOverAmount = 0;
 
-    // 💡 1. 取ってきたすべてのカテゴリーIDをキーにした、空のバケツ（オブジェクト）を自動で作る
+    // 取ってきたすべてのカテゴリーIDをキーにしたオブジェクトを自動生成
     let catTotals = {};
     (state.categories.expense || []).forEach(cat => catTotals[cat.value] = 0);
     (state.categories.income || []).forEach(cat => catTotals[cat.value] = 0);
 
-    // 💡 「繰越金」のIDを動的に特定しておく（コンソールの '9' や、万が一の 'carry_over' に対応）
+    //  「繰越金」のIDを動的に特定（コンソールの '9' や、万が一の 'carry_over' に対応）
     const carryOverCat = (state.categories.income || []).find(c => c.label === '繰越金');
 
     // 今月・今年の分を集計
@@ -95,16 +98,16 @@ export function calculateStats(filteredHistory) {
             monthlyExpense += item.amount;
         }
 
-        // 💡 2. 該当するカテゴリーのバケツに金額を全自動で加算！
+        // 該当するカテゴリーに加算
         if (catTotals[catValue] !== undefined) {
             catTotals[catValue] += item.amount;
         } else {
-            // 万が一、古い平文データ（'food'など）が残っていた場合の救済処置
+            //古い平文データ（'food'など）が残っていた場合の救済処置
             catTotals[catValue] = item.amount;
         }
     });
 
-    // 選択された月の末日時点での総残高（累積和）を計算（ここは元のまま）
+    // 選択された月の末日時点での累積和を計算
     const lastDayOfMonth = new Date(state.currentYear, state.currentMonth === 'annual' ? 12 : state.currentMonth, 0);
     const historyUpToNow = state.history.filter(item => new Date(item.date) <= lastDayOfMonth);
     const currentBalance = historyUpToNow.reduce((acc, item) => {
@@ -114,7 +117,9 @@ export function calculateStats(filteredHistory) {
     return { monthlyIncome, monthlyExpense, carryOverAmount, catTotals, currentBalance };
 }
 
-// 基本収支やカテゴリ内訳のDOM（画面）描画を行う関数
+//==========================================================================
+// メイン-ダッシュボード：ダッシュボードのDOM描画
+//==========================================================================
 function renderSummaryDOM(stats) {
     updateText('display-income', `${stats.monthlyIncome.toLocaleString()}`);
     updateText('display-expense', `${stats.monthlyExpense.toLocaleString()}`);
@@ -135,9 +140,9 @@ function renderSummaryDOM(stats) {
         updateText('carry-over-display', `¥ 0`);
     }
 
-    // 💡 【超重要】ここからカテゴリー内訳の動的HTML生成！
+    //カテゴリー内訳の動的HTML生成
 
-    // 🔴 支出内訳のループ生成
+    //支出内訳のループ生成
     const expenseContainer = document.getElementById('expense-categories-list');
     if (expenseContainer) {
         expenseContainer.innerHTML = ''; // 一度リセット
@@ -157,7 +162,7 @@ function renderSummaryDOM(stats) {
         });
     }
 
-    // 🔵 収入内訳のループ生成
+    //収入内訳のループ生成
     const incomeContainer = document.getElementById('income-categories-list');
     if (incomeContainer) {
         incomeContainer.innerHTML = ''; // 一度リセット
@@ -180,7 +185,9 @@ function renderSummaryDOM(stats) {
     }
 }
 
-// 明細テーブル（履歴一覧）のDOM描画を行う関数
+//==========================================================================
+// メイン-登録履歴：明細テーブルのDOM描画
+//==========================================================================
 function renderTableDOM(historyList, filteredHistory) {
     historyList.innerHTML = '';
     let dayTotal = 0;
@@ -232,7 +239,9 @@ function renderTableDOM(historyList, filteredHistory) {
     });
 }
 
-// グラフの表示・非表示と描画を切り替える関数
+//==========================================================================
+// メイン-ダッシュボード：グラフの描画切り替え（円グラフと折れ線グラフ）
+//==========================================================================
 function updateChartVisibility(catTotals) {
     const annualChartContainer = document.getElementById('annual-chart-container');
     const expenseChartContainer = document.getElementById('expense-chart-container');
@@ -247,21 +256,6 @@ function updateChartVisibility(catTotals) {
         annualChartContainer.style.display = 'none';
         expenseChartContainer.style.display = 'block';
         updateChart(catTotals); // 円グラフ（月間）
-    }
-}
-
-// 画面切り替え(ログイン画面と通常画面)
-export function toggleView(user) {
-    const authView = document.getElementById('auth-container');
-    const appView = document.getElementById('app-container');
-
-    if (user) {
-        authView.style.display = 'none';
-        appView.style.display = 'block';
-        fetchTransactions(); // ログインしたらデータを取得
-    } else {
-        authView.style.display = 'flex';
-        appView.style.display = 'none';
     }
 }
 
@@ -336,22 +330,24 @@ function calculatePrevMonthDiff(currInc, currExp) {
     setDiffText('prev-diff-net', (currInc - currExp) - (prevInc - prevExp), false);
 }
 
-// カテゴリーのドロップダウンを動的に書き換え
+//==========================================================================
+// メイン-登録フォーム：登録カテゴリーのドロップダウン書き換え
+//==========================================================================
 export function updateCategoryMenu(type, targetId = 'category') {
     const selectEl = document.getElementById(targetId);
     if (!selectEl) return;
 
-    // 1. 一度空っぽにする
+    // 1. 一度空に
     selectEl.innerHTML = '';
 
-    // 2. state.categories（Supabaseから取ってきたデータ）を使う！
+    // 2. state.categories（Supabaseから取ってきたデータ）
     const options = state.categories[type] || [];
 
     // 3. 選択肢を量産する
     options.forEach(cat => {
         const option = document.createElement('option');
-        option.value = cat.value;       // 👈 ここにSupabaseの「ID（7など）」が入る
-        option.textContent = cat.label;  // 👈 画面表示（給与など）
+        option.value = cat.value;       //upabaseのIDが入る
+        option.textContent = cat.label;  //画面に表示
         selectEl.appendChild(option);
     });
 }
@@ -366,10 +362,10 @@ export function renderFilterCategoryDOM() {
     const filterSelect = document.getElementById('filter-category');
     if (!filterSelect) return;
 
-    // 💡 1. 一度「カテゴリー（すべて）」だけの状態にリセット
+    // 一度「カテゴリー（すべて）」だけの状態にリセット
     filterSelect.innerHTML = '<option value="all">カテゴリー</option>';
 
-    // 💡 2. 支出グループの動的生成
+    // 支出グループの動的生成
     if (state.categories.expense && state.categories.expense.length > 0) {
         const expenseGroup = document.createElement('optgroup');
         expenseGroup.label = '支出';
@@ -384,7 +380,7 @@ export function renderFilterCategoryDOM() {
         filterSelect.appendChild(expenseGroup);
     }
 
-    // 💡 3. 収入グループの動的生成
+    // 収入グループの動的生成
     if (state.categories.income && state.categories.income.length > 0) {
         const incomeGroup = document.createElement('optgroup');
         incomeGroup.label = '収入';
@@ -400,7 +396,9 @@ export function renderFilterCategoryDOM() {
     }
 }
 
-
+//==========================================================================
+// ヘッダーメニュー：登録カテゴリーの表示DOM
+//==========================================================================
 export function renderCategorySettingsDOM() {
     const expenseList = document.getElementById('expense-category-list');
     const incomeList = document.getElementById('income-category-list');
@@ -428,7 +426,7 @@ function createCategoryRow(cat) {
     const li = document.createElement('li');
     li.classList.add("category_item");
 
-    // ゴミ箱ボタンに data-id と data-label を仕込んでおくのがポイントです
+    // ゴミ箱ボタンに data-id と data-label を仕込む
     li.innerHTML = `
         <span>${cat.label}</span>
         <button class="btn-delete" data-id="${cat.value}" data-label="${cat.label}">
@@ -438,9 +436,9 @@ function createCategoryRow(cat) {
     return li;
 }
 
-// サブスク表示
-
-// サブスク一覧を HTML にレンダリングする
+//==========================================================================
+// ヘッダーメニュー：登録サブスクの表示DOM
+//==========================================================================
 export function renderSubscriptionsDOM() {
     const subscListElement = document.getElementById('subsc-list');
     if (!subscListElement) return;

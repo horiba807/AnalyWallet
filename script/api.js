@@ -1,6 +1,6 @@
 import { supabaseClient } from "./supabase.js";
 import { state, moneyForm } from './state.js';
-import { updateHistoryDisplay, toggleView, updateCategoryMenu, renderCategorySettingsDOM, renderFilterCategoryDOM, renderSubscriptionsDOM } from './ui.js';
+import { updateHistoryDisplay, updateCategoryMenu, renderCategorySettingsDOM, renderFilterCategoryDOM, renderSubscriptionsDOM } from './ui.js';
 
 export async function fetchTransactions() {
     // ⭕️ 1. まずSupabaseからカテゴリーを取得し、画面の初期描画をすべて行う
@@ -472,7 +472,55 @@ export async function checkAndProcessSubscriptions() {
     }
 }
 
+//==========================================================================
+//メアド変更
+//==========================================================================
+// 📧 メールアドレスの変更をリクエストする
+export async function updateUserEmail(newEmail) {
+    const { data, error } = await supabaseClient.auth.updateUser({
+        email: newEmail
+    });
 
+    if (error) {
+        alert(`メールアドレスの変更に失敗しました: ${error.message}`);
+        return false;
+    }
+    return true;
+}
+
+//==========================================================================
+//パスワード変更
+//==========================================================================
+// 🔑 パスワードを変更する
+export async function updateUserPassword(currentEmail, currentPassword, newPassword) {
+    // 🛡️ 第1関門：現在のパスワードが正しいか、裏でログインを試みて検証する
+    const { error: verifyError } = await supabaseClient.auth.signInWithPassword({
+        email: currentEmail,
+        password: currentPassword,
+    });
+
+    // パスワードが間違っている場合は、ここで即終了
+    if (verifyError) {
+        alert("現在のパスワードが正しくありません。");
+        return false;
+    }
+
+    // 🚀 第2関門：検証が通ったので、新しいパスワードを適用する
+    const { error: updateError } = await supabaseClient.auth.updateUser({
+        password: newPassword
+    });
+
+    if (updateError) {
+        alert(`パスワードの変更に失敗しました: ${updateError.message}`);
+        return false;
+    }
+
+    return true;
+}
+
+//==========================================================================
+//MFA認証
+//==========================================================================
 // 🔐 MFAの登録準備（シークレットキーを発行する）
 export async function enrollMFA() {
     const { data, error } = await supabaseClient.auth.mfa.enroll({
@@ -545,5 +593,20 @@ export async function unenrollMFA(factorId) {
         return false;
     }
 
+    return true;
+}
+
+//==========================================================================
+//アカウント削除
+//==========================================================================
+// 🚨 アカウントを完全に削除する
+export async function deleteAccount() {
+    // Supabase側に作ったカスタム関数（RPC）を名前を指定して実行する
+    const { error } = await supabaseClient.rpc('delete_user_account');
+
+    if (error) {
+        alert(`アカウントの削除に失敗しました: ${error.message}`);
+        return false;
+    }
     return true;
 }

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0 auto;
 }
@@ -237,6 +238,12 @@ footer #app-version {
   -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
           box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
 }
+@media screen and (max-width: 599px) {
+  #signup-modal_wrapper .modal {
+    width: 90%;
+    padding: 30px;
+  }
+}
 #signup-modal_wrapper .modal .close_btn_wrapper {
   position: relative;
 }
@@ -307,6 +314,15 @@ footer #app-version {
   margin-bottom: 15px;
   font-family: "Inter", sans-serif;
 }
+#signup-modal_wrapper label {
+  font-size: 16px;
+}
+#signup-modal_wrapper #signup-terms {
+  -moz-appearance: auto;
+       appearance: auto;
+  -webkit-appearance: auto; /* Safari用 */
+  margin-right: 5px; /* 文字との間に少し隙間をあける */
+}
 #signup-modal_wrapper #signup-submit-btn {
   margin-top: 30px;
   width: 100%;
@@ -350,15 +366,177 @@ footer #app-version {
 }
 #loginMFA-modal_wrapper .modal #btn-login-mfa-verify {
   display: block;
-  background: #FEFAF6;
   width: 100%;
   padding: 15px 0;
   border-radius: 10px;
   border: solid 1px #ded9d2;
   -webkit-transition: 0.2s;
   transition: 0.2s;
-}
-#loginMFA-modal_wrapper .modal #btn-login-mfa-verify:hover {
   background: #102C57;
   color: #FEFAF6;
+}
+#loginMFA-modal_wrapper .modal #btn-login-mfa-verify:hover {
+  background: #FEFAF6;
+  color: #222;
+}
+
+#forgetPass-modal_wrapper .modal {
+  position: fixed;
+  width: 500px;
+  background: #FEFAF6;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 30px;
+  padding: 40px 50px;
+  -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
+}
+@media screen and (max-width: 599px) {
+  #forgetPass-modal_wrapper .modal {
+    width: 90%;
+    padding: 30px;
+  }
+}
+#forgetPass-modal_wrapper .modal .close_btn_wrapper {
+  position: relative;
+}
+#forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn {
+  position: absolute;
+  background: #EADBC8;
+  width: 50px;
+  height: 50px;
+  right: 0px;
+  top: 0px;
+  border-radius: 50%;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+#forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-family: "Material Icons";
+}
+#forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn:hover {
+  background: #d95252;
+}
+#forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn:hover span {
+  color: #FEFAF6;
+}
+#forgetPass-modal_wrapper .modal .logo_wrapper {
+  margin-bottom: 30px;
+}
+#forgetPass-modal_wrapper .modal .logo_wrapper div {
+  height: 50px;
+  display: inline-block;
+}
+#forgetPass-modal_wrapper .modal .logo_wrapper div span {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+}
+#forgetPass-modal_wrapper .modal .logo_wrapper div span img {
+  width: 100%;
+  height: 100%;
+}
+#forgetPass-modal_wrapper .modal .logo_wrapper div h1 {
+  line-height: 50px;
+  margin: -48px 0 0 60px;
+  font-size: 22px;
+  font-family: "Albert Sans", sans-serif;
+  font-weight: 500;
+}
+#forgetPass-modal_wrapper .modal p {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+#forgetPass-modal_wrapper .modal input {
+  display: block;
+  border: solid 1px #EADBC8;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-family: "Inter", sans-serif;
+}
+#forgetPass-modal_wrapper label {
+  font-size: 16px;
+}
+#forgetPass-modal_wrapper #signup-terms {
+  -moz-appearance: auto;
+       appearance: auto;
+  -webkit-appearance: auto; /* Safari用 */
+  margin-right: 5px; /* 文字との間に少し隙間をあける */
+}
+#forgetPass-modal_wrapper #link-forgot-password {
+  display: block;
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px 0;
+  background: #102C57;
+  text-align: center;
+  color: #FEFAF6;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  border: solid 1px #102C57;
+  border-radius: 10px;
+}
+#forgetPass-modal_wrapper #link-forgot-password:hover {
+  background: #FEFAF6;
+  border: solid 1px #102C57;
+  color: #222;
+  font-weight: 600;
+}
+
+main .resetPass_modal {
+  max-width: 500px;
+  border: solid 1px #ded9d2;
+  padding: 30px;
+  border-radius: 20px;
+  background: #f7f1e9;
+}
+main .resetPass_modal h2 {
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+main .resetPass_modal p {
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.5;
+}
+main .resetPass_modal input {
+  border: solid 1px #EADBC8;
+  padding: 10px;
+  font-family: "Inter", sans-serif;
+  width: 100%;
+  border-radius: 10px;
+  margin: 15px 0 30px;
+}
+main .resetPass_modal input:focus {
+  border: solid 1px #102C57;
+  outline: 0;
+}
+main .resetPass_modal button {
+  border-radius: 10px;
+  width: 100%;
+  padding: 15px 0;
+  background: #102C57;
+  text-align: center;
+  color: #FEFAF6;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  border: solid 1px #102C57;
+}
+main .resetPass_modal button:hover {
+  background: #f7f1e9;
+  border: solid 1px #102C57;
+  color: #222;
+  font-weight: 600;
 }

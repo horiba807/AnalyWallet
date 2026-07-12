@@ -10,12 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@100..900&display=swap"
-        rel="stylesheet"
-    />
-    <link
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet"
-    />
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, viewport-fit=cover">
     <link rel="icon" href="img/favicon.ico">
     <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
@@ -74,7 +70,7 @@
                                 サブスク<span class="line_break"><br></span>管理
                             </li>
                             <li class="menu_btn_wrapper btn" id="menu_btn_03" data-target="account_settings">
-                                アカウント<span class="line_break"><br></span>情報
+                                アカウント<span class="line_break"><br></span>設定
                             </li>
                             <li class="menu_btn_wrapper btn" id="menu_btn_04" data-target="other_settings">
                                 その他の<span class="line_break"><br></span>情報
@@ -154,7 +150,7 @@
                                 </form>
                                 <h4>現在契約中のサブスク</h4>
                                 <div class="subsc-table-wrapper">
-                                    <table class="subsc-table"> 
+                                    <table class="subsc-table">
                                         <thead>
                                             <tr>
                                                 <th>サービス名</th>
@@ -169,18 +165,75 @@
                                 </div>
                             </div>
                             <div class="menu_item_container" id="account_settings" data-target="account_settings">
-                                <h3>アカウント情報</h3>
+                                <h3>アカウント設定<span>アカウントの各種設定を行えます。</span></h3>
+                                <div class="setting_items">
+                                </div>
                                 <h4>メールアドレス</h4>
+                                <div class="setting_items email">
+                                    <p>現在のメールアドレス: <span id="current-email"></span></p>
+                                    <form id="form-update-email">
+                                        <div>
+                                            <label for="input-new-email">新しいメールアドレス</label>
+                                            <input type="email" id="input-new-email" placeholder="新しいメールアドレス" required>
+                                        </div>
+                                        <button type="submit">メールアドレスを更新</button>
+                                    </form>
+                                </div>
+                                <div class="line"></div>
                                 <h4>パスワード</h4>
                                 <div class="setting_items">
-                                    <h4>二段階認証（MFA）</h4>
+                                    <form id="form-update-password">
+                                        <div>
+                                            <label for="current-new-password">現在の<span class="line_break"><br></span>パスワード</label>
+                                            <input type="password" id="current-new-password" placeholder="現在のパスワード" required>
+                                        </div>
+                                        <div>
+                                            <label for="input-new-password">新しい<span class="line_break"><br></span>パスワード</label>
+                                            <input type="password" id="input-new-password" placeholder="新しいパスワード（12文字以上）"required>
+                                        </div>
+                                        <button type="submit">パスワードを更新</button>
+                                    </form>
+                                    <div class="resetPass_btn_wrapper">
+                                        <a class="resetPass_btn" id="openResetPassModal">パスワードをお忘れの場合</a>
+                                    </div>
+                                    <div class="modal-wrapper" id="forgetPass-modal_wrapper">
+                                        <div id="forgetPass-modal" class="modal">
+                                            <div class="close_btn_wrapper">
+                                                <button class="close_btn" id="close_FogetPassModal_btn"><span class="material-icons">close</span></button>
+                                            </div>
+                                            <div class="logo_wrapper">
+                                                <div>
+                                                    <span class="logo_img">
+                                                        <img src="../img/logo.png">
+                                                    </span>
+                                                    <h1>AnalyWallet</h1>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-content">
+                                                <h2>パスワード再設定</h2>
+                                                <p>登録した際のメールアドレスを入力してください。<br>パスワード再設定用のリンクを送信します。</p>
+                                        
+                                                <form id="forgotPass-form">
+                                                    <div class="input_wrapper">
+                                                        <input type="email" id="forgotPass-email" placeholder="メールアドレス" required>
+                                                    </div>
+                                                    <a id="link-forgot-password" href="#">登録する</a>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                                <h4>二段階認証（MFA）</h4>
+                                <div class="setting_items">
                                     <div id="mfa-unregistered-area" class="">
                                         <button id="btn-mfa-enroll">二段階認証を有効にする</button>
-                                    
+
                                         <div id="mfa-setup-area">
                                             <p>1. 以下のキーをコピーして、Google Authenticator などの認証アプリに登録してください：</p>
                                             <code id="mfa-secret-key"></code>
-                                    
+
                                             <p>2. アプリに表示された6桁のコードを入力してください：</p>
                                             <input type="text" id="mfa-code-input" maxlength="6">
                                             <button id="btn-mfa-verify">連携を完了する</button>
@@ -192,9 +245,35 @@
                                         <button id="btn-mfa-unenroll">二段階認証を解除する</button>
                                     </div>
                                 </div>
-                                <h4>アカウントを削除する</h4>
-                                <h4>サポート用情報</h4>
-
+                                <div class="line"></div>
+                                <h4>アカウント情報</h4>
+                                <div class="setting_items">
+                                    <div class="setting_items_inner">
+                                        <p class="label">アカウント作成日</p>
+                                        <p id="created-at"></p>
+                                    </div>
+                                    <div class="setting_items_inner">
+                                        <p class="label">最後のログイン</p>
+                                        <p id="last-login"></p>
+                                    </div>
+                                    <div class="setting_items_inner">
+                                        <p class="label">ユーザーID</p>
+                                        <p id="userID"></p>
+                                    </div>
+                                </div>
+                                <div class="line"></div>
+                                <div class="setting_items delete-account">
+                                    <h4>アカウントの削除</h4>
+                                    <div class="warning-box">
+                                        <div class="warning-icon">
+                                            <span class="material-symbols-outlined">warning</span>
+                                        </div>
+                                        <div class="text">
+                                            <p>アカウントを削除すると、これまでに登録された家計簿データや設定はすべて完全に消去されます。二度と復元することはできません。 あらかじめご注意ください。</p>
+                                        </div>
+                                    </div>
+                                <button id="btn-delete-account">アカウントを完全に削除する</button>
+                                </div>
                             </div>
                             <div class="menu_item_container" id="other_settings" data-target="other_settings">
                                 <h3>その他の情報</h3>
@@ -233,7 +312,7 @@
                 <div class="month_select_wrapper">
                     <button type="button" class="month_btn" data-month="annual">サマリー</button>
                     <script>
-                    // 1〜31日
+                        // 1〜31日
                         for (let i = 1; i <= 12; i++) {
                             document.write(`<button type="button" class="month_btn" data-month="${i}">${i}月</button>`);
                         }

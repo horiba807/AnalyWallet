@@ -1,10 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 import { supabaseClient } from './supabase.js';
 import { categoryOptions } from './constant.js';
-import { updateHistoryDisplay, toggleView, updateCategoryMenu, calculateStats, renderFilterCategoryDOM, renderCategorySettingsDOM } from './ui.js';
+import { updateHistoryDisplay, updateCategoryMenu, calculateStats, renderFilterCategoryDOM, renderCategorySettingsDOM } from './ui.js';
 import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction, fetchCategories, signUp, signIn, signOut, setupCategorySettingsEvents,
         setupSubscriptionEvents, fetchSubscriptions, checkAndProcessSubscriptions, enrollMFA, challengeAndVerifyMFA,
-        getMFAStatus, unenrollMFA, } from './api.js';
+    getMFAStatus, unenrollMFA, updateUserEmail, updateUserPassword, deleteAccount } from './api.js';
 window.deleteTransaction = deleteTransaction; // グローバルスコープをモジュールスコープに変更
 window.openEditModal = openEditModal;
 import { state, moneyForm } from './state.js';
@@ -52,6 +52,35 @@ async function checkLoginAndInit() {
         return;
     }
 
+    // 現在のemail・アカウント作成日を取得
+    const currentEmailSpan = document.getElementById('current-email');
+    if (currentEmailSpan) {
+        currentEmailSpan.textContent = user.email; 
+    }
+
+    //アカウント作成日を取得
+    const createDateSpan = document.getElementById('created-at');
+    if (createDateSpan && user.created_at) {
+        // user.created_at から日付オブジェクトを作る
+        const createDate = new Date(user.created_at);
+        // もし時間まで細かく出したいならこっち：
+        createDateSpan.textContent = createDate.toLocaleString('ja-JP');
+    }
+
+    //最終ログインを取得
+    const lastLoginDate = document.getElementById('last-login');
+    if (lastLoginDate && user.last_sign_in_at) {
+        const lastDate = new Date(user.last_sign_in_at);
+        lastLoginDate.textContent = lastDate.toLocaleString('ja-JP');
+    }
+
+    //useridを取得
+    const UserId = document.getElementById('userID');
+    if (UserId) {
+        UserId.textContent = user.id;
+    }
+
+
     // URLから直接アクセスした場合
     const { data: mfaData } = await supabaseClient.auth.mfa.getAuthenticatorAssuranceLevel();
     if (mfaData.currentLevel === 'aal1' && mfaData.nextLevel === 'aal2') {
@@ -68,6 +97,9 @@ async function checkLoginAndInit() {
 
     //MFA
     checkAndRenderMFA();
+
+    //メアド・パス変更
+    setupAccountUpdateEvents();
 
     await fetchCategories();
     renderCategorySettingsDOM();
@@ -87,9 +119,10 @@ async function checkLoginAndInit() {
     await checkAndProcessSubscriptions();
 
     // 履歴を読み込む
-    fetchTransactions();
+    await fetchTransactions();
 
-    console.log("現在のstate内のカテゴリー:", state.categories);
+    // アカウント削除 
+    setupDeleteAccountEvent();
 }
 //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
@@ -273,9 +306,67 @@ saveBtn.addEventListener('click', async () => {
 });
 
 
-
 //==========================================================================
-//MFA
+//メアド変更・パスワード変更
+//==========================================================================
+function setupAccountUpdateEvents() {
+    const updateEmailForm = document.getElementById('form-update-email');
+    const updatePasswordForm = document.getElementById('form-update-password');
+
+    // 1. メールアドレス変更の送信
+    if (updateEmailForm) {
+        updateEmailForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newEmail = document.getElementById('input-new-email').value;
+
+            if (!confirm(`メールアドレスを ${newEmail} に変更しますか？`)) return;
+
+            const success = await updateUserEmail(newEmail);
+            if (success) {
+                // 💡 注意：デフォルト設定では即座に変更されません（後述の注意点参照）
+                alert("変更案内メールを送信しました。新旧両方のメールアドレスに届く確認リンクをクリックして変更を完了させてください。");
+                updateEmailForm.reset();
+            }
+        });
+    }
+
+    // 2. パスワード変更の送信
+    if (updatePasswordForm) {
+        updatePasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // 1. 現在ログインしているユーザー情報を取得（メールアドレスが必要なため）
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) return;
+
+            const currentPassword = document.getElementById('input-current-password').value;
+            const newPassword = document.getElementById('input-new-password').value;
+
+            // 2. バリデーション（入力チェック）
+            if (newPassword.length < 12) {
+                alert("新しいパスワードは12文字以上で入力してください。");
+                return;
+            }
+
+            if (currentPassword === newPassword) {
+                alert("新しいパスワードは、現在のパスワードと異なるものを入力してください。");
+                return;
+            }
+
+            if (!confirm("パスワードを変更しますか？")) return;
+
+            // 3. 検証＆変更処理の実行
+            const success = await updateUserPassword(user.email, currentPassword, newPassword);
+
+            if (success) {
+                alert("🎉 パスワードを正常に変更しました！");
+                updatePasswordForm.reset(); // 入力欄をきれいに掃除
+            }
+        });
+    }
+}
+//==========================================================================
+//MFA認証
 //==========================================================================
 function setupMFAEvent() {
     const enrollBtn = document.getElementById('btn-mfa-enroll');
@@ -369,4 +460,27 @@ async function checkAndRenderMFA() {
         setupMFAEvent();
     }
     
+}
+
+//==========================================================================
+//アカウント削除
+//==========================================================================
+function setupDeleteAccountEvent() {
+    const deleteBtn = document.getElementById('btn-delete-account');
+
+    if (deleteBtn) {
+        deleteBtn.onclick = async () => {
+            // 🛑 誤操作防止の2段階チェック
+            if (!confirm("警告：本当にアカウントを削除しますか？\nこの操作は取り消せません。")) return;
+
+            // 処理を実行
+            const success = await deleteAccount();
+
+            if (success) {
+                alert("アカウントを削除しました。ご利用ありがとうございました。");
+                // すでにアカウントは存在しない（ログアウト状態）ので、ログイン画面へジャンプ
+                window.location.href = './login/index.html';
+            }
+        };
+    }
 }

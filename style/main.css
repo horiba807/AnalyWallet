@@ -105,8 +105,8 @@ header .menu_icon {
   background: #f7f1e9;
   position: absolute;
   right: 0%;
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
 }
 @media screen and (max-width: 599px) {
   header .menu_icon {
@@ -117,7 +117,8 @@ header .menu_icon {
 header .menu_icon span {
   font-family: "Material Icons";
   -webkit-font-feature-settings: "liga" 1;
-          font-feature-settings: "liga" 1; /* iOSで合字（アイコン化）を強制的に有効にする */
+          font-feature-settings: "liga" 1;
+  /* iOSで合字（アイコン化）を強制的に有効にする */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -381,6 +382,7 @@ header .menu_wrapper .menu_detail .menu_item_container h4 {
   font-family: "Noto Sans JP", sans-serif;
   font-weight: 500;
   margin-bottom: 15px;
+  font-size: 18px;
 }
 header .menu_wrapper .menu_detail #category_settings .flex_wrapper {
   display: -webkit-box;
@@ -548,7 +550,8 @@ header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper {
             flex: 2.5;
   }
 }
-header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper input, header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper select {
+header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper input,
+header .menu_wrapper .menu_detail #subsc_settings .form_group .input_wrapper select {
   width: 100%;
   border: solid 1px #EADBC8;
   background: #f7f1e9;
@@ -645,8 +648,264 @@ header .menu_wrapper .menu_detail #subsc_settings .subsc-table tbody td button:h
   background: #d95252;
   color: #FEFAF6;
 }
-header .menu_wrapper .menu_detail #account_settings .setting_items {
+header .menu_wrapper .menu_detail #account_settings .setting_items.email p {
+  margin-bottom: 15px;
+}
+header .menu_wrapper .menu_detail #account_settings .setting_items.email span {
+  font-family: "Inter", sans-serif;
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_detail #account_settings .setting_items.email span {
+    display: block;
+    margin-top: 5px;
+  }
+}
+header .menu_wrapper .menu_detail #account_settings .setting_items.delete-account .warning-box {
+  padding: 15px;
+  border: solid 1px #d95252;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 15px;
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_detail #account_settings .setting_items.delete-account .warning-box {
+    display: block;
+  }
+}
+header .menu_wrapper .menu_detail #account_settings .setting_items.delete-account .warning-box .warning-icon {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+header .menu_wrapper .menu_detail #account_settings .setting_items.delete-account .warning-box .warning-icon span {
+  font-family: "Material Icons";
+  color: #d95252;
+  font-size: 30px;
+}
+header .menu_wrapper .menu_detail #account_settings .setting_items.delete-account .warning-box .text {
+  -webkit-box-flex: 30;
+      -ms-flex: 30;
+          flex: 30;
+}
+header .menu_wrapper .menu_detail #account_settings .setting_items.delete-account .warning-box .text p {
+  line-height: 1.5;
+}
+header .menu_wrapper .menu_detail #account_settings .line {
+  margin: 30px 0;
+  width: 100%;
+  height: 2px;
+  background: #f7f1e9;
+  display: block;
+}
+header .menu_wrapper .menu_detail #account_settings #form-update-email input,
+header .menu_wrapper .menu_detail #account_settings #form-update-password input {
+  width: 400px;
+  border: solid 1px #EADBC8;
+  background: #f7f1e9;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-family: "Inter", sans-serif;
+}
+header .menu_wrapper .menu_detail #account_settings #form-update-email button,
+header .menu_wrapper .menu_detail #account_settings #form-update-password button {
+  border: solid 1px #ded9d2;
+  padding: 10px 15px;
+  border-radius: 10px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+header .menu_wrapper .menu_detail #account_settings #form-update-email button:hover,
+header .menu_wrapper .menu_detail #account_settings #form-update-password button:hover {
+  background: #102C57;
+  color: #FEFAF6;
+}
+header .menu_wrapper .menu_detail #account_settings #form-update-email div,
+header .menu_wrapper .menu_detail #account_settings #form-update-password div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_detail #account_settings #form-update-email div,
+  header .menu_wrapper .menu_detail #account_settings #form-update-password div {
+    gap: 7.5px;
+  }
+}
+header .menu_wrapper .menu_detail #account_settings #form-update-email div label,
+header .menu_wrapper .menu_detail #account_settings #form-update-password div label {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  line-height: 40.39px;
+}
+header .menu_wrapper .menu_detail #account_settings #form-update-email div label .line_break,
+header .menu_wrapper .menu_detail #account_settings #form-update-password div label .line_break {
+  display: none;
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_detail #account_settings #form-update-email div label,
+  header .menu_wrapper .menu_detail #account_settings #form-update-password div label {
+    line-height: 1;
+    font-size: 14px;
+    text-align: center;
+    line-height: 18px;
+  }
+  header .menu_wrapper .menu_detail #account_settings #form-update-email div label .line_break,
+  header .menu_wrapper .menu_detail #account_settings #form-update-password div label .line_break {
+    display: block;
+    height: 0;
+  }
+}
+header .menu_wrapper .menu_detail #account_settings #form-update-email div input,
+header .menu_wrapper .menu_detail #account_settings #form-update-password div input {
+  -webkit-box-flex: 3;
+      -ms-flex: 3;
+          flex: 3;
+}
+header .menu_wrapper .menu_detail #account_settings .resetPass_btn_wrapper {
+  text-align: right;
+  margin-top: 15px;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: 0;
+  display: none;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper.active {
+  display: block;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper h2 {
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper p {
+  font-size: 14px;
+  text-align: center;
   margin-bottom: 30px;
+  line-height: 1.5;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal {
+  position: fixed;
+  width: 500px;
+  background: #FEFAF6;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 30px;
+  padding: 40px 50px;
+  -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal {
+    width: 90%;
+    padding: 30px;
+  }
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal .close_btn_wrapper {
+  position: relative;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn {
+  position: absolute;
+  background: #EADBC8;
+  width: 50px;
+  height: 50px;
+  right: 0px;
+  top: 0px;
+  border-radius: 50%;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-family: "Material Icons";
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn:hover {
+  background: #d95252;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn:hover span {
+  color: #FEFAF6;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal .logo_wrapper {
+  margin-bottom: 30px;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal .logo_wrapper div {
+  height: 50px;
+  display: inline-block;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal .logo_wrapper div span {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal .logo_wrapper div span img {
+  width: 100%;
+  height: 100%;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal .logo_wrapper div h1 {
+  line-height: 50px;
+  margin: -48px 0 0 60px;
+  font-size: 22px;
+  font-family: "Albert Sans", sans-serif;
+  font-weight: 500;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal p {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper .modal input {
+  display: block;
+  border: solid 1px #EADBC8;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-family: "Inter", sans-serif;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper label {
+  font-size: 16px;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper #signup-terms {
+  -moz-appearance: auto;
+       appearance: auto;
+  -webkit-appearance: auto; /* Safari用 */
+  margin-right: 5px; /* 文字との間に少し隙間をあける */
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper #link-forgot-password {
+  display: block;
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px 0;
+  background: #102C57;
+  text-align: center;
+  color: #FEFAF6;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  border: solid 1px #102C57;
+  border-radius: 10px;
+}
+header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper #link-forgot-password:hover {
+  background: #FEFAF6;
+  border: solid 1px #102C57;
+  color: #222;
+  font-weight: 600;
 }
 header .menu_wrapper .menu_detail #account_settings #mfa-unregistered-area {
   display: none;
@@ -745,7 +1004,7 @@ header .menu_wrapper .menu_detail #account_settings #mfa-registered-area #btn-mf
   border: solid 1px #ded9d2;
   padding: 10px 20px;
   border-radius: 10px;
-  margin: 15px 0 30px;
+  margin: 15px 0 0px;
 }
 @media screen and (max-width: 599px) {
   header .menu_wrapper .menu_detail #account_settings #mfa-registered-area #btn-mfa-unenroll {
@@ -758,6 +1017,56 @@ header .menu_wrapper .menu_detail #account_settings #mfa-registered-area #btn-mf
   transition: 0.2s;
 }
 header .menu_wrapper .menu_detail #account_settings #mfa-registered-area #btn-mfa-unenroll:hover {
+  background: #d95252;
+  color: #FEFAF6;
+}
+header .menu_wrapper .menu_detail #account_settings .setting_items_inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_detail #account_settings .setting_items_inner {
+    display: block;
+  }
+}
+header .menu_wrapper .menu_detail #account_settings .setting_items_inner .label {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_detail #account_settings .setting_items_inner .label {
+    margin-bottom: 5px;
+  }
+}
+header .menu_wrapper .menu_detail #account_settings .setting_items_inner #created-at,
+header .menu_wrapper .menu_detail #account_settings .setting_items_inner #last-login,
+header .menu_wrapper .menu_detail #account_settings .setting_items_inner #userID {
+  -webkit-box-flex: 4;
+      -ms-flex: 4;
+          flex: 4;
+  font-family: "Inter", sans-serif;
+}
+header .menu_wrapper .menu_detail #account_settings #btn-delete-account {
+  border: solid 1px #d95252;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 15px 0 50px;
+}
+@media screen and (max-width: 599px) {
+  header .menu_wrapper .menu_detail #account_settings #btn-delete-account {
+    font-size: 14px;
+    margin-left: 1.5% !important;
+  }
+}
+header .menu_wrapper .menu_detail #account_settings #btn-delete-account {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+header .menu_wrapper .menu_detail #account_settings #btn-delete-account:hover {
   background: #d95252;
   color: #FEFAF6;
 }

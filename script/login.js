@@ -105,6 +105,14 @@ if (signupForm) {
     signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        //規約の同意チェック
+        const termsCheckbox = document.getElementById('signup-terms');
+        //チェックしていない場合
+        if (termsCheckbox && !termsCheckbox.checked) {
+            alert("利用規約およびプライバシーポリシーへの同意が必要です。");
+            return;
+        }
+
         const email = document.getElementById('signup-email').value;
         const password = document.getElementById('signup-password').value;
 
@@ -128,3 +136,52 @@ if (signupForm) {
     });
 }
 
+//==========================================================================
+//パスワードを忘れた場合の処理
+//==========================================================================
+const resetPassModalBtn = document.getElementById('openResetPassModal');
+const resetPassModal = document.getElementById('forgetPass-modal_wrapper');
+const resetPassModal_closeBtn = document.getElementById('close_FogetPassModal_btn');
+
+resetPassModalBtn.addEventListener('click', async() => {
+    resetPassModal.classList.add('active');
+});
+resetPassModal_closeBtn.addEventListener("click", async () => {
+    resetPassModal.classList.remove('active');
+});
+//背景のどこかを押しても削除
+resetPassModal.addEventListener('click', (e) => {
+    if (e.target === resetPassModal) {
+        resetPassModal.classList.remove('active');
+    }
+});
+
+const forgotPasswordLink = document.getElementById('link-forgot-password');
+
+if (forgotPasswordLink) {
+    forgotPasswordLink.addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('forgotPass-email').value;
+
+        if (!email) {
+            alert("パスワードをリセットするには、まずメールアドレスを入力してください。");
+            return;
+        }
+
+        if (!confirm(`${email} 宛てにパスワード再設定メールを送信しますか？`)) return;
+
+        // 🚀 Supabaseに再設定メールの送信をリクエスト
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+            // 💡 ユーザーがメールのリンクをクリックしたときの「飛び先」を指定します
+            // ※ローカル開発（Live Serverなど）の環境に合わせてポート番号(5500など)を調整してください
+            redirectTo: 'http://localhost:5173/AnalyWallet/login/reset.html',
+        });
+
+        if (error) {
+            alert(`メール送信エラー: ${error.message}`);
+        } else {
+            alert("🎉 パスワード再設定メールを送信しました！メールボックスを確認してください。");
+        }
+    });
+}

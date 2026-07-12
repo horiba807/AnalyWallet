@@ -69,7 +69,8 @@ header {
             font-weight: 500;
             display: inline-block;
             margin-left: 60px;
-            font-family: 'Albert Sans',sans-serif;
+            font-family: 'Albert Sans',
+                sans-serif;
 
             @include mq(sm) {
                 margin-left: 45px;
@@ -137,18 +138,21 @@ header {
     background: $acc1;
     position: absolute;
     right: 0%;
-    width:44px;
-    height:44px;
+    width: 50px;
+    height: 50px;
+
     @include mq(sm) {
         right: 0%;
         top: 12.5px;
     }
-    span{
+
+    span {
         font-family: 'Material Icons';
-        font-feature-settings: 'liga' 1; /* iOSで合字（アイコン化）を強制的に有効にする */
+        font-feature-settings: 'liga' 1;
+        /* iOSで合字（アイコン化）を強制的に有効にする */
         position: absolute;
-        top:50%;
-        left:50%;
+        top: 50%;
+        left: 50%;
         transform: translate(-50%, -50%);
         font-size: 18px;
     }
@@ -174,9 +178,11 @@ header {
 .sm_header_navlist {
     display: flex;
     margin-top: 0px;
-    &.remove{
-        display:none;
+
+    &.remove {
+        display: none;
     }
+
     .sm_navlist_item {
         flex: 1;
         font-size: 13px;
@@ -230,6 +236,7 @@ header {
         width: 100%;
         height: 650px;
         border-radius: 0 0px 50px 50px;
+
         @include mq(sm) {
             height: 90%;
             border-radius: 0 0 30px 30px;
@@ -248,7 +255,7 @@ header {
             @include mq(sm) {
                 padding: 100px 0% 0;
                 height: 100%;
-                display:block;
+                display: block;
             }
 
 
@@ -256,8 +263,9 @@ header {
                 border-right: solid 2px $acc1;
                 text-align: left;
                 flex: 1;
-                @include mq(sm){
-                    display:flex
+
+                @include mq(sm) {
+                    display: flex
                 }
 
                 .menu_btn_wrapper {
@@ -348,10 +356,10 @@ header {
 
             .menu_detail {
                 padding-left: 30px;
-                flex:4;
+                flex: 4;
 
                 @include mq(sm) {
-                    padding:5vw 5% 0;
+                    padding: 5vw 5% 0;
                     margin-top: -2px;
                     border-top: solid 2px $acc1;
                 }
@@ -409,6 +417,7 @@ header {
                 font-family: 'Noto Sans JP', sans-serif;
                 font-weight: 500;
                 margin-bottom: 15px;
+                font-size: 18px;
             }
         }
 
@@ -567,7 +576,8 @@ header {
                         flex: 2.5;
                     }
 
-                    input, select {
+                    input,
+                    select {
                         width: 100%;
                         border: solid 1px $acc2;
                         background: $acc1;
@@ -641,7 +651,7 @@ header {
             }
 
             .subsc-table {
-                width:100%;
+                width: 100%;
                 min-width: 500px;
                 font-size: 14px;
                 overflow: hidden;
@@ -677,56 +687,343 @@ header {
                 }
             }
         }
-        #account_settings{
-            .setting_items{
-                margin-bottom: 30px;
-            }
-            #mfa-unregistered-area{
-                display:none;
-                &.active{
-                    display:block;
+
+        #account_settings {
+            .setting_items {
+                &.email {
+                    p {
+                        margin-bottom: 15px;
+                    }
+
+                    span {
+                        font-family: 'Inter', sans-serif;
+                        @include mq(sm){
+                            display:block;
+                            margin-top:5px;
+                        }
+                    }
                 }
-                #btn-mfa-enroll{
-                    border:solid 1px $acc1-3;
-                    padding:10px 20px;
+                &.delete-account{
+                    .warning-box{
+                        padding:15px;
+                        border: solid 1px $warning;
+                        border-radius: 10px;
+                        display:flex;
+                        gap:15px;
+                        @include mq(sm){
+                            display:block;
+                        }
+                        .warning-icon{
+                            flex:1;
+
+                            span{
+                                font-family: 'Material Icons';
+                                color: $warning;
+                                font-size:30px;
+                            }
+
+                        }
+                        .text{
+                            flex:30;
+                            p {
+                                line-height: 1.5;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .line {
+                margin: 30px 0;
+                width: 100%;
+                height: 2px;
+                background: $acc1;
+                display: block;
+            }
+
+            #form-update-email,
+            #form-update-password {
+                input {
+                    width: 400px;
+                    border: solid 1px $acc2;
+                    background: $acc1;
+                    padding: 10px 15px;
+                    border-radius: 10px;
+                    font-family: 'Inter', sans-serif;
+                }
+
+                button {
+                    border: solid 1px $acc1-3;
+                    padding: 10px 15px;
                     border-radius: 10px;
                     transition: .2s;
-                    &:hover{
+
+                    &:hover {
                         background: $acc4;
-                        color:$white;
+                        color: $white;
                     }
                 }
-                #mfa-setup-area{
-                    display:none;
-                    &.active{
-                        display:block;
+
+                div {
+                    display: flex;
+                    gap: 20px;
+                    margin-bottom: 15px;
+
+                    @include mq(sm) {
+                        gap: 7.5px;
                     }
-                    p{
+
+                    label {
+                        flex: 1;
+                        line-height: 40.39px;
+
+                        .line_break {
+                            display: none;
+                        }
+
+                        @include mq(sm) {
+                            line-height: 1;
+                            font-size: 14px;
+                            text-align: center;
+                            line-height: 18px;
+
+                            .line_break {
+                                display: block;
+                                height: 0;
+                            }
+                        }
+                    }
+
+                    input {
+                        flex: 3;
+                    }
+                }
+            }
+            .resetPass_btn_wrapper{
+            text-align: right;
+            margin-top: 15px;
+            }
+            .resetPass_btn {
+            color: $acc4;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-align: center;
+            &:hover {
+                text-decoration-thickness: 2px;
+            }
+            }
+            .resetPass_btn {
+                color: $gray;
+                font-size:12px;
+            }
+
+            #forgetPass-modal_wrapper{
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                backdrop-filter: blur(10px);
+                background: rgba(0, 0, 0, 0.1);
+                top: 0;
+                left: 0;
+                display: none;
+            
+                &.active {
+                    display: block;
+                }
+                    
+                h2 {
+                    font-size: 25px;
+                    text-align: center;
+                    margin-bottom: 15px;
+                }
+                    
+                p {
+                    font-size: 14px;
+                    text-align: center;
+                    margin-bottom: 30px;
+                    line-height: 1.5;
+                }
+                .modal {
+                    position: fixed;
+                    width: 500px;
+                    background: $white;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    border-radius: 30px;
+                    padding: 40px 50px;
+                    box-shadow: (0px 0px 30px 10px rgba(0, 0, 0, 0.05));
+                    @include mq(sm) {
+                        width: 90%;
+                        padding:30px;
+                    }
+
+                    .close_btn_wrapper {
+                        position: relative;
+
+                        .close_btn {
+                            position: absolute;
+                            background: $acc2;
+                            width: 50px;
+                            height: 50px;
+                            right: 0px;
+                            top: 0px;
+                            border-radius: 50%;
+                            transition: .2s;
+
+                            span {
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                font-family: 'Material Icons';
+                            }
+
+                            &:hover {
+                                background: $warning;
+
+                                span {
+                                    color: $white;
+                                }
+                            }
+                        }
+
+
+                    }
+
+                    .logo_wrapper {
+                        margin-bottom: 30px;
+
+                        div {
+                            height: 50px;
+                            display: inline-block;
+
+                            span {
+                                width: 50px;
+                                height: 50px;
+                                display: inline-block;
+
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+
+                            h1 {
+                                line-height: 50px;
+                                margin: -48px 0 0 60px;
+                                font-size: 22px;
+                                font-family: 'Albert Sans', sans-serif;
+                                font-weight: 500;
+                            }
+                        }
+                    }
+
+                    p {
+                        font-size: 14px;
+                        text-align: center;
+                        margin-bottom: 30px;
+                        line-height: 1.5;
+                    }
+
+                    input{
+                        display: block;
+                        border: solid 1px $acc2 ;
+                        padding: 10px;
+                        width: 100%;
+                        border-radius: 10px;
+                        margin-bottom: 15px;
+                        font-family: 'Inter', sans-serif;
+                    }
+
+                }
+                label{
+                    font-size: 16px;
+                }
+                #signup-terms{
+                    appearance: auto;
+                    -webkit-appearance: auto; /* Safari用 */
+                    margin-right: 5px;        /* 文字との間に少し隙間をあける */
+                }
+
+                #link-forgot-password {
+                    display:block;
+                    margin-top: 30px;
+                    width: 100%;
+                    padding: 15px 0;
+                    background: $acc4;
+                    text-align: center;
+                    color: $white;
+                    transition: .2s;
+                    border: solid 1px $acc4;
+                    border-radius: 10px;
+
+                    &:hover {
+                        background: $white;
+                        border: solid 1px $acc4;
+                        color: $black;
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            //MFA
+            #mfa-unregistered-area {
+                display: none;
+
+                &.active {
+                    display: block;
+                }
+
+                #btn-mfa-enroll {
+                    border: solid 1px $acc1-3;
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                    transition: .2s;
+
+                    &:hover {
+                        background: $acc4;
+                        color: $white;
+                    }
+                }
+
+                #mfa-setup-area {
+                    display: none;
+
+                    &.active {
+                        display: block;
+                    }
+
+                    p {
                         margin: 20px 0 20px 0;
                     }
-                    code{
+
+                    code {
                         background-color: $acc1-3;
-                        margin:10px 0;
-                        padding:15px 20px;
+                        margin: 10px 0;
+                        padding: 15px 20px;
                         border-radius: 7.5px;
-                        display:block;
+                        display: block;
                     }
-                    input{
+
+                    input {
                         border: solid 1px $acc1-3;
-                        padding:10Px 20px;
+                        padding: 10Px 20px;
                         border-radius: 10px;
                         background: $acc1;
-                        &:focus{
+
+                        &:focus {
                             background: $acc2;
-                            outline:0;
+                            outline: 0;
                             border: solid 1px $acc4;
                         }
                     }
-                    button{
+
+                    button {
                         border: solid 1px $acc1-3;
                         padding: 10px 20px;
                         border-radius: 10px;
-                        margin-left:15px;
+                        margin-left: 15px;
 
                         @include mq(sm) {
                             font-size: 14px;
@@ -742,48 +1039,96 @@ header {
                     }
                 }
             }
-            #mfa-registered-area{
-                display:none;
-                &.active{
-                    display:block;
+
+            #mfa-registered-area {
+                display: none;
+
+                &.active {
+                    display: block;
                 }
-                .stats{
+
+                .stats {
                     position: relative;
-                    padding-left:20px;
-                    display:inline-block;
+                    padding-left: 20px;
+                    display: inline-block;
                     border-radius: 10px;
                     font-size: 16px;
-                    margin-bottom:10px;
-                    
-                    &::before{
-                        content:'';
+                    margin-bottom: 10px;
+
+                    &::before {
+                        content: '';
                         width: 13px;
                         height: 13px;
                         border-radius: 50%;
                         position: absolute;
                         background: $green;
-                        top:55%;
-                        left:0px;
-                        transform:translateY(-50%);
+                        top: 55%;
+                        left: 0px;
+                        transform: translateY(-50%);
                     }
                 }
-                .date{
-                    font-size:14px;
+
+                .date {
+                    font-size: 14px;
                 }
-                #btn-mfa-unenroll{
+
+                #btn-mfa-unenroll {
                     border: solid 1px $acc1-3;
                     padding: 10px 20px;
                     border-radius: 10px;
-                    margin:15px 0 30px;
+                    margin: 15px 0 0px;
+
                     @include mq(sm) {
                         font-size: 14px;
                         margin-left: 1.5% !important;
                     }
+
                     transition: .2s;
+
                     &:hover {
                         background: $warning;
                         color: $white;
                     }
+                }
+            }
+
+            .setting_items_inner {
+                display: flex;
+                margin-bottom: 10px;
+                font-size:14px;
+                @include mq(sm){
+                    display:block;
+                }
+
+                .label {
+                    flex: 1;
+                    @include mq(sm){
+                        margin-bottom:5px;
+                    }
+                }
+
+                #created-at,
+                #last-login,
+                #userID {
+                    flex: 4;
+                    font-family: 'Inter', sans-serif;
+                }
+
+            }
+
+            #btn-delete-account {
+                border: solid 1px $warning;
+                padding: 10px 20px;
+                border-radius: 10px;
+                margin:15px 0 50px;
+                @include mq(sm) {
+                    font-size: 14px;
+                    margin-left: 1.5% !important;
+                }
+                transition: .2s;
+                &:hover {
+                    background: $warning;
+                    color: $white;
                 }
             }
         }
@@ -810,12 +1155,7 @@ header {
             }
         }
     }
-
-
 }
-
-
-
 
 }
 
@@ -918,7 +1258,7 @@ main {
         @include mq(sm) {
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 160px 160px 160px 500px;
-            gap:7.5px;
+            gap: 7.5px;
         }
 
         .grid_inner {
@@ -928,8 +1268,9 @@ main {
             border-radius: 15px;
             padding: 15px;
             position: relative;
-            @include mq(sm){
-                padding:12.5px;
+
+            @include mq(sm) {
+                padding: 12.5px;
             }
 
             .grid_yen {
@@ -975,13 +1316,16 @@ main {
                 margin: 12px 0 15px 0;
             }
 
-            #expense-categories-list{
-                max-height:180px;
-                @include mq(sm){
+            #expense-categories-list {
+                max-height: 180px;
+
+                @include mq(sm) {
                     max-height: 195px;
                 }
+
                 overflow:hidden;
                 overflow-y:scroll;
+
                 &::-webkit-scrollbar {
                     width: 2px;
                 }
@@ -1002,14 +1346,16 @@ main {
                 .grid_inner-flex_wrapper {
                     flex: 1;
                     color: $black;
+
                     p {
                         font-family: 'Inter', sans-serif;
                         font-variant-numeric: tabular-nums; // 等幅
                         letter-spacing: -0.04rem;
                     }
-                    &.label{
-                        flex:1.35;
-                        font-size:11px;
+
+                    &.label {
+                        flex: 1.35;
+                        font-size: 11px;
                     }
                 }
             }
@@ -1092,14 +1438,15 @@ main {
                     display: none;
                 }
             }
+
             input,
             textarea,
             select {
                 border-bottom: solid 2px $acc1;
             }
 
-            .radio_wrapper{
-                border-bottom:none;
+            .radio_wrapper {
+                border-bottom: none;
             }
 
             label {
@@ -1331,7 +1678,7 @@ main {
             transform: translate(-50%, -50%);
             background: $white;
             border-radius: 20px;
-            box-shadow:(0px 0px 30px 10px rgba(0, 0, 0, 0.05)); 
+            box-shadow:(0px 0px 30px 10px rgba(0, 0, 0, 0.05));
         }
 
         &.active {
@@ -1360,7 +1707,7 @@ main {
             font-family: 'Material Icons';
 
             span {
-                font-size:18px;
+                font-size: 18px;
                 position: absolute;
                 top: 50%;
                 left: 50%;

@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>AnalyWallet</title>
+    <title>ログイン - AnalyWallet</title>
     <link rel="stylesheet" href="../style/destyle.css">
     <link rel="stylesheet" href="../style/auth.css"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +43,7 @@
                 <button type="submit" id="auth-submit-btn">ログインする</button>
             </form>
             <div class="resetPass_btn_wrapper">
-                <a class="resetPass_btn">パスワードをお忘れの場合</a>
+                <a class="resetPass_btn" id="openResetPassModal" >パスワードをお忘れの場合</a>
             </div>
         </div>
         
@@ -93,10 +93,13 @@
                         <input type="email" id="signup-email" placeholder="メールアドレス" required>
                     </div>
                     <div class="input_wrapper">
-                        <input type="password" id="signup-password" placeholder="パスワード" required>
+                        <input type="password" id="signup-password" placeholder="パスワード（12文字以上）" required>
                     </div>
                     <div class="input_wrapper">
-                        <input type="checkbox">利用規約・プライバシーポリシーに同意する
+                        <input type="checkbox" id="signup-terms" required>
+                        <label for="signup-terms">
+                            <a href="#">利用規約</a>・<a href="#">プライバシーポリシー</a>に同意する
+                        </label>
                     </div>
                     <button type="submit" id="signup-submit-btn">登録する</button>
                 </form>
@@ -110,6 +113,35 @@
                 <p>認証アプリに表示されている6桁のコードを入力してください。</p>
                 <input type="text" id="login-mfa-code" placeholder="123456" maxlength="6">
                 <button id="btn-login-mfa-verify">認証する</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-wrapper" id="forgetPass-modal_wrapper">
+        <div id="forgetPass-modal" class="modal">
+            <div class="close_btn_wrapper">
+                <button class="close_btn" id="close_FogetPassModal_btn"><span class="material-icons">close</span></button>
+            </div>
+            <div class="logo_wrapper">
+                <div>
+                    <span class="logo_img">
+                        <img src="../img/logo.png">
+                    </span>
+                    <h1>AnalyWallet</h1>
+                </div>
+            </div>
+
+            <div class="modal-content">
+                <h2>パスワード再設定</h2>
+                <p>登録した際のメールアドレスを入力してください。<br>パスワード再設定用のリンクを送信します。</p>
+        
+                <form id="forgotPass-form">
+                    <div class="input_wrapper">
+                        <input type="email" id="forgotPass-email" placeholder="メールアドレス" required>
+                    </div>
+                    <a id="link-forgot-password" href="#">登録する</a>
+                </form>
             </div>
         </div>
     </div>

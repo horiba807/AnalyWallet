@@ -256,6 +256,10 @@ footer{
         border-radius: 30px;
         padding: 40px 50px;
         box-shadow: (0px 0px 30px 10px rgba(0, 0, 0, 0.05));
+        @include mq(sm) {
+            width: 90%;
+            padding:30px;
+        }
 
         .close_btn_wrapper {
             position: relative;
@@ -341,6 +345,14 @@ footer{
         }
 
     }
+    label{
+        font-size: 16px;
+    }
+    #signup-terms{
+        appearance: auto;
+        -webkit-appearance: auto; /* Safari用 */
+        margin-right: 5px;        /* 文字との間に少し隙間をあける */
+    }
 
     #signup-submit-btn {
         margin-top: 30px;
@@ -384,15 +396,191 @@ footer{
         }
         #btn-login-mfa-verify{
             display:block;
-            background: $white;
             width: 100%;
             padding:15px 0;
             border-radius: 10px;
             border: solid 1px $acc1-3;
             transition: .2s;
+            background: $acc4;
+            color:$white;
             &:hover{
-                background: $acc4;
-                color:$white;
+                background: $white;
+                color:$black;
+            }
+        }
+    }
+}
+#forgetPass-modal_wrapper{
+    .modal {
+        position: fixed;
+        width: 500px;
+        background: $white;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 30px;
+        padding: 40px 50px;
+        box-shadow: (0px 0px 30px 10px rgba(0, 0, 0, 0.05));
+        @include mq(sm) {
+            width: 90%;
+            padding:30px;
+        }
+
+        .close_btn_wrapper {
+            position: relative;
+
+            .close_btn {
+                position: absolute;
+                background: $acc2;
+                width: 50px;
+                height: 50px;
+                right: 0px;
+                top: 0px;
+                border-radius: 50%;
+                transition: .2s;
+
+                span {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-family: 'Material Icons';
+                }
+
+                &:hover {
+                    background: $warning;
+
+                    span {
+                        color: $white;
+                    }
+                }
+            }
+
+
+        }
+
+        .logo_wrapper {
+            margin-bottom: 30px;
+
+            div {
+                height: 50px;
+                display: inline-block;
+
+                span {
+                    width: 50px;
+                    height: 50px;
+                    display: inline-block;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                h1 {
+                    line-height: 50px;
+                    margin: -48px 0 0 60px;
+                    font-size: 22px;
+                    font-family: 'Albert Sans', sans-serif;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        p {
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        input{
+            display: block;
+            border: solid 1px $acc2 ;
+            padding: 10px;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-family: 'Inter', sans-serif;
+        }
+
+    }
+    label{
+        font-size: 16px;
+    }
+    #signup-terms{
+        appearance: auto;
+        -webkit-appearance: auto; /* Safari用 */
+        margin-right: 5px;        /* 文字との間に少し隙間をあける */
+    }
+
+    #link-forgot-password {
+        display:block;
+        margin-top: 30px;
+        width: 100%;
+        padding: 15px 0;
+        background: $acc4;
+        text-align: center;
+        color: $white;
+        transition: .2s;
+        border: solid 1px $acc4;
+        border-radius: 10px;
+
+        &:hover {
+            background: $white;
+            border: solid 1px $acc4;
+            color: $black;
+            font-weight: 600;
+        }
+    }
+}
+//====
+//パスワード再設定
+//====
+main{
+    .resetPass_modal{
+         max-width: 500px;
+         border: solid 1px $acc1-3;
+         padding:30px;
+         border-radius: 20px;
+        background: $acc1;
+         h2{
+            font-size: 25px;
+            text-align: center;
+            margin-bottom: 30px;   
+         }
+         p{
+            font-size: 14px;
+            text-align: center;
+
+            line-height: 1.5;
+         }
+        input{
+            border: solid 1px $acc2;
+            padding:10px;
+            font-family: 'Inter', sans-serif;
+            width:100%;
+            border-radius: 10px;
+            margin:15px 0 30px;
+            &:focus{
+                border: solid 1px $acc4;
+                outline:0;
+            }
+        }
+        button{
+            border-radius: 10px;
+            width:100%;
+            padding:15px 0;
+            background: $acc4;
+            text-align: center;
+            color:$white;
+            transition: .2s;
+            border:solid 1px $acc4;
+            &:hover{
+                background: $acc1;
+                border:solid 1px $acc4;
+                color:$black;
+                font-weight: 600;
             }
         }
     }
