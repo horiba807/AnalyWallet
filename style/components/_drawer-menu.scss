@@ -1,0 +1,204 @@
+// components/_drawer-menu.scss
+@use "../foundation/variables" as v;
+
+.menu_wrapper {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: none;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.1);
+
+  &.active {
+    display: block;
+  }
+
+  .menu_container {
+    width: 100%;
+    height: 650px;
+    border-radius: 0 0px 50px 50px;
+
+    @include v.mq(sm) {
+      height: 90%;
+      border-radius: 0 0 30px 30px;
+    }
+
+    background: v.$white;
+    z-index: 2;
+    box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.1);
+
+    .menu_inner {
+      max-width: 1360px;
+      height: 650px;
+      padding: 100px 3.5% 0;
+      display: flex;
+
+      @include v.mq(sm) {
+        padding: 100px 0% 0;
+        height: 100%;
+        display: block;
+      }
+
+      .menubar {
+        border-right: solid 2px v.$acc100;
+        text-align: left;
+        flex: 1;
+
+        @include v.mq(sm) {
+          display: flex;
+        }
+
+        .menu_btn_wrapper {
+          padding: 13px 0;
+          font-family: 'Noto Sans JP', sans-serif;
+          position: relative;
+
+          .line_break {
+            display: none;
+          }
+
+          @include v.mq(sm) {
+            font-size: 14px;
+            text-align: center;
+            border-top: solid v.$acc100 2px;
+            border-bottom: solid v.$acc100 2px;
+            border-left: solid v.$acc100 1px;
+            border-right: solid v.$acc100 1px;
+            text-decoration: none;
+            padding: 20px 0;
+            width: 100%;
+
+            .line_break {
+              display: inline;
+              line-height: 1.5;
+            }
+          }
+
+          &.small {
+            font-size: 12px;
+            padding: 8px 0;
+
+            @include v.mq(sm) {
+              display: none;
+            }
+
+            span {
+              font-family: 'Material Icons';
+              padding-left: 7.5px;
+              font-size: 14px;
+              text-decoration: none;
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+          }
+
+          &:nth-of-type(5) {
+            margin-top: 25px;
+          }
+
+          &:hover {
+            text-decoration: underline;
+            text-decoration-color: v.$acc300;
+            text-underline-offset: 5px;
+            text-decoration-skip: 1.5px;
+            text-decoration-thickness: 2px;
+            color: v.$acc300;
+            font-weight: 500;
+
+            @include v.mq(sm) {
+              text-decoration: none;
+              background: v.$acc200;
+              color: v.$black;
+            }
+          }
+
+          &.active {
+            text-decoration: underline;
+            text-decoration-color: v.$acc300;
+            text-underline-offset: 5px;
+            text-decoration-skip: 1.5px;
+            text-decoration-thickness: 2px;
+            color: v.$acc300;
+            font-weight: 500;
+
+            @include v.mq(sm) {
+              text-decoration: none;
+              background: v.$acc200;
+              color: v.$black;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+
+      .menu_detail {
+        padding-left: 30px;
+        flex: 4;
+
+        @include v.mq(sm) {
+          padding: 5vw 5% 0;
+          margin-top: -2px;
+          border-top: solid 2px v.$acc100;
+        }
+      }
+    }
+  }
+
+  .menu_detail {
+    max-height: calc(90dvh - 100px - 81px);
+    overflow: hidden;
+
+    @include v.mq(sm) {
+      height: 100%;
+    }
+
+    overflow-y: scroll;
+    scrollbar-width: none;
+
+    .menu_item_container {
+      display: none;
+
+      &.active {
+        display: block;
+      }
+
+      .scroll-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      ::-webkit-scrollbar {
+        width: 2px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: v.$acc200;
+      }
+
+      h3 {
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 30px;
+
+        span {
+          font-size: 14px;
+          display: block;
+          font-weight: 400;
+          margin-top: 10px;
+          line-height: 1.5;
+        }
+      }
+
+      h4 {
+        font-family: 'Noto Sans JP', sans-serif;
+        font-weight: 500;
+        margin-bottom: 15px;
+        font-size: 18px;
+      }
+    }
+  }
+}

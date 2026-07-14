@@ -1,0 +1,143 @@
+// features/_subscription.scss
+@use "../foundation/variables" as v;
+
+#subsc_settings {
+    width: 100%;
+
+    .form_group {
+        display: flex;
+        margin-bottom: 15px;
+        position: relative;
+
+        label {
+            flex: 1;
+            line-height: 40.39px;
+
+            @include v.mq(sm) {
+                font-size: 14px;
+            }
+        }
+
+        @include v.mq(sm) {
+            gap: 7.5px;
+            flex: 1;
+        }
+
+        .input_wrapper {
+            flex: 3;
+
+            @include v.mq(sm) {
+                flex: 2.5;
+            }
+
+            #subsc-name, #subsc-amount, select {
+                width: 100%;
+                border: solid 1px v.$acc200;
+                background: v.$acc100;
+                padding: 10px 15px;
+                border-radius: 10px;
+                line-height: 1;
+            }
+
+            div {
+                display: inline-block;
+                padding-right: 15px;
+                height: 1px;
+            }
+
+            #subsc-day {
+                width: calc(100% - 51px);
+            }
+        }
+
+        &::after {
+            display: inline-block;
+            position: absolute;
+            color: v.$black;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+        }
+
+        &:nth-of-type(2)::after {
+            content: '円';
+        }
+
+        &:nth-of-type(3)::after {
+            content: '\e313';
+            font-family: 'Material Icons';
+            font-size: 20px;
+            right: 13.5px;
+        }
+    }
+
+    form button {
+        border: solid 1px v.$acc120;
+        margin-bottom: 30px;
+        padding: 15px 30px;
+        border-radius: 10px;
+
+        @include v.mq(sm) {
+            font-size: 14px;
+            margin-left: 1.5% !important;
+        }
+
+        transition: .2s;
+
+        &:hover {
+            background: v.$acc300;
+            color: v.$white;
+        }
+    }
+
+    .subsc-info {
+        display: flex;
+
+        span {
+            flex: 1;
+        }
+    }
+
+    .subsc-table-wrapper {
+        position: relative;
+        overflow: hidden;
+        overflow-x: scroll;
+    }
+
+    .subsc-table {
+        width: 100%;
+        min-width: 500px;
+        font-size: 14px;
+        overflow: hidden;
+        overflow-x: scroll;
+
+        thead {
+            background: v.$acc200;
+
+            th {
+                padding: 10px 15px;
+                font-weight: 500;
+            }
+        }
+
+        tbody {
+            td {
+                padding: 7.5px 15px;
+                border-top: solid 1px v.$acc110;
+
+                button {
+                    padding: 5px 10px;
+                    background: v.$warning-light;
+                    border-radius: 50px;
+                    font-family: 'Noto Sans JP', sans-serif;
+                    font-size: 10px;
+
+                    &:hover {
+                        background: v.$warning;
+                        color: v.$white;
+                    }
+                }
+            }
+        }
+    }
+}

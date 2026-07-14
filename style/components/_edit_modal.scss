@@ -1,0 +1,76 @@
+    @use "../foundation/variables" as v;
+    
+    #edit-modal {
+        position: fixed;
+        width: 100vw;
+        height: 100%;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        backdrop-filter: blur(10px);
+        background: rgba(0, 0, 0, 0.1);
+        display: none;
+
+
+        .editform_container {
+            position: fixed;
+            width: 90%;
+            max-width: calc(1360px - 10%);
+            padding: 50px;
+
+            @include v.mq(sm) {
+                padding: 30px;
+            }
+
+            left:50%;
+            top:50%;
+            transform: translate(-50%, -50%);
+            background: v.$white;
+            border-radius: 20px;
+            box-shadow:(0px 0px 30px 10px rgba(0, 0, 0, 0.05));
+        }
+
+        &.active {
+            display: block;
+        }
+
+        .btn_wrapper {
+            position: absolute;
+            top: 50px;
+            right: 50px;
+
+            @include v.mq(sm) {
+                top: 30px;
+                right: 30px;
+            }
+        }
+
+        .close_btn {
+            position: relative;
+            display: inline-block;
+            background: v.$acc200;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            transition: .2s;
+            font-family: 'Material Icons';
+
+            span {
+                font-size: 18px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            &:hover {
+                background: #d95252;
+                color: v.$white;
+            }
+        }
+
+        h2 {
+            line-height: 50px;
+        }
+
+    }

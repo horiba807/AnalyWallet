@@ -1,0 +1,113 @@
+    @use "../foundation/variables" as v;
+
+    form {
+        margin: 50px 0;
+        color: v.$black;
+
+        .form_group {
+            margin: 15px 0;
+            display: flex;
+            position: relative;
+
+            input,
+            textarea,
+            .radio_wrapper,
+            select {
+                flex: 1;
+                line-height: 2;
+                color: v.$black;
+                text-align: left;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+
+            input,
+            textarea,
+            select {
+                border-bottom: solid 2px v.$acc100;
+            }
+
+            .radio_wrapper {
+                border-bottom: none;
+            }
+
+            label {
+                flex: 0.5;
+                line-height: 2;
+            }
+
+            .req::after {
+                content: "*";
+                color: #d95252;
+            }
+
+            .yen_char {
+                position: absolute;
+                right: 2.5px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 14px;
+            }
+
+            .category::after {
+                content: '\e313';
+                font-family: "Material Icons";
+                position: absolute;
+                color: v.$black;
+                font-size: 20px;
+                right: 0px;
+                top: 50%;
+                transform: translateY(-50%);
+
+            }
+
+            .radio_wrapper {
+                margin-bottom: 10px;
+
+                label {
+                    // 非アクティブ（通常時）のスタイル
+                    padding: 5px 20px;
+                    border: 2px solid v.$acc100;
+                    border-radius: 10px;
+                    cursor: poInter;
+                    transition: all 0.3s ease;
+                    color: v.$acc300;
+
+                    &:hover {
+                        border: 2px solid v.$acc200;
+                    }
+                }
+
+                // アクティブ（チェックされた時）のスタイル
+                // 「チェックされたinputのすぐ隣にあるlabel」を指す
+                input[type="radio"]:checked+label {
+                    background-color: v.$acc300; // 好きな色に
+                    border-color: v.$acc300;
+                    color: #fff;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        button {
+            padding: 15px 30px;
+            border: 2px solid v.$acc100;
+            border-radius: 10px;
+            cursor: poInter;
+            transition: all 0.3s ease;
+            color: v.$acc300;
+
+            &:hover {
+                background-color: v.$acc300; // 好きな色に
+                border-color: v.$acc300;
+                color: #fff;
+                font-weight: 500;
+            }
+        }
+    }
+
+    form::-webkit-date-and-time-value {
+        text-align: left;
+    }

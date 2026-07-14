@@ -1,0 +1,126 @@
+// features/_category.scss
+@use "../foundation/variables" as v;
+
+#category_settings {
+    .flex_wrapper {
+        display: flex;
+        margin-top: 10px;
+        gap: 45px;
+
+        @include v.mq(sm) {
+            display: block;
+        }
+
+        .category_box {
+            flex: 1;
+
+            @include v.mq(sm) {
+                margin-bottom: 30px;
+            }
+
+            .category-list {
+                height: 300px;
+                overflow: hidden;
+                overflow-y: scroll;
+
+                @include v.mq(sm) {
+                    overflow: visible;
+                    height: auto;
+                }
+
+                &::-webkit-scrollbar {
+                    width: 2px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: v.$acc200;
+                }
+
+                scrollbar-width: 1px;
+                scrollbar-color: v.$acc120;
+            }
+
+            input {
+                border: solid 1px v.$acc200;
+                background: v.$acc100;
+                padding: 10px;
+                border-radius: 10px;
+                width: calc(100% - 96px - 10px - 15px);
+
+                @include v.mq(sm) {
+                    width: calc(100% - 96px - 1.5%);
+                    font-size: 14px;
+                }
+            }
+
+            .add_btn {
+                border: solid 1px v.$acc120;
+                padding: 10px 15px;
+                border-radius: 10px;
+
+                @include v.mq(sm) {
+                    font-size: 14px;
+                    margin-left: 1.5% !important;
+                }
+
+                margin-left: 10px;
+                transition: .2s;
+
+                &:hover {
+                    background: v.$acc300;
+                    color: v.$white;
+                }
+            }
+        }
+
+        .category-form {
+            margin-bottom: 30px;
+        }
+
+        ul {
+            @include v.mq(sm) {
+                margin-top: 15px;
+            }
+
+            height: calc(600px - 100px);
+
+            .category_item {
+                font-size: 14px;
+                margin: 5px 0;
+                border: solid 1px v.$acc120;
+                padding: 10px 13px;
+                position: relative;
+                border-radius: 10px;
+                width: calc(100% - 10px);
+
+                @include v.mq(sm) {
+                    width: 100%;
+                    padding: 10px 10px;
+                }
+            }
+
+            button {
+                position: absolute;
+                right: 13px;
+                top: 50%;
+
+                @include v.mq(sm) {
+                    right: 10px;
+                }
+
+                transform: translateY(-50%);
+                padding: 5px 10px;
+                background: v.$warning-light;
+                border-radius: 50px;
+                font-family: 'Noto Sans JP',
+                sans-serif;
+                font-size: 10px;
+
+                &:hover {
+                    background: v.$warning;
+                    color: v.$white;
+                }
+            }
+        }
+    }
+}

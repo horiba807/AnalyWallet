@@ -1,0 +1,124 @@
+@use "../foundation/variables" as v;
+
+.table-wrapper {
+    overflow-x: auto; // 横に溢れたらスクロールさせる
+    white-space: nowrap; // 改行させない
+}
+
+#transaction-table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+    /* 枠線を1本にまとめる */
+    font-size: 14px;
+    color: v.$black;
+
+    th {
+        background-color: v.$acc200;
+        text-align: left;
+        padding: 15px;
+        border-bottom: 1px solid v.$acc200;
+        font-weight: 500;
+        position: relative;
+
+        .filter_wrapper::after {
+            content: '\e313';
+            font-family: "Material Icons";
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            position: absolute;
+
+        }
+    }
+
+    td {
+        padding: 15px 15px 10px;
+        border-bottom: 1px solid v.$acc100;
+
+        &.btn_wrapper {
+            padding: 0 !important;
+        }
+
+        &:nth-of-type(1) {
+            width: 130px;
+        }
+
+        &:nth-of-type(2) {
+            width: 105px;
+        }
+
+        &:nth-of-type(3) {
+            width: 100px;
+        }
+
+        &:nth-of-type(4) {
+            width: 320px;
+        }
+
+        &:nth-of-type(5) {
+            width: 200px;
+        }
+
+
+    }
+
+    tr {
+        &:hover {
+            background-color: v.$acc100;
+        }
+
+        &.is-day-start {
+            td {
+                border-top: solid 2px v.$acc200;
+
+            }
+        }
+    }
+
+    tbody {
+        font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        line-height: 1;
+    }
+}
+
+.daily-total-row {
+    background-color: v.$acc110;
+
+    td {
+        padding: 8px 12px;
+    }
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.column-btn {
+    padding: 16.5px 15px 11.5px;
+    border: none;
+    cursor: poInter;
+    font-size: 12px;
+    transition: .2s;
+
+    &.delete {
+        background-color: v.$warning-light;
+
+        &:hover {
+            background-color: v.$warning;
+            color: v.$white;
+        }
+    }
+
+    &.edit {
+        background-color: v.$acc200;
+        margin-right: 15px;
+
+        &:hover {
+            background-color: v.$acc300;
+            color: v.$white;
+        }
+    }
+}

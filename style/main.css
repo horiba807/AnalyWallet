@@ -770,6 +770,19 @@ header .menu_wrapper .menu_detail #account_settings .resetPass_btn_wrapper {
   text-align: right;
   margin-top: 15px;
 }
+header .menu_wrapper .menu_detail #account_settings .resetPass_btn {
+  color: #102C57;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-align: center;
+}
+header .menu_wrapper .menu_detail #account_settings .resetPass_btn:hover {
+  text-decoration-thickness: 2px;
+}
+header .menu_wrapper .menu_detail #account_settings .resetPass_btn {
+  color: #999999;
+  font-size: 12px;
+}
 header .menu_wrapper .menu_detail #account_settings #forgetPass-modal_wrapper {
   position: fixed;
   width: 100%;

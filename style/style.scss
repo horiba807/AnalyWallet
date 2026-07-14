@@ -1,0 +1,13 @@
+@use "layout/header";
+@use "layout/footer";
+
+@use "components/drawer-menu";
+@use "components/dashboard";
+@use "components/register_form";
+@use "components/history-table";
+@use "components/edit_modal";
+
+@use "features/category";
+@use "features/subscriptions";
+@use "features/account";
+@use "features/other";

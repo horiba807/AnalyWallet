@@ -1,0 +1,66 @@
+// レスポンシブ用のブレイクポイント
+$breakpoints: (
+    'sm': 'screen and (max-width: 599px)',
+    'tb': 'screen and (min-width: 600px)',
+    ) !default;
+
+// メディアクエリのmixin
+@mixin mq($breakpoint) {
+    @media #{map-get($breakpoints, $breakpoint)} {
+        @content;
+    }
+}
+
+// カラーパレット
+$white: #FEFAF6;
+$gray: #999999;
+$black: #222;
+
+$acc100: #f7f1e9;
+$acc110: #efeeec;
+$acc120: #ded9d2;
+
+$acc200: #EADBC8;
+$acc210: #DAC0A3;
+
+$acc300: #102C57;
+
+$green: #3d9b3d;
+$warning: #d95252;
+$warning-light: #f5b6b6;
+
+* {
+    margin: 0 auto;
+}
+
+html {
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+    font-family: 'Noto Sans JP',
+        sans-serif;
+    background: $white;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+main {
+    h2 {
+        font-weight: 500;
+        margin-bottom: 25px;
+        font-size: 20px;
+    }
+
+    section {
+        padding: 30px 3.5% 90px;
+        margin: 0 auto;
+        max-width: 1360px;
+
+        @include mq(sm) {
+            margin: 0 auto;
+            max-width: 1360px;
+            padding: 30px 5% 90px;
+        }
+    }
+}

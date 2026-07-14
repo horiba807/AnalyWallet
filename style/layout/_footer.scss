@@ -1,0 +1,78 @@
+@use "../foundation/variables" as v;
+footer {
+    margin: 0 auto;
+    padding: 0 3.5%;
+    max-width: 1360px;
+    position: relative;
+
+    @include v.mq(sm) {
+        margin: 0 auto;
+        max-width: 1360px;
+        padding: 0 5%;
+    }
+
+    .copyright {
+        font-size: 13px;
+        line-height: 100px;
+        color: #a8a8a8;
+        font-family: 'Inter', sans-serif;
+    }
+
+    #app-version {
+        font-size: 13px;
+        color: #a8a8a8;
+        margin-top: -35px;
+        margin-right: 130px;
+        font-family: 'Inter', sans-serif;
+
+        @include v.mq(sm) {
+            display: none;
+
+        }
+
+    }
+
+    #logout-btn {
+        padding: 10px 15px;
+        border: solid 2px v.$acc100;
+        color: #a8a8a8;
+        border-radius: 7px;
+        text-align: right;
+        position: absolute;
+        right: 0;
+        top: 80%;
+        transform: translateY(-50%);
+        font-size: 14px;
+        transition: .2s;
+
+        &:hover {
+            background-color: v.$acc300;
+            border-color: v.$acc300;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        @include v.mq(sm) {
+            top: 50%;
+
+        }
+    }
+
+    a {
+        position: absolute;
+        top: 80%;
+        transform: translateY(-50%);
+        right: 120px;
+        font-family: 'Inter', sans-serif;
+        color: #a8a8a8;
+
+        &:hover {
+            color: v.$acc300;
+        }
+
+        @include v.mq(sm) {
+            top: 50%;
+
+        }
+    }
+}
