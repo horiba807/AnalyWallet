@@ -31,458 +31,479 @@
 </head>
 
 <body>
-    <div id="app-container">
-        <header>
-            <div class=header_wrapper>
-                <div class="hedaer_logo">
-                    <span class="logo_img">
-                        <img src="img/logo.png">
-                    </span>
-                    <h1>AnalyWallet</h1>
-                </div>
-                <ul class="header__navlist">
-                    <li><a href="index.html#summary_container">ダッシュボード</a></li>
-                    <li><a href="index.html#register_container">収支登録</a></li>
-                    <li><a href="index.html#history_container">登録履歴</a></li>
+    <header class="header">
+        <div class="header__wrapper">
+            <!-- ロゴ -->
+            <div class="header__logo">
+                <span class="header__logo-img">
+                    <img src="img/logo.png" alt="AnalyWallet Logo">
+                </span>
+                <h1 class="header__logo-title">AnalyWallet</h1>
+            </div>
+
+            <!-- PC用ナビゲーション -->
+            <nav class="header__nav">
+                <ul class="header__nav-list">
+                    <li class="header__nav-item">
+                        <a class="header__nav-link" href="index.html#summary_container">ダッシュボード</a>
+                    </li>
+                    <li class="header__nav-item">
+                        <a class="header__nav-link" href="index.html#register_container">収支登録</a>
+                    </li>
+                    <li class="header__nav-item">
+                        <a class="header__nav-link" href="index.html#history_container">登録履歴</a>
+                    </li>
                 </ul>
-                <button id="header_menu_icon" class="menu_icon" href="index.html#history_container"><span
-                        class="material-icons" id="icon">menu</span></button>
-                <nav class="sm_header_navlist" id="sm_navlist">
-                    <div class="sm_navlist_item">
-                        <a href="index.html#summary_container">ダッシュボード</a>
-                    </div>
-                    <div class="sm_navlist_item center">
-                        <a href="index.html#register_container">収支登録</a>
-                    </div>
-                    <div class="sm_navlist_item">
-                        <a href="index.html#history_container">登録履歴</a>
-                    </div>
-                </nav>
-            </div>
-            <div class="menu_wrapper" id="header_menu">
-                <div class="menu_container">
-                    <div class="menu_inner">
-                        <ul class="menubar">
-                            <li class="menu_btn_wrapper btn active" id="menu_btn_01" data-target="category_settings">
-                                カテゴリー<span class="line_break"><br></span>設定
-                            </li>
-                            <li class="menu_btn_wrapper btn" id="menu_btn_02" data-target="subsc_settings">
-                                サブスク<span class="line_break"><br></span>管理
-                            </li>
-                            <li class="menu_btn_wrapper btn" id="menu_btn_03" data-target="account_settings">
-                                アカウント<span class="line_break"><br></span>設定
-                            </li>
-                            <li class="menu_btn_wrapper btn" id="menu_btn_04" data-target="other_settings">
-                                その他の<span class="line_break"><br></span>情報
-                            </li>
-                            <li class="menu_btn_wrapper small">
-                                <a>AnalyWalletについて<span class="material-symbols-outlined">open_in_new</span></a>
-                            </li>
-                            <li class="menu_btn_wrapper small">
-                                <a>プライバシーポリシー<span class="material-symbols-outlined">open_in_new</span></a>
-                            </li>
-                            <li class="menu_btn_wrapper small">
-                                <a>利用規約<span class="material-symbols-outlined">open_in_new</span></a>
-                            </li>
-                            <li class="menu_btn_wrapper small">
-                                <a>お問い合わせ・ご要望<span class="material-symbols-outlined">open_in_new</span></a>
-                            </li>
-                        </ul>
-                        <div class="menu_detail">
-                            <div class="menu_item_container active" id="category_settings"
-                                data-target="category_settings">
-                                <h3>カテゴリー設定<span>登録の際に用いるカテゴリーをカスタマイズします。</span></h3>
-                                <div class="flex_wrapper">
-                                    <div class="category_box">
-                                        <h4>支出</h4>
-                                        <div class="category-form">
-                                            <input type="text" id="new-expense-name" placeholder="カテゴリーを追加">
-                                            <button id="add-expense-btn" class="add_btn">追加する</button>
-                                        </div>
-                                        <h4>登録済みのカテゴリー</h4>
-                                        <ul id="expense-category-list" class="category-list">
-                                        </ul>
+            </nav>
+
+            <!-- メニューボタン（ハンバーガー） -->
+            <button id="header_menu_icon" class="header__menu-btn">
+                <span class="material-icons" id="icon">menu</span>
+            </button>
+
+            <!-- スマホ用ナビゲーション -->
+            <nav id="sm_navlist" class="header__sm-nav">
+                <div class="header__sm-nav-item">
+                    <a href="index.html#summary_container">ダッシュボード</a>
+                </div>
+                <div class="header__sm-nav-item header__sm-nav-item--center">
+                    <a href="index.html#register_container">収支登録</a>
+                </div>
+                <div class="header__sm-nav-item">
+                    <a href="index.html#history_container">登録履歴</a>
+                </div>
+            </nav>
+        </div>
+        </div>
+        <div class="menu_wrapper" id="header_menu">
+            <div class="menu_container">
+                <div class="menu_inner">
+                    <ul class="menubar">
+                        <li class="menu_btn_wrapper btn active" id="menu_btn_01" data-target="category_settings">
+                            カテゴリー<span class="line_break"><br></span>設定
+                        </li>
+                        <li class="menu_btn_wrapper btn" id="menu_btn_02" data-target="subsc_settings">
+                            サブスク<span class="line_break"><br></span>管理
+                        </li>
+                        <li class="menu_btn_wrapper btn" id="menu_btn_03" data-target="account_settings">
+                            アカウント<span class="line_break"><br></span>設定
+                        </li>
+                        <li class="menu_btn_wrapper btn" id="menu_btn_04" data-target="other_settings">
+                            その他の<span class="line_break"><br></span>情報
+                        </li>
+                        <li class="menu_btn_wrapper small">
+                            <a>AnalyWalletについて<span class="material-symbols-outlined">open_in_new</span></a>
+                        </li>
+                        <li class="menu_btn_wrapper small">
+                            <a>プライバシーポリシー<span class="material-symbols-outlined">open_in_new</span></a>
+                        </li>
+                        <li class="menu_btn_wrapper small">
+                            <a>利用規約<span class="material-symbols-outlined">open_in_new</span></a>
+                        </li>
+                        <li class="menu_btn_wrapper small">
+                            <a>お問い合わせ・ご要望<span class="material-symbols-outlined">open_in_new</span></a>
+                        </li>
+                    </ul>
+                    <div class="menu_detail">
+                        <div class="menu_item_container active" id="category_settings" data-target="category_settings">
+                            <h3>カテゴリー設定<span>登録の際に用いるカテゴリーをカスタマイズします。</span></h3>
+                            <div class="flex_wrapper">
+                                <div class="category_box">
+                                    <h4>支出</h4>
+                                    <div class="category-form">
+                                        <input type="text" id="new-expense-name" placeholder="カテゴリーを追加">
+                                        <button id="add-expense-btn" class="add_btn">追加する</button>
                                     </div>
-                                    <div class="category_box">
-                                        <h4>収入</h4>
-                                        <div class="category-form">
-                                            <input type="text" id="new-income-name" placeholder="カテゴリーを追加">
-                                            <button id="add-income-btn" class="add_btn">追加する</button>
-                                        </div>
-                                        <h4>登録済みのカテゴリー</h4>
-                                        <ul id="income-category-list" class="category-list">
-                                        </ul>
+                                    <h4>登録済みのカテゴリー</h4>
+                                    <ul id="expense-category-list" class="category-list">
+                                    </ul>
+                                </div>
+                                <div class="category_box">
+                                    <h4>収入</h4>
+                                    <div class="category-form">
+                                        <input type="text" id="new-income-name" placeholder="カテゴリーを追加">
+                                        <button id="add-income-btn" class="add_btn">追加する</button>
                                     </div>
+                                    <h4>登録済みのカテゴリー</h4>
+                                    <ul id="income-category-list" class="category-list">
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="menu_item_container" id="subsc_settings" data-target="subsc_settings">
-                                <h3>サブスク管理<span>毎月自動で追加されるサブスクサービスを登録します。</span></h3>
-                                <h4>登録</h4>
-                                <form id="subsc-form" class="subsc-form">
-                                    <div class="form_group">
-                                        <label for="subsc-name">サービス名</label>
-                                        <div class="input_wrapper">
-                                            <input type="text" id="subsc-name" placeholder="サービス名を入力" required>
-                                        </div>
+                        </div>
+                        <div class="menu_item_container" id="subsc_settings" data-target="subsc_settings">
+                            <h3>サブスク管理<span>毎月自動で追加されるサブスクサービスを登録します。</span></h3>
+                            <h4>登録</h4>
+                            <form id="subsc-form" class="subsc-form">
+                                <div class="form_group">
+                                    <label for="subsc-name">サービス名</label>
+                                    <div class="input_wrapper">
+                                        <input type="text" id="subsc-name" placeholder="サービス名を入力" required>
                                     </div>
-                                    <div class="form_group">
-                                        <label for="subsc-amount">金額</label>
-                                        <div class="input_wrapper">
-                                            <input type="number" id="subsc-amount" placeholder="金額を入力" min="1" required>
-                                        </div>
+                                </div>
+                                <div class="form_group">
+                                    <label for="subsc-amount">金額</label>
+                                    <div class="input_wrapper">
+                                        <input type="number" id="subsc-amount" placeholder="金額を入力" min="1" required>
                                     </div>
-                                    <div class="form_group">
-                                        <label for="subsc-day">支払日</label>
-                                        <div class="input_wrapper">
-                                            <div>毎月</div>
-                                            <select id="subsc-day" required>
-                                                <option value="">日にちを選択</option>
-                                                <script>
-                                                    // 1〜31日
-                                                    for (let i = 1; i <= 31; i++) {
-                                                        document.write(`<option value="${i}">${i}日</option>`);
-                                                    }
-                                                </script>
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="form_group">
+                                    <label for="subsc-day">支払日</label>
+                                    <div class="input_wrapper">
+                                        <div>毎月</div>
+                                        <select id="subsc-day" required>
+                                            <option value="">日にちを選択</option>
+                                            <script>
+                                                // 1〜31日
+                                                for (let i = 1; i <= 31; i++) {
+                                                    document.write(`<option value="${i}">${i}日</option>`);
+                                                }
+                                            </script>
+                                        </select>
                                     </div>
-                                    <button type="submit" class="btn-submit">登録する</button>
+                                </div>
+                                <button type="submit" class="btn-submit">登録する</button>
+                            </form>
+                            <h4>現在契約中のサブスク</h4>
+                            <div class="subsc-table-wrapper">
+                                <table class="subsc-table">
+                                    <thead>
+                                        <tr>
+                                            <th>サービス名</th>
+                                            <th>支払日</th>
+                                            <th>金額</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="subsc-list">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="menu_item_container" id="account_settings" data-target="account_settings">
+                            <h3>アカウント設定<span>アカウントの各種設定を行えます。</span></h3>
+                            <div class="setting_items">
+                            </div>
+                            <h4>メールアドレス</h4>
+                            <div class="setting_items email">
+                                <p>現在のメールアドレス: <span id="current-email"></span></p>
+                                <form id="form-update-email">
+                                    <div>
+                                        <label for="input-new-email">新しいメールアドレス</label>
+                                        <input type="email" id="input-new-email" placeholder="新しいメールアドレス" required>
+                                    </div>
+                                    <button type="submit">メールアドレスを更新</button>
                                 </form>
-                                <h4>現在契約中のサブスク</h4>
-                                <div class="subsc-table-wrapper">
-                                    <table class="subsc-table">
-                                        <thead>
-                                            <tr>
-                                                <th>サービス名</th>
-                                                <th>支払日</th>
-                                                <th>金額</th>
-                                                <th>操作</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="subsc-list">
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
-                            <div class="menu_item_container" id="account_settings" data-target="account_settings">
-                                <h3>アカウント設定<span>アカウントの各種設定を行えます。</span></h3>
-                                <div class="setting_items">
-                                </div>
-                                <h4>メールアドレス</h4>
-                                <div class="setting_items email">
-                                    <p>現在のメールアドレス: <span id="current-email"></span></p>
-                                    <form id="form-update-email">
-                                        <div>
-                                            <label for="input-new-email">新しいメールアドレス</label>
-                                            <input type="email" id="input-new-email" placeholder="新しいメールアドレス" required>
-                                        </div>
-                                        <button type="submit">メールアドレスを更新</button>
-                                    </form>
-                                </div>
-                                <div class="line"></div>
-                                <h4>パスワード</h4>
-                                <div class="setting_items">
-                                    <form id="form-update-password">
-                                        <div>
-                                            <label for="current-new-password">現在の<span class="line_break"><br></span>パスワード</label>
-                                            <input type="password" id="current-new-password" placeholder="現在のパスワード" required>
-                                        </div>
-                                        <div>
-                                            <label for="input-new-password">新しい<span class="line_break"><br></span>パスワード</label>
-                                            <input type="password" id="input-new-password" placeholder="新しいパスワード（12文字以上）"required>
-                                        </div>
-                                        <button type="submit">パスワードを更新</button>
-                                    </form>
-                                    <div class="resetPass_btn_wrapper">
-                                        <a class="resetPass_btn" id="openResetPassModal">パスワードをお忘れの場合</a>
+                            <div class="line"></div>
+                            <h4>パスワード</h4>
+                            <div class="setting_items">
+                                <form id="form-update-password">
+                                    <div>
+                                        <label for="current-new-password">現在の<span
+                                                class="line_break"><br></span>パスワード</label>
+                                        <input type="password" id="current-new-password" placeholder="現在のパスワード"
+                                            required>
                                     </div>
-                                    <div class="modal-wrapper" id="forgetPass-modal_wrapper">
-                                        <div id="forgetPass-modal" class="modal">
-                                            <div class="close_btn_wrapper">
-                                                <button class="close_btn" id="close_FogetPassModal_btn"><span class="material-icons">close</span></button>
+                                    <div>
+                                        <label for="input-new-password">新しい<span
+                                                class="line_break"><br></span>パスワード</label>
+                                        <input type="password" id="input-new-password" placeholder="新しいパスワード（12文字以上）"
+                                            required>
+                                    </div>
+                                    <button type="submit">パスワードを更新</button>
+                                </form>
+                                <div class="resetPass_btn_wrapper">
+                                    <a class="resetPass_btn" id="openResetPassModal">パスワードをお忘れの場合</a>
+                                </div>
+                                <div class="modal-wrapper" id="forgetPass-modal_wrapper">
+                                    <div id="forgetPass-modal" class="modal">
+                                        <div class="close_btn_wrapper">
+                                            <button class="close_btn" id="close_FogetPassModal_btn"><span
+                                                    class="material-icons">close</span></button>
+                                        </div>
+                                        <div class="logo_wrapper">
+                                            <div>
+                                                <span class="logo_img">
+                                                    <img src="../img/logo.png">
+                                                </span>
+                                                <h1>AnalyWallet</h1>
                                             </div>
-                                            <div class="logo_wrapper">
-                                                <div>
-                                                    <span class="logo_img">
-                                                        <img src="../img/logo.png">
-                                                    </span>
-                                                    <h1>AnalyWallet</h1>
+                                        </div>
+
+                                        <div class="modal-content">
+                                            <h2>パスワード再設定</h2>
+                                            <p>登録した際のメールアドレスを入力してください。<br>パスワード再設定用のリンクを送信します。</p>
+
+                                            <form id="forgotPass-form">
+                                                <div class="input_wrapper">
+                                                    <input type="email" id="forgotPass-email" placeholder="メールアドレス"
+                                                        required>
                                                 </div>
-                                            </div>
-
-                                            <div class="modal-content">
-                                                <h2>パスワード再設定</h2>
-                                                <p>登録した際のメールアドレスを入力してください。<br>パスワード再設定用のリンクを送信します。</p>
-                                        
-                                                <form id="forgotPass-form">
-                                                    <div class="input_wrapper">
-                                                        <input type="email" id="forgotPass-email" placeholder="メールアドレス" required>
-                                                    </div>
-                                                    <a id="link-forgot-password" href="#">登録する</a>
-                                                </form>
-                                            </div>
+                                                <a id="link-forgot-password" href="#">登録する</a>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="line"></div>
-                                <h4>二段階認証（MFA）</h4>
-                                <div class="setting_items">
-                                    <div id="mfa-unregistered-area" class="">
-                                        <button id="btn-mfa-enroll">二段階認証を有効にする</button>
+                            </div>
+                            <div class="line"></div>
+                            <h4>二段階認証（MFA）</h4>
+                            <div class="setting_items">
+                                <div id="mfa-unregistered-area" class="">
+                                    <button id="btn-mfa-enroll">二段階認証を有効にする</button>
 
-                                        <div id="mfa-setup-area">
-                                            <p>1. 以下のキーをコピーして、Google Authenticator などの認証アプリに登録してください：</p>
-                                            <code id="mfa-secret-key"></code>
+                                    <div id="mfa-setup-area">
+                                        <p>1. 以下のキーをコピーして、Google Authenticator などの認証アプリに登録してください：</p>
+                                        <code id="mfa-secret-key"></code>
 
-                                            <p>2. アプリに表示された6桁のコードを入力してください：</p>
-                                            <input type="text" id="mfa-code-input" maxlength="6">
-                                            <button id="btn-mfa-verify">連携を完了する</button>
-                                        </div>
-                                    </div>
-                                    <div id="mfa-registered-area" class="">
-                                        <p class="stats">二段階認証（MFA）は有効です</p>
-                                        <p class="date">設定日時: <span id="mfa-activated-at">-</span></p>
-                                        <button id="btn-mfa-unenroll">二段階認証を解除する</button>
+                                        <p>2. アプリに表示された6桁のコードを入力してください：</p>
+                                        <input type="text" id="mfa-code-input" maxlength="6">
+                                        <button id="btn-mfa-verify">連携を完了する</button>
                                     </div>
                                 </div>
-                                <div class="line"></div>
-                                <h4>アカウント情報</h4>
-                                <div class="setting_items">
-                                    <div class="setting_items_inner">
-                                        <p class="label">アカウント作成日</p>
-                                        <p id="created-at"></p>
+                                <div id="mfa-registered-area" class="">
+                                    <p class="stats">二段階認証（MFA）は有効です</p>
+                                    <p class="date">設定日時: <span id="mfa-activated-at">-</span></p>
+                                    <button id="btn-mfa-unenroll">二段階認証を解除する</button>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <h4>アカウント情報</h4>
+                            <div class="setting_items">
+                                <div class="setting_items_inner">
+                                    <p class="label">アカウント作成日</p>
+                                    <p id="created-at"></p>
+                                </div>
+                                <div class="setting_items_inner">
+                                    <p class="label">最後のログイン</p>
+                                    <p id="last-login"></p>
+                                </div>
+                                <div class="setting_items_inner">
+                                    <p class="label">ユーザーID</p>
+                                    <p id="userID"></p>
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="setting_items delete-account">
+                                <h4>アカウントの削除</h4>
+                                <div class="warning-box">
+                                    <div class="warning-icon">
+                                        <span class="material-symbols-outlined">warning</span>
                                     </div>
-                                    <div class="setting_items_inner">
-                                        <p class="label">最後のログイン</p>
-                                        <p id="last-login"></p>
-                                    </div>
-                                    <div class="setting_items_inner">
-                                        <p class="label">ユーザーID</p>
-                                        <p id="userID"></p>
+                                    <div class="text">
+                                        <p>アカウントを削除すると、これまでに登録された家計簿データや設定はすべて完全に消去されます。二度と復元することはできません。 あらかじめご注意ください。
+                                        </p>
                                     </div>
                                 </div>
-                                <div class="line"></div>
-                                <div class="setting_items delete-account">
-                                    <h4>アカウントの削除</h4>
-                                    <div class="warning-box">
-                                        <div class="warning-icon">
-                                            <span class="material-symbols-outlined">warning</span>
-                                        </div>
-                                        <div class="text">
-                                            <p>アカウントを削除すると、これまでに登録された家計簿データや設定はすべて完全に消去されます。二度と復元することはできません。 あらかじめご注意ください。</p>
-                                        </div>
-                                    </div>
                                 <button id="btn-delete-account">アカウントを完全に削除する</button>
-                                </div>
                             </div>
-                            <div class="menu_item_container" id="other_settings" data-target="other_settings">
-                                <h3>その他の情報</h3>
-                                <ul>
-                                    <li>
-                                        <a class="link_text">AnalyWalletについて<span
-                                                class="material-symbols-outlined">open_in_new</span></a>
-                                    </li>
-                                    <li>
-                                        <a class="link_text">プライバシーポリシー<span
-                                                class="material-symbols-outlined">open_in_new</span></a>
-                                    </li>
-                                    <li>
-                                        <a class="link_text">利用規約<span
-                                                class="material-symbols-outlined">open_in_new</span></a>
-                                    </li>
-                                    <li>
-                                        <a class="link_text">お問い合わせ・ご要望<span
-                                                class="material-symbols-outlined">open_in_new</span></a>
-                                    </li>
-                                </ul>
-                            </div>
+                        </div>
+                        <div class="menu_item_container" id="other_settings" data-target="other_settings">
+                            <h3>その他の情報</h3>
+                            <ul>
+                                <li>
+                                    <a class="link_text">AnalyWalletについて<span
+                                            class="material-symbols-outlined">open_in_new</span></a>
+                                </li>
+                                <li>
+                                    <a class="link_text">プライバシーポリシー<span
+                                            class="material-symbols-outlined">open_in_new</span></a>
+                                </li>
+                                <li>
+                                    <a class="link_text">利用規約<span
+                                            class="material-symbols-outlined">open_in_new</span></a>
+                                </li>
+                                <li>
+                                    <a class="link_text">お問い合わせ・ご要望<span
+                                            class="material-symbols-outlined">open_in_new</span></a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </header>
-        <main>
-            <section id="summary_container">
-                <h2>ダッシュボード</h2>
-                <div class="year_select_wrapper">
-                    <button type="button" id="prev-year"></button>
-                    <span id="display-year">2026</span>
-                    <button type="button" id="next-year"></button>
-                </div>
-                <div class="month_select_wrapper">
-                    <button type="button" class="month_btn" data-month="annual">サマリー</button>
-                    <script>
-                        // 1〜31日
-                        for (let i = 1; i <= 12; i++) {
-                            document.write(`<button type="button" class="month_btn" data-month="${i}">${i}月</button>`);
-                        }
-                    </script>
-                </div>
-                <div class="smm_grid_wrapper">
-                    <div class="grid_inner amount">
-                        <h3>支出</h3>
-                        <p class="grid_yen" id="display-expense">0</p>
+        </div>
+    </header>
+    <main>
+        <section id="summary_container">
+            <h2>ダッシュボード</h2>
+            <div class="year_select_wrapper">
+                <button type="button" id="prev-year"></button>
+                <span id="display-year">2026</span>
+                <button type="button" id="next-year"></button>
+            </div>
+            <div class="month_select_wrapper">
+                <button type="button" class="month_btn" data-month="annual">サマリー</button>
+                <script>
+                    // 1〜31日
+                    for (let i = 1; i <= 12; i++) {
+                        document.write(`<button type="button" class="month_btn" data-month="${i}">${i}月</button>`);
+                    }
+                </script>
+            </div>
+            <div class="smm_grid_wrapper">
+                <div class="grid_inner amount">
+                    <h3>支出</h3>
+                    <p class="grid_yen" id="display-expense">0</p>
+                    <div class="grid_inner-flex_wrapper">
+                        <div class="grid_inner-flex_wrapper js-diff-label">前月比</div>
                         <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper js-diff-label">前月比</div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="prev-diff-expense">¥ 0</p>
-                            </div>
+                            <p id="prev-diff-expense">¥ 0</p>
                         </div>
-                        <div class="line"></div>
+                    </div>
+                    <div class="line"></div>
 
-                        <div id="expense-categories-list"></div>
-                    </div>
-                    <div class="grid_inner s2">
-                        <h3>収入</h3>
-                        <p class="grid_yen" id="display-income">0</p>
+                    <div id="expense-categories-list"></div>
+                </div>
+                <div class="grid_inner s2">
+                    <h3>収入</h3>
+                    <p class="grid_yen" id="display-income">0</p>
+                    <div class="grid_inner-flex_wrapper">
+                        <div class="grid_inner-flex_wrapper js-diff-label">前月比</div>
                         <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper js-diff-label">前月比</div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="prev-diff-income">¥ 0</p>
-                            </div>
+                            <p id="prev-diff-income">¥ 0</p>
                         </div>
-                        <div class="line"></div>
+                    </div>
+                    <div class="line"></div>
 
-                        <div id="income-categories-list"></div>
-                    </div>
-                    <div class="grid_inner s3">
-                        <h3>収入 - 支出</h3>
-                        <p class="grid_yen" id="display-diff">0</p>
+                    <div id="income-categories-list"></div>
+                </div>
+                <div class="grid_inner s3">
+                    <h3>収入 - 支出</h3>
+                    <p class="grid_yen" id="display-diff">0</p>
+                    <div class="grid_inner-flex_wrapper">
+                        <div class="grid_inner-flex_wrapper js-diff-label">前月比</div>
                         <div class="grid_inner-flex_wrapper">
-                            <div class="grid_inner-flex_wrapper js-diff-label">前月比</div>
-                            <div class="grid_inner-flex_wrapper">
-                                <p id="prev-diff-net">¥ 0</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid_inner s4">
-                        <h3>現在の残高</h3>
-                        <p class="grid_yen" id="display-total">0</p>
-                        <p id="carry-over-display">¥ 0</p>
-                    </div>
-                    <div class="grid_inner graph">
-                        <h3>グラフ</h3>
-                        <div class="chart" id="expense-chart-container">
-                            <canvas id="expenseChart"></canvas>
-                        </div>
-                        <div class="chart line-chart" id="annual-chart-container">
-                            <canvas id="lineChart"></canvas>
+                            <p id="prev-diff-net">¥ 0</p>
                         </div>
                     </div>
                 </div>
-            </section>
-            <section id="register_container">
-                <h2>収支登録</h2>
+                <div class="grid_inner s4">
+                    <h3>現在の残高</h3>
+                    <p class="grid_yen" id="display-total">0</p>
+                    <p id="carry-over-display">¥ 0</p>
+                </div>
+                <div class="grid_inner graph">
+                    <h3>グラフ</h3>
+                    <div class="chart" id="expense-chart-container">
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                    <div class="chart line-chart" id="annual-chart-container">
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="register_container">
+            <h2>収支登録</h2>
+            <form id="money-form" class="register_form">
+                <div class="form_group">
+                    <label class="req">収支選択</label>
+                    <div class="radio_wrapper">
+                        <input type="radio" id="type-expense" name="transaction-type" value="expense" checked>
+                        <label for="type-expense">支出</label>
+
+                        <input type="radio" id="type-income" name="transaction-type" value="income">
+                        <label for="type-income">収入</label>
+                    </div>
+                </div>
+
+                <div class="form_group">
+                    <label for="date" class="req">日付</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+
+                <div class="form_group">
+                    <label for="amount" class="req">金額</label>
+                    <input type="number" id="amount" name="amount" placeholder="金額を入力" required>
+                    <p class="yen_char">円</p>
+                </div>
+
+                <div class="form_group">
+                    <label for="category" class="req category">カテゴリー</label>
+                    <select id="category" name="category" required>
+                    </select>
+                </div>
+
+                <div class="form_group">
+                    <label for="memo">メモ</label>
+                    <textarea id="memo" name="memo" placeholder="備考を入力"></textarea>
+                </div>
+
+                <button type="submit" class="submit_btn">保存する</button>
+            </form>
+        </section>
+        <section id="history_container">
+            <h2>登録履歴</h2>
+            <div class="table-wrapper">
+                <table id="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>日付</th>
+                            <th>
+                                <div class="filter_wrapper">
+                                    <select id="filter-category" class="filter_select">
+                                        <option value="all">カテゴリー</option>
+                                    </select>
+                                </div>
+                            </th>
+                            <th>金額</th>
+                            <th>メモ</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-list">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <div class="editModal" id="edit-modal">
+            <div class="editform_container">
+                <h2>編集</h2>
+                <div class="btn_wrapper">
+                    <btn class="close_btn" id="close_editform_btn"><span class="material-icons">close</span></btn>
+                </div>
                 <form id="money-form" class="register_form">
                     <div class="form_group">
                         <label class="req">収支選択</label>
                         <div class="radio_wrapper">
-                            <input type="radio" id="type-expense" name="transaction-type" value="expense" checked>
-                            <label for="type-expense">支出</label>
+                            <input type="radio" id="edit_type-expense" name="edit_transactions-type" value="expense"
+                                checked>
+                            <label for="edit_type-expense">支出</label>
 
-                            <input type="radio" id="type-income" name="transaction-type" value="income">
-                            <label for="type-income">収入</label>
+                            <input type="radio" id="edit_type-income" name="edit_transactions-type" value="income">
+                            <label for="edit_type-income">収入</la3ebel>
                         </div>
                     </div>
-
                     <div class="form_group">
                         <label for="date" class="req">日付</label>
-                        <input type="date" id="date" name="date" required>
+                        <input type="date" id="edit_date" name="date" required>
                     </div>
-
                     <div class="form_group">
                         <label for="amount" class="req">金額</label>
-                        <input type="number" id="amount" name="amount" placeholder="金額を入力" required>
+                        <input type="number" id="edit_amount" name="amount" placeholder="金額を入力" required>
                         <p class="yen_char">円</p>
                     </div>
-
                     <div class="form_group">
                         <label for="category" class="req category">カテゴリー</label>
-                        <select id="category" name="category" required>
+                        <select id="edit_category" name="category" required>
                         </select>
                     </div>
-
                     <div class="form_group">
                         <label for="memo">メモ</label>
-                        <textarea id="memo" name="memo" placeholder="備考を入力"></textarea>
+                        <textarea id="edit_memo" name="memo" placeholder="備考を入力"></textarea>
                     </div>
-
-                    <button type="submit" class="submit_btn">保存する</button>
+                    <button type="submit" class="form_btn" id="edit_btn">保存する</button>
                 </form>
-            </section>
-            <section id="history_container">
-                <h2>登録履歴</h2>
-                <div class="table-wrapper">
-                    <table id="transaction-table">
-                        <thead>
-                            <tr>
-                                <th>日付</th>
-                                <th>
-                                    <div class="filter_wrapper">
-                                        <select id="filter-category" class="filter_select">
-                                            <option value="all">カテゴリー</option>
-                                        </select>
-                                    </div>
-                                </th>
-                                <th>金額</th>
-                                <th>メモ</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="history-list">
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            <div class="editModal" id="edit-modal">
-                <div class="editform_container">
-                    <h2>編集</h2>
-                    <div class="btn_wrapper">
-                        <btn class="close_btn" id="close_editform_btn"><span class="material-icons">close</span></btn>
-                    </div>
-                    <form id="money-form" class="register_form">
-                        <div class="form_group">
-                            <label class="req">収支選択</label>
-                            <div class="radio_wrapper">
-                                <input type="radio" id="edit_type-expense" name="edit_transactions-type" value="expense"
-                                    checked>
-                                <label for="edit_type-expense">支出</label>
-
-                                <input type="radio" id="edit_type-income" name="edit_transactions-type" value="income">
-                                <label for="edit_type-income">収入</la3ebel>
-                            </div>
-                        </div>
-                        <div class="form_group">
-                            <label for="date" class="req">日付</label>
-                            <input type="date" id="edit_date" name="date" required>
-                        </div>
-                        <div class="form_group">
-                            <label for="amount" class="req">金額</label>
-                            <input type="number" id="edit_amount" name="amount" placeholder="金額を入力" required>
-                            <p class="yen_char">円</p>
-                        </div>
-                        <div class="form_group">
-                            <label for="category" class="req category">カテゴリー</label>
-                            <select id="edit_category" name="category" required>
-                            </select>
-                        </div>
-                        <div class="form_group">
-                            <label for="memo">メモ</label>
-                            <textarea id="edit_memo" name="memo" placeholder="備考を入力"></textarea>
-                        </div>
-                        <button type="submit" class="form_btn" id="edit_btn">保存する</button>
-                    </form>
-                </div>
             </div>
-        </main>
-        <footer>
-            <p class="copyright">© 2026 AnalyWallet.</p>
-            <p id="app-version"></p>
-            <div id="app-container foot">
-                <button id="logout-btn">ログアウト</button>
-            </div>
-        </footer>
-    </div>
+        </div>
+    </main>
+    <footer>
+        <p class="copyright">© 2026 AnalyWallet.</p>
+        <p id="app-version"></p>
+        <div id="app-container foot">
+            <button id="logout-btn">ログアウト</button>
+        </div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="script/main.js"></script>
 </body>
