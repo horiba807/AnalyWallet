@@ -139,7 +139,7 @@ main section {
 @media screen and (max-width: 599px) {
   .header__menu-btn {
     right: 0%;
-    top: 12.5px;
+    top: 25px;
   }
 }
 .header__menu-btn span {
@@ -694,7 +694,6 @@ footer a:hover {
 }
 
 form {
-  margin: 50px 0;
   color: #222;
 }
 form .form_group {
