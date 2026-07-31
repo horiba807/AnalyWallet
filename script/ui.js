@@ -424,12 +424,12 @@ export function renderCategorySettingsDOM() {
 // 補助関数：リストの1行（li）を組み立てる
 function createCategoryRow(cat) {
     const li = document.createElement('li');
-    li.classList.add("category_item");
+    li.classList.add("category-settings__item");
 
     // ゴミ箱ボタンに data-id と data-label を仕込む
     li.innerHTML = `
-        <span>${cat.label}</span>
-        <button class="btn-delete" data-id="${cat.value}" data-label="${cat.label}">
+        ${cat.label}
+        <button type="button" class="category-settings__delete-btn"  data-id="${cat.value}" data-label="${cat.label}">
             削除する
         </button>
     `;
@@ -456,14 +456,14 @@ export function renderSubscriptionsDOM() {
         const tr = document.createElement('tr');
         tr.className = 'subsc-item';
         tr.innerHTML = `
-                <td class="subsc-item-name">${sub.name}</td>
-                <td class="subsc-item-details">${sub.billing_day}日</td>
-                <td class="subsc-item-amount">¥${sub.amount.toLocaleString()}</td>
-                <td>
-                    <button class="btn-subsc-delete" data-id="${sub.id}" data-name="${sub.name}">
-                        削除する
-                    </button>
-                </td>
+            <td class="subsc-settings__td">${sub.name}</td>
+            <td class="subsc-settings__td">${sub.billing_day}日</td>
+            <td class="subsc-settings__td">¥${sub.amount.toLocaleString()}</td>
+            <td class="subsc-settings__td">
+                <button type="button" class="subsc-settings__delete-btn"  data-id="${sub.id}" data-name="${sub.name}">
+                    削除する
+                </button>
+            </td>
         `;
         subscListElement.appendChild(tr);
     });

@@ -171,7 +171,7 @@ async function refreshCategories_kanpa() {
     console.log("【調査】4. すべてのUIリフレッシュがエラーなく終了しました！");
 }
 
-// ➕ カテゴリーの追加処理
+// カテゴリーの追加処理
 async function handleAddCategory(type) {
     const inputId = type === 'expense' ? 'new-expense-name' : 'new-income-name';
     const inputElement = document.getElementById(inputId);
@@ -204,7 +204,7 @@ async function handleAddCategory(type) {
         .insert([{ 
             name: name, 
             type: type,
-            user_id: user.id // 👈 ここを追加！
+            user_id: user.id
         }]);
 
     if (error) {

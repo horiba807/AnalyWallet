@@ -75,85 +75,117 @@
             </nav>
         </div>
         </div>
-        <div class="menu_wrapper" id="header_menu">
-            <div class="menu_container">
-                <div class="menu_inner">
-                    <ul class="menubar">
-                        <li class="menu_btn_wrapper btn active" id="menu_btn_01" data-target="category_settings">
-                            カテゴリー<span class="line_break"><br></span>設定
-                        </li>
-                        <li class="menu_btn_wrapper btn" id="menu_btn_02" data-target="subsc_settings">
-                            サブスク<span class="line_break"><br></span>管理
-                        </li>
-                        <li class="menu_btn_wrapper btn" id="menu_btn_03" data-target="account_settings">
-                            アカウント<span class="line_break"><br></span>設定
-                        </li>
-                        <li class="menu_btn_wrapper btn" id="menu_btn_04" data-target="other_settings">
-                            その他の<span class="line_break"><br></span>情報
-                        </li>
-                        <li class="menu_btn_wrapper small">
-                            <a>AnalyWalletについて<span class="material-symbols-outlined">open_in_new</span></a>
-                        </li>
-                        <li class="menu_btn_wrapper small">
-                            <a>プライバシーポリシー<span class="material-symbols-outlined">open_in_new</span></a>
-                        </li>
-                        <li class="menu_btn_wrapper small">
-                            <a>利用規約<span class="material-symbols-outlined">open_in_new</span></a>
-                        </li>
-                        <li class="menu_btn_wrapper small">
-                            <a>お問い合わせ・ご要望<span class="material-symbols-outlined">open_in_new</span></a>
-                        </li>
-                    </ul>
-                    <div class="menu_detail">
-                        <div class="menu_item_container active" id="category_settings" data-target="category_settings">
-                            <h3>カテゴリー設定<span>登録の際に用いるカテゴリーをカスタマイズします。</span></h3>
-                            <div class="flex_wrapper">
-                                <div class="category_box">
-                                    <h4>支出</h4>
-                                    <div class="category-form">
-                                        <input type="text" id="new-expense-name" placeholder="カテゴリーを追加">
-                                        <button id="add-expense-btn" class="add_btn">追加する</button>
-                                    </div>
-                                    <h4>登録済みのカテゴリー</h4>
-                                    <ul id="expense-category-list" class="category-list">
+        <aside id="header_menu" class="drawer-menu">
+            <div class="drawer-menu__container">
+                <div class="drawer-menu__inner">
+
+                    <!-- 左側のメニュー全体を nav タグにしてセマンティックに -->
+                    <nav class="drawer-menu__sidebar">
+                        <ul class="drawer-menu__tabs">
+                            <!-- JSでの切り替え用 active クラスはそのまま維持 -->
+                            <li id="menu_btn_01" class="drawer-menu__tab btn active" data-target="category_settings">
+                                カテゴリー<span class="drawer-menu__tab-br"><br></span>設定
+                            </li>
+                            <li id="menu_btn_02" class="drawer-menu__tab btn" data-target="subsc_settings">
+                                サブスク<span class="drawer-menu__tab-br"><br></span>管理
+                            </li>
+                            <li id="menu_btn_03" class="drawer-menu__tab btn" data-target="account_settings">
+                                アカウント<span class="drawer-menu__tab-br"><br></span>設定
+                            </li>
+                            <li id="menu_btn_04" class="drawer-menu__tab btn" data-target="other_settings">
+                                その他の<span class="drawer-menu__tab-br"><br></span>情報
+                            </li>
+                            <!-- 外部リンク系は Modifier（--small）で差別化 -->
+                            <li class="drawer-menu__tab drawer-menu__tab--small">
+                                <a href="#">AnalyWalletについて<span class="material-symbols-outlined">open_in_new</span></a>
+                            </li>
+                            <li class="drawer-menu__tab drawer-menu__tab--small">
+                                <a href="#">プライバシーポリシー<span class="material-symbols-outlined">open_in_new</span></a>
+                            </li>
+                            <li class="drawer-menu__tab drawer-menu__tab--small">
+                                <a href="#">利用規約<span class="material-symbols-outlined">open_in_new</span></a>
+                            </li>
+                            <li class="drawer-menu__tab drawer-menu__tab--small">
+                                <a href="#">お問い合わせ・ご要望<span class="material-symbols-outlined">open_in_new</span></a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="drawer-menu__content">
+                        <section id="category_settings" class="drawer-menu__panel category-settings active" data-target="category_settings">
+                            <h3 class="category-settings__title">
+                                カテゴリー設定
+                                <span>登録の際に用いるカテゴリーをカスタマイズします。</span>
+                            </h3>
+
+                            <!-- レイアウト用のラッパー -->
+                            <div class="category-settings__layout">
+
+                                <!-- 支出設定ボックス -->
+                                <div class="category-settings__box">
+                                    <h4 class="category-settings__subtitle">支出</h4>
+
+                                    <!-- divから、意味のある form タグへ変更（Enterキー送信時のバグを防ぐためonsubmitを無効化） -->
+                                    <form class="category-settings__form" onsubmit="return false;">
+                                        <input type="text" id="new-expense-name" class="category-settings__input" placeholder="カテゴリーを追加">
+                                        <button type="button" id="add-expense-btn" class="category-settings__add-btn">追加する</button>
+                                    </form>
+
+                                    <h4 class="category-settings__subtitle">登録済みのカテゴリー</h4>
+                                    <!-- JSで中にインサートされる li もBEMのルール（__item, __delete-btn）で出力されるようにしてください -->
+                                    <ul id="expense-category-list" class="category-settings__list">
                                     </ul>
                                 </div>
-                                <div class="category_box">
-                                    <h4>収入</h4>
-                                    <div class="category-form">
-                                        <input type="text" id="new-income-name" placeholder="カテゴリーを追加">
-                                        <button id="add-income-btn" class="add_btn">追加する</button>
-                                    </div>
-                                    <h4>登録済みのカテゴリー</h4>
-                                    <ul id="income-category-list" class="category-list">
+
+                                <!-- 収入設定ボックス -->
+                                <div class="category-settings__box">
+                                    <h4 class="category-settings__subtitle">収入</h4>
+
+                                    <form class="category-settings__form" onsubmit="return false;">
+                                        <input type="text" id="new-income-name" class="category-settings__input" placeholder="カテゴリーを追加">
+                                        <button type="button" id="add-income-btn" class="category-settings__add-btn">追加する</button>
+                                    </form>
+
+                                    <h4 class="category-settings__subtitle">登録済みのカテゴリー</h4>
+                                    <ul id="income-category-list" class="category-settings__list">
                                     </ul>
                                 </div>
+
                             </div>
-                        </div>
-                        <div class="menu_item_container" id="subsc_settings" data-target="subsc_settings">
-                            <h3>サブスク管理<span>毎月自動で追加されるサブスクサービスを登録します。</span></h3>
-                            <h4>登録</h4>
-                            <form id="subsc-form" class="subsc-form">
-                                <div class="form_group">
-                                    <label for="subsc-name">サービス名</label>
-                                    <div class="input_wrapper">
-                                        <input type="text" id="subsc-name" placeholder="サービス名を入力" required>
+                        </section>
+                        <section id="subsc_settings" class="drawer-menu__panel subsc-settings" data-target="subsc_settings">
+                            <h3 class="subsc-settings__title">
+                                サブスク管理
+                                <span>毎月自動で追加されるサブスクサービスを登録します。</span>
+                            </h3>
+
+                            <h4 class="subsc-settings__subtitle">登録</h4>
+
+                            <form id="subsc-form" class="subsc-settings__form">
+                                <!-- 名前 -->
+                                <div class="subsc-settings__group">
+                                    <label for="subsc-name" class="subsc-settings__label">サービス名</label>
+                                    <div class="subsc-settings__input-wrapper">
+                                        <input type="text" id="subsc-name" class="subsc-settings__input" placeholder="サービス名を入力" required>
                                     </div>
                                 </div>
-                                <div class="form_group">
-                                    <label for="subsc-amount">金額</label>
-                                    <div class="input_wrapper">
-                                        <input type="number" id="subsc-amount" placeholder="金額を入力" min="1" required>
+
+                                <!-- 金額 -->
+                                <div class="subsc-settings__group subsc-settings__group--amount">
+                                    <label for="subsc-amount" class="subsc-settings__label">金額</label>
+                                    <div class="subsc-settings__input-wrapper">
+                                        <input type="number" id="subsc-amount" class="subsc-settings__input" placeholder="金額を入力" min="1"
+                                            required>
                                     </div>
                                 </div>
-                                <div class="form_group">
-                                    <label for="subsc-day">支払日</label>
-                                    <div class="input_wrapper">
-                                        <div>毎月</div>
-                                        <select id="subsc-day" required>
+
+                                <!-- 支払日 -->
+                                <div class="subsc-settings__group subsc-settings__group--day">
+                                    <label for="subsc-day" class="subsc-settings__label">支払日</label>
+                                    <div class="subsc-settings__input-wrapper">
+                                        <div class="subsc-settings__prefix">毎月</div>
+                                        <select id="subsc-day" class="subsc-settings__select" required>
                                             <option value="">日にちを選択</option>
                                             <script>
-                                                // 1〜31日
                                                 for (let i = 1; i <= 31; i++) {
                                                     document.write(`<option value="${i}">${i}日</option>`);
                                                 }
@@ -161,26 +193,40 @@
                                         </select>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn-submit">登録する</button>
+
+                                <button type="submit" class="subsc-settings__submit-btn">登録する</button>
                             </form>
-                            <h4>現在契約中のサブスク</h4>
-                            <div class="subsc-table-wrapper">
-                                <table class="subsc-table">
+
+                            <h4 class="subsc-settings__subtitle">現在契約中のサブスク</h4>
+
+                            <!-- テーブル周りの構造化 -->
+                            <div class="subsc-settings__table-wrapper">
+                                <table class="subsc-settings__table">
                                     <thead>
                                         <tr>
-                                            <th>サービス名</th>
-                                            <th>支払日</th>
-                                            <th>金額</th>
-                                            <th>操作</th>
+                                            <th class="subsc-settings__th">サービス名</th>
+                                            <th class="subsc-settings__th">支払日</th>
+                                            <th class="subsc-settings__th">金額</th>
+                                            <th class="subsc-settings__th">操作</th>
                                         </tr>
                                     </thead>
+                                    <!-- 動的に追加される tbody。JSで生成する td や button にもBEMクラスを当てるとより綺麗になります -->
                                     <tbody id="subsc-list">
+                                        <!-- 【JSでの生成イメージ】
+                                        <tr>
+                                            <td class="subsc-settings__td">Netflix</td>
+                                            <td class="subsc-settings__td">毎月 15日</td>
+                                            <td class="subsc-settings__td">1,490円</td>
+                                            <td class="subsc-settings__td">
+                                                <button type="button" class="subsc-settings__delete-btn">解約</button>
+                                            </td>
+                                        </tr>
+                                        -->
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="menu_item_container" id="account_settings" data-target="account_settings">
-                            <h3>アカウント設定<span>アカウントの各種設定を行えます。</span></h3>
+                        </section>
+                        <section id="account_settings" class="drawer-menu__panel" data-target="account_settings">                            <h3>アカウント設定<span>アカウントの各種設定を行えます。</span></h3>
                             <div class="setting_items">
                             </div>
                             <h4>メールアドレス</h4>
@@ -296,9 +342,8 @@
                                 </div>
                                 <button id="btn-delete-account">アカウントを完全に削除する</button>
                             </div>
-                        </div>
-                        <div class="menu_item_container" id="other_settings" data-target="other_settings">
-                            <h3>その他の情報</h3>
+                        </section>
+                        <section id="other_settings" class="drawer-menu__panel" data-target="other_settings">                            <h3>その他の情報</h3>
                             <ul>
                                 <li>
                                     <a class="link_text">AnalyWalletについて<span
@@ -317,11 +362,11 @@
                                             class="material-symbols-outlined">open_in_new</span></a>
                                 </li>
                             </ul>
-                        </div>
+                        </section>
                     </div>
                 </div>
             </div>
-        </div>
+        </aside>
     </header>
     <main>
         <section id="summary_container">

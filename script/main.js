@@ -174,7 +174,7 @@ document.getElementById('header_menu_icon').addEventListener("click", () => {
 });
 
 // 1. 画面内にあるすべてのメニューボタン（.menu-btn）を取得する
-const menuButtons = document.querySelectorAll('.menu_btn_wrapper.btn');
+const menuButtons = document.querySelectorAll('.drawer-menu__tab.btn');
 
 menuButtons.forEach(btn => {
     btn.addEventListener("click", function () {

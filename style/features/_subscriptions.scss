@@ -1,55 +1,46 @@
 // features/_subscription.scss
 @use "../foundation/variables" as v;
 
-#subsc_settings {
+.subsc-settings {
     width: 100%;
 
-    .form_group {
+    &__title {
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 30px;
+
+        span {
+            font-size: 14px;
+            display: block;
+            font-weight: 400;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+    }
+
+    &__subtitle {
+        font-family: 'Noto Sans JP', sans-serif;
+        font-weight: 500;
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+
+    &__form {
+        // フォーム全体のスタイル（必要に応じて記述）
+    }
+
+    &__group {
         display: flex;
         margin-bottom: 15px;
         position: relative;
-
-        label {
-            flex: 1;
-            line-height: 40.39px;
-
-            @include v.mq(sm) {
-                font-size: 14px;
-            }
-        }
 
         @include v.mq(sm) {
             gap: 7.5px;
             flex: 1;
         }
 
-        .input_wrapper {
-            flex: 3;
-
-            @include v.mq(sm) {
-                flex: 2.5;
-            }
-
-            #subsc-name, #subsc-amount, select {
-                width: 100%;
-                border: solid 1px v.$acc200;
-                background: v.$acc100;
-                padding: 10px 15px;
-                border-radius: 10px;
-                line-height: 1;
-            }
-
-            div {
-                display: inline-block;
-                padding-right: 15px;
-                height: 1px;
-            }
-
-            #subsc-day {
-                width: calc(100% - 51px);
-            }
-        }
-
+        // 共通の疑似要素ベース（金額やアイコンのベース位置）
         &::after {
             display: inline-block;
             position: absolute;
@@ -59,30 +50,77 @@
             transform: translateY(-50%);
         }
 
-        &:nth-of-type(2)::after {
-            content: '円';
+        // 金額グループ固有のスタイル（Modifier）
+        &--amount {
+            &::after {
+                content: '円';
+            }
         }
 
-        &:nth-of-type(3)::after {
-            content: '\e313';
-            font-family: 'Material Icons';
-            font-size: 20px;
-            right: 13.5px;
+        // 支払日グループ固有のスタイル（Modifier）
+        &--day {
+            &::after {
+                content: '\e313';
+                font-family: 'Material Icons';
+                font-size: 20px;
+                right: 13.5px;
+            }
         }
     }
 
-    form button {
+    &__label {
+        flex: 1;
+        line-height: 40.39px;
+
+        @include v.mq(sm) {
+            font-size: 14px;
+        }
+    }
+
+    &__input-wrapper {
+        flex: 3;
+
+        @include v.mq(sm) {
+            flex: 2.5;
+        }
+    }
+
+    // 入力項目の共通スタイル
+    &__input,
+    &__select {
+        width: 100%;
+        border: solid 1px v.$acc200;
+        background: v.$acc100;
+        padding: 10px 15px;
+        border-radius: 10px;
+        line-height: 1;
+    }
+
+    // 「毎月」テキストのラッパー
+    &__prefix {
+        display: inline-block;
+        padding-right: 15px;
+        height: 1px; // 元のコードの挙動を維持
+    }
+
+    // 支払日セレクトボックス固有の幅調整
+    &__select {
+        width: calc(100% - 51px);
+    }
+
+    &__submit-btn {
         border: solid 1px v.$acc120;
         margin-bottom: 30px;
         padding: 15px 30px;
         border-radius: 10px;
+        background: transparent;
+        cursor: pointer;
+        transition: .2s;
 
         @include v.mq(sm) {
             font-size: 14px;
             margin-left: 1.5% !important;
         }
-
-        transition: .2s;
 
         &:hover {
             background: v.$acc300;
@@ -90,54 +128,46 @@
         }
     }
 
-    .subsc-info {
-        display: flex;
-
-        span {
-            flex: 1;
-        }
-    }
-
-    .subsc-table-wrapper {
+    // テーブルの親ラッパー（スクロールはここに一任）
+    &__table-wrapper {
         position: relative;
         overflow: hidden;
         overflow-x: scroll;
     }
 
-    .subsc-table {
+    &__table {
         width: 100%;
         min-width: 500px;
         font-size: 14px;
-        overflow: hidden;
-        overflow-x: scroll;
+        border-collapse: collapse; // テーブルの隙間をなくす標準スタイル
+    }
 
-        thead {
-            background: v.$acc200;
+    &__th {
+        background: v.$acc200;
+        padding: 10px 15px;
+        font-weight: 500;
+        text-align: left; // カラムの文字配置を明示的化
+    }
 
-            th {
-                padding: 10px 15px;
-                font-weight: 500;
-            }
-        }
+    // JSから生成される td や削除ボタン用のスタイル
+    &__td {
+        padding: 7.5px 15px;
+        border-top: solid 1px v.$acc110;
+    }
 
-        tbody {
-            td {
-                padding: 7.5px 15px;
-                border-top: solid 1px v.$acc110;
+    &__delete-btn {
+        padding: 5px 10px;
+        background: v.$warning-light;
+        border-radius: 50px;
+        font-family: 'Noto Sans JP', sans-serif;
+        font-size: 10px;
+        border: none;
+        cursor: pointer;
+        transition: .2s;
 
-                button {
-                    padding: 5px 10px;
-                    background: v.$warning-light;
-                    border-radius: 50px;
-                    font-family: 'Noto Sans JP', sans-serif;
-                    font-size: 10px;
-
-                    &:hover {
-                        background: v.$warning;
-                        color: v.$white;
-                    }
-                }
-            }
+        &:hover {
+            background: v.$warning;
+            color: v.$white;
         }
     }
 }
