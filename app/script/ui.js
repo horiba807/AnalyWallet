@@ -2,7 +2,7 @@ import { categoryOptions } from "./constant.js";
 import { fetchTransactions } from './api.js';
 import { state, moneyForm } from './state.js';
 import { renderCircleChart, renderLineChart } from './chart.js';
-import pkg from '../package.json';
+import pkg from '../../package.json';
 
 //==========================================================================
 // メイン-ダッシュボード：ダッシュボードの更新関数

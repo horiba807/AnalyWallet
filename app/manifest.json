@@ -1,7 +1,8 @@
 {
   "name": "AnalyWallet",
   "short_name": "AnalyWallet",
-  "start_url": "index.html",
+  "start_url": "/app/index.html",
+  "scope": "/app/",
   "display": "standalone",
   "background_color": "#FEFAF6",
   "theme_color": "#FEFAF6",
