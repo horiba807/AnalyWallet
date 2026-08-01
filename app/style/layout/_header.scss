@@ -1,19 +1,59 @@
 // layout/_header.scss
 @use "../foundation/variables" as v;
 
-.header {
+body{
     padding: 0 3.5%;
+    
+            @include v.mq(tb) {
+                margin: 0 auto;
+                max-width: 1360px;
+            }
+        
+            @include v.mq(sm) {
+                margin: 0 auto;
+                max-width: 1360px;
+                padding: 0 5%;
+            }
+    //ハンバーガー
+    .header__menu-btn {
+        display:block;
+        background: v.$acc100;
+        position: sticky;
+        margin-left:auto;
+        width: 50px;
+        height: 50px;
+        top: 25px;
+        padding: 13px 13px;
+        border-radius: 10px;
+        transition: .2s;
+        border: solid 1px v.$acc200;
+        z-index:99;
 
-    @include v.mq(tb) {
-        margin: 0 auto;
-        max-width: 1360px;
-    }
+        @include v.mq(sm) {
+            position: fixed;
+            right: 5vw;
+            top: 25px;
+        }
 
-    @include v.mq(sm) {
-        margin: 0 auto;
-        max-width: 1360px;
-        padding: 0 5%;
+        span {
+            font-family: 'Material Icons';
+            font-feature-settings: 'liga' 1;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+        }
+
+        &:hover {
+            background: v.$acc200;
+            border: solid 1px v.$acc210;
+        }
     }
+}
+
+.header {
+    margin-top:-50px;
 
     // 枠組み
     &__wrapper {
@@ -72,7 +112,7 @@
     &__nav{
         list-style: none;
         text-align: right;
-        margin: -100px 70px 0 0;
+        margin: -100px 80px 0 0;
         letter-spacing: 0.05rem;
 
         @include v.mq(sm) {
@@ -97,40 +137,6 @@
             &:hover {
                 border-bottom: v.$acc200 solid 2px;
             }
-        }
-    }
-
-    //ハンバーガー
-    &__menu-btn {
-        background: v.$acc100;
-        position: absolute;
-        right: 0%;
-        width: 50px;
-        height: 50px;
-        top: 25px;
-        padding: 13px 13px;
-        border-radius: 10px;
-        transition: .2s;
-        border: solid 1px v.$acc200;
-
-        @include v.mq(sm) {
-            right: 0%;
-            top: 25px;
-        }
-
-        span {
-            font-family: 'Material Icons';
-            font-feature-settings: 'liga' 1;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 18px;
-        }
-
-        &:hover {
-            background: v.$acc200;
-            border: solid 1px v.$acc210;
         }
     }
 

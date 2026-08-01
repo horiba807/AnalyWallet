@@ -20,7 +20,7 @@ main h2 {
   font-size: 20px;
 }
 main section {
-  padding: 30px 3.5% 90px;
+  padding: 30px 0 90px;
   margin: 0 auto;
   max-width: 1360px;
 }
@@ -32,21 +32,62 @@ main section {
   }
 }
 
-.header {
+body {
   padding: 0 3.5%;
 }
 @media screen and (min-width: 600px) {
-  .header {
+  body {
     margin: 0 auto;
     max-width: 1360px;
   }
 }
 @media screen and (max-width: 599px) {
-  .header {
+  body {
     margin: 0 auto;
     max-width: 1360px;
     padding: 0 5%;
   }
+}
+body .header__menu-btn {
+  display: block;
+  background: #f7f1e9;
+  position: sticky;
+  margin-left: auto;
+  width: 50px;
+  height: 50px;
+  top: 25px;
+  padding: 13px 13px;
+  border-radius: 10px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  border: solid 1px #EADBC8;
+  z-index: 99;
+}
+@media screen and (max-width: 599px) {
+  body .header__menu-btn {
+    position: fixed;
+    right: 5vw;
+    top: 25px;
+  }
+}
+body .header__menu-btn span {
+  font-family: "Material Icons";
+  -webkit-font-feature-settings: "liga" 1;
+          font-feature-settings: "liga" 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 18px;
+}
+body .header__menu-btn:hover {
+  background: #EADBC8;
+  border: solid 1px #DAC0A3;
+}
+
+.header {
+  margin-top: -50px;
 }
 .header__wrapper {
   position: relative;
@@ -99,7 +140,7 @@ main section {
 .header__nav {
   list-style: none;
   text-align: right;
-  margin: -100px 70px 0 0;
+  margin: -100px 80px 0 0;
   letter-spacing: 0.05rem;
 }
 @media screen and (max-width: 599px) {
@@ -122,40 +163,6 @@ main section {
 }
 .header__nav-link:hover {
   border-bottom: #EADBC8 solid 2px;
-}
-.header__menu-btn {
-  background: #f7f1e9;
-  position: absolute;
-  right: 0%;
-  width: 50px;
-  height: 50px;
-  top: 25px;
-  padding: 13px 13px;
-  border-radius: 10px;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-  border: solid 1px #EADBC8;
-}
-@media screen and (max-width: 599px) {
-  .header__menu-btn {
-    right: 0%;
-    top: 25px;
-  }
-}
-.header__menu-btn span {
-  font-family: "Material Icons";
-  -webkit-font-feature-settings: "liga" 1;
-          font-feature-settings: "liga" 1;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  font-size: 18px;
-}
-.header__menu-btn:hover {
-  background: #EADBC8;
-  border: solid 1px #DAC0A3;
 }
 .header__sm-nav {
   display: -webkit-box;

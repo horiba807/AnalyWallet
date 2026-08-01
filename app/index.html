@@ -31,6 +31,10 @@
 </head>
 
 <body>
+    <!-- メニューボタン（ハンバーガー） -->
+    <button id="header_menu_icon" class="header__menu-btn">
+        <span class="material-icons" id="icon">menu</span>
+        </button>
     <header class="header">
         <div class="header__wrapper">
             <!-- ロゴ -->
@@ -45,35 +49,28 @@
             <nav class="header__nav">
                 <ul class="header__nav-list">
                     <li class="header__nav-item">
-                        <a class="header__nav-link" href="index.html#summary_container">ダッシュボード</a>
+                        <a class="header__nav-link" href="index.html#dashboard">ダッシュボード</a>
                     </li>
                     <li class="header__nav-item">
-                        <a class="header__nav-link" href="index.html#register_container">収支登録</a>
+                        <a class="header__nav-link" href="index.html#register">収支登録</a>
                     </li>
                     <li class="header__nav-item">
-                        <a class="header__nav-link" href="index.html#history_container">登録履歴</a>
+                        <a class="header__nav-link" href="index.html#history">登録履歴</a>
                     </li>
                 </ul>
             </nav>
-
-            <!-- メニューボタン（ハンバーガー） -->
-            <button id="header_menu_icon" class="header__menu-btn">
-                <span class="material-icons" id="icon">menu</span>
-            </button>
-
             <!-- スマホ用ナビゲーション -->
             <nav id="sm_navlist" class="header__sm-nav">
                 <div class="header__sm-nav-item">
-                    <a href="index.html#summary_container">ダッシュボード</a>
+                    <a href="index.html#dashboard">ダッシュボード</a>
                 </div>
                 <div class="header__sm-nav-item header__sm-nav-item--center">
-                    <a href="index.html#register_container">収支登録</a>
+                    <a href="index.html#register">収支登録</a>
                 </div>
                 <div class="header__sm-nav-item">
-                    <a href="index.html#history_container">登録履歴</a>
+                    <a href="index.html#history">登録履歴</a>
                 </div>
             </nav>
-        </div>
         </div>
         <aside id="header_menu" class="drawer-menu">
             <div class="drawer-menu__container">
@@ -357,7 +354,7 @@
         </aside>
     </header>
     <main>
-        <section id="summary_container">
+        <section id="dashboard">
             <h2>ダッシュボード</h2>
             <div class="year_select_wrapper">
                 <button type="button" id="prev-year"></button>
@@ -426,7 +423,7 @@
                 </div>
             </div>
         </section>
-        <section id="register_container">
+        <section id="register">
             <h2>収支登録</h2>
             <form id="money-form" class="register_form">
                 <div class="form_group">
@@ -465,7 +462,7 @@
                 <button type="submit" class="submit_btn">保存する</button>
             </form>
         </section>
-        <section id="history_container">
+        <section id="history">
             <h2>登録履歴</h2>
             <div class="table-wrapper">
                 <table id="transaction-table">
