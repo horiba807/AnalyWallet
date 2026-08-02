@@ -62,6 +62,7 @@ body .header__menu-btn {
   transition: 0.2s;
   border: solid 1px #EADBC8;
   z-index: 99;
+  cursor: pointer;
 }
 @media screen and (max-width: 599px) {
   body .header__menu-btn {
@@ -98,6 +99,7 @@ body .header__menu-btn:hover {
   position: relative;
   z-index: -1;
   display: inline-block;
+  cursor: pointer;
 }
 .header__logo-title {
   font-size: 22px;
@@ -152,6 +154,7 @@ body .header__menu-btn:hover {
   display: inline;
   margin-left: 20px;
   position: relative;
+  cursor: pointer;
 }
 .header__nav-link {
   text-decoration: none;
@@ -289,6 +292,61 @@ footer a:hover {
 }
 .drawer-menu.active {
   display: block;
+}
+.drawer-menu .drawer-menu__logo-wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: block;
+  height: 100px;
+  position: relative;
+  left: 0;
+}
+.drawer-menu .drawer-menu__logo {
+  position: absolute;
+  z-index: -1;
+  display: inline-block;
+  cursor: pointer;
+  top: -63px;
+  left: 0;
+  z-index: 3;
+}
+.drawer-menu .drawer-menu__logo-title {
+  font-size: 22px;
+  font-weight: 500;
+  display: inline-block;
+  margin-left: 60px;
+  font-family: "Albert Sans", sans-serif;
+}
+@media screen and (max-width: 599px) {
+  .drawer-menu .drawer-menu__logo-title {
+    margin-left: 45px;
+    font-size: 20px;
+  }
+}
+.drawer-menu .drawer-menu__logo-title span {
+  font-size: 12px;
+  color: #818181;
+  margin-left: 10px;
+}
+.drawer-menu .drawer-menu__logo-img {
+  width: 45px;
+  height: 45px;
+  display: inline-block;
+  position: absolute;
+  top: 47.5%;
+  left: 0;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+@media screen and (max-width: 599px) {
+  .drawer-menu .drawer-menu__logo-img {
+    width: 35px;
+    height: 35px;
+  }
+}
+.drawer-menu .drawer-menu__logo-img img {
+  width: 100%;
+  height: 100%;
 }
 .drawer-menu__container {
   width: 100%;
@@ -1110,7 +1168,7 @@ form::-webkit-date-and-time-value {
           transform: translateY(-50%);
   padding: 5px 10px;
   background: #f5b6b6;
-  border-radius: 50px;
+  border-radius: 7.5px;
   font-family: "Noto Sans JP", sans-serif;
   font-size: 10px;
   border: none;
@@ -1245,7 +1303,8 @@ form::-webkit-date-and-time-value {
 .subsc-settings__table-wrapper {
   position: relative;
   overflow: hidden;
-  overflow-x: scroll;
+  overflow-x: auto;
+  margin-bottom: 50px;
 }
 .subsc-settings__table {
   width: 100%;
@@ -1266,7 +1325,7 @@ form::-webkit-date-and-time-value {
 .subsc-settings__delete-btn {
   padding: 5px 10px;
   background: #f5b6b6;
-  border-radius: 50px;
+  border-radius: 7.5px;
   font-family: "Noto Sans JP", sans-serif;
   font-size: 10px;
   border: none;

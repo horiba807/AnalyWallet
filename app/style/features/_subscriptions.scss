@@ -128,7 +128,8 @@
     &__table-wrapper {
         position: relative;
         overflow: hidden;
-        overflow-x: scroll;
+        overflow-x: auto;
+        margin-bottom:50px;
     }
 
     &__table {
@@ -154,7 +155,7 @@
     &__delete-btn {
         padding: 5px 10px;
         background: v.$warning-light;
-        border-radius: 50px;
+        border-radius: 7.5px;
         font-family: 'Noto Sans JP', sans-serif;
         font-size: 10px;
         border: none;

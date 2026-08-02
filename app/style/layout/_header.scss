@@ -28,6 +28,7 @@ body{
         transition: .2s;
         border: solid 1px v.$acc200;
         z-index:99;
+        cursor: pointer;
 
         @include v.mq(sm) {
             position: fixed;
@@ -67,6 +68,7 @@ body{
         position: relative;
         z-index: -1;
         display: inline-block;
+        cursor: pointer;
 
         &-title {
             font-size: 22px;
@@ -123,6 +125,7 @@ body{
             display: inline;
             margin-left: 20px;
             position: relative;
+            cursor: pointer;
         }
 
         &-link {
