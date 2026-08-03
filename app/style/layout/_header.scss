@@ -155,6 +155,7 @@ body{
     z-index:50;
     background: v.$white;  
     border-top:solid 2px v.$acc100;
+    padding-bottom: env(safe-area-inset-bottom);
 
     // JavaScriptでの表示切り替え用クラス（State）
     &.remove {

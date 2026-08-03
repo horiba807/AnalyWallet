@@ -188,6 +188,7 @@ body .header__menu-btn:hover {
   z-index: 50;
   background: #FEFAF6;
   border-top: solid 2px #f7f1e9;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 .header__sm-nav.remove {
   display: none;
