@@ -156,7 +156,7 @@ document.getElementById('filter-category')?.addEventListener('change', (e) => {
 //■■■■■■■■■■■■■■■■■■メニューボタン■■■■■■■■■■■■■■■■■■
 document.getElementById('header_menu_icon').addEventListener("click", () => {
     const headerMenu = document.getElementById('header_menu');
-    const icon = document.getElementById('icon');
+    const icon = document.getElementById('menuIcon');
     const headerNav = document.getElementById('sm_navlist');
 
     headerMenu.classList.toggle('active');
