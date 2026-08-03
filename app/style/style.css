@@ -184,7 +184,7 @@ body .header__menu-btn:hover {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 75px;
+  min-height: 75px;
   z-index: 50;
   background: #FEFAF6;
   border-top: solid 2px #f7f1e9;
