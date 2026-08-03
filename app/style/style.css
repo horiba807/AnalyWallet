@@ -184,8 +184,7 @@ body .header__menu-btn:hover {
   height: 75px;
   z-index: 50;
   background: #FEFAF6;
-  -webkit-box-shadow: 0px 0px 30px 15px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 0px 30px 15px rgba(0, 0, 0, 0.1);
+  border-top: solid 2px #f7f1e9;
 }
 .header__sm-nav.remove {
   display: none;
@@ -199,23 +198,43 @@ body .header__menu-btn:hover {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  font-size: 13px;
   text-align: center;
-  line-height: 75px;
+  position: relative;
+  cursor: pointer;
 }
-.header__sm-nav-item--center {
-  border-left: solid 2px #f7f1e9;
-  border-right: solid 2px #f7f1e9;
+.header__sm-nav-item span {
+  position: absolute;
+  top: 22.5%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  font-size: 28px;
+}
+.header__sm-nav-item p {
+  position: absolute;
+  left: 50%;
+  bottom: 22.5%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  font-size: 11px;
+  width: 100%;
 }
 .header__sm-nav-item a {
   text-decoration: none;
   color: #000;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
 }
-.header__sm-nav-item a:visited {
-  color: #000;
+.header__sm-nav-item:hover {
+  background: #ded9d2;
 }
-.header__sm-nav-item a:hover {
-  border-bottom: #EADBC8 solid 2px;
+
+.material-symbols-rounded {
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
 }
 
 footer {

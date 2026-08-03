@@ -8,10 +8,16 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@100..900&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        rel="stylesheet"
+    />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+
+
     <meta name="viewport" content="width=device-width, viewport-fit=cover">
     <link rel="icon" href="img/favicon.ico">
     <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
@@ -38,15 +44,31 @@
     <!-- スマホ用ナビゲーション -->
     <nav id="sm_navlist" class="header__sm-nav">
         <div class="header__sm-nav-item">
-            <a href="index.html#dashboard">ダッシュボード</a>
-        </div>
-        <div class="header__sm-nav-item header__sm-nav-item--center">
-            <a href="index.html#register">収支登録</a>
+            <span class="material-symbols-rounded">
+                home
+            </span>
+            <a href="index.html#dashboard"></a>
+            <p>ダッシュボード</p>
+
         </div>
         <div class="header__sm-nav-item">
-            <a href="index.html#history">登録履歴</a>
+            <span class="material-symbols-rounded">
+                check
+            </span>
+            <a href="index.html#register"></a>
+            <p>収支登録</p>
+        
+        </div>
+        <div class="header__sm-nav-item">
+            <span class="material-symbols-rounded">
+                history
+            </span>
+            <a href="index.html#history"></a>
+            <p>登録履歴</p>
+        
         </div>
     </nav>
+
     <header class="header">
         <div class="header__wrapper">
             <!-- ロゴ -->
@@ -83,10 +105,8 @@
                             <h1 class="header__logo-title">AnalyWallet</h1>
                         </div>
                     </div>
-                    <!-- 左側のメニュー全体を nav タグにしてセマンティックに -->
-                    <nav class="drawer-menu__sidebar">
+\                    <nav class="drawer-menu__sidebar">
                         <ul class="drawer-menu__tabs">
-                            <!-- JSでの切り替え用 active クラスはそのまま維持 -->
                             <li id="menu_btn_01" class="drawer-menu__tab btn active" data-target="category_settings">
                                 カテゴリー<span class="drawer-menu__tab-br"><br></span>設定
                             </li>
@@ -99,7 +119,7 @@
                             <li id="menu_btn_04" class="drawer-menu__tab btn" data-target="other_settings">
                                 その他の<span class="drawer-menu__tab-br"><br></span>情報
                             </li>
-                            <!-- 外部リンク系は Modifier（--small）で差別化 -->
+
                             <li class="drawer-menu__tab drawer-menu__tab--small">
                                 <a href="#">AnalyWalletについて<span class="material-symbols-outlined">open_in_new</span></a>
                             </li>
@@ -128,14 +148,12 @@
                                 <div class="category-settings__box">
                                     <h4 class="category-settings__subtitle">支出</h4>
 
-                                    <!-- divから、意味のある form タグへ変更（Enterキー送信時のバグを防ぐためonsubmitを無効化） -->
                                     <form class="category-settings__form" onsubmit="return false;">
                                         <input type="text" id="new-expense-name" class="category-settings__input" placeholder="カテゴリーを追加">
                                         <button type="button" id="add-expense-btn" class="category-settings__add-btn">追加する</button>
                                     </form>
 
                                     <h4 class="category-settings__subtitle">登録済みのカテゴリー</h4>
-                                    <!-- JSで中にインサートされる li もBEMのルール（__item, __delete-btn）で出力されるようにしてください -->
                                     <ul id="expense-category-list" class="category-settings__list">
                                     </ul>
                                 </div>

@@ -155,7 +155,7 @@ body{
     height:75px;
     z-index:50;
     background: v.$white;  
-    box-shadow: 0px 0px 30px 15px rgba(0,0,0,0.1);
+    border-top:solid 2px v.$acc100;
 
     // JavaScriptでの表示切り替え用クラス（State）
     &.remove {
@@ -168,27 +168,47 @@ body{
 
     &-item {
         flex: 1;
-        font-size: 13px;
         text-align: center;
-        line-height: 75px;
+        position: relative;
+        cursor: pointer;
 
-        // 中央のアイテム（Modifier）
-        &--center {
-            border-left: solid 2px v.$acc100;
-            border-right: solid 2px v.$acc100;
+        span{
+            position: absolute;
+            top:22.5%;
+            left:50%;
+            transform: translateX(-50%);
+            font-size:28px;
+        }
+
+        p{
+            position: absolute;
+            left: 50%;
+            bottom: 22.5%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            width: 100%;
         }
 
         a {
             text-decoration: none;
             color: #000;
-
-            &:visited {
-                color: #000;
-            }
-
-            &:hover {
-                border-bottom: v.$acc200 solid 2px;
-            }
+            position: absolute;
+            left:50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
         }
+        &:hover{
+            background: v.$acc120;
+        }
+
     }
+
+}
+.material-symbols-rounded {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 300,
+        'GRAD' 0,
+        'opsz' 24
 }
