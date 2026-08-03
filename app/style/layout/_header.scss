@@ -55,7 +55,9 @@ body{
 
 .header {
     margin-top:-50px;
-
+    @include v.mq(sm){
+        margin-top:0;
+    }
     // 枠組み
     &__wrapper {
         position: relative;
@@ -142,44 +144,50 @@ body{
             }
         }
     }
+}
+// スマホ用ナビゲーション
+.header__sm-nav {
+    display: flex;
+    position: fixed;
+    bottom:0;
+    left:0;
+    width: 100%;
+    height:75px;
+    z-index:50;
+    background: v.$white;  
+    box-shadow: 0px 0px 30px 15px rgba(0,0,0,0.1);
 
-    // スマホ用ナビゲーション
-    &__sm-nav {
-        display: flex;
-        margin-top: 0px;
+    // JavaScriptでの表示切り替え用クラス（State）
+    &.remove {
+        display: none;
+    }
 
-        // JavaScriptでの表示切り替え用クラス（State）
-        &.remove {
-            display: none;
+    @include v.mq(tb) {
+        display: none;
+    }
+
+    &-item {
+        flex: 1;
+        font-size: 13px;
+        text-align: center;
+        line-height: 75px;
+
+        // 中央のアイテム（Modifier）
+        &--center {
+            border-left: solid 2px v.$acc100;
+            border-right: solid 2px v.$acc100;
         }
 
-        @include v.mq(tb) {
-            display: none;
-        }
+        a {
+            text-decoration: none;
+            color: #000;
 
-        &-item {
-            flex: 1;
-            font-size: 13px;
-            text-align: center;
-            line-height: 40px;
-
-            // 中央のアイテム（Modifier）
-            &--center {
-                border-left: solid 3px v.$acc100;
-                border-right: solid 3px v.$acc100;
+            &:visited {
+                color: #000;
             }
 
-            a {
-                text-decoration: none;
-                color: #000;
-
-                &:visited {
-                    color: #000;
-                }
-
-                &:hover {
-                    border-bottom: v.$acc200 solid 2px;
-                }
+            &:hover {
+                border-bottom: v.$acc200 solid 2px;
             }
         }
     }
