@@ -176,7 +176,7 @@ document.getElementById('header_menu_icon').addEventListener("click", () => {
         icon.textContent = "menu";                   
         document.body.classList.remove('no-scroll'); 
         headerLogo.classList.remove('no-display');
-        headerNavList.classList.add('no-display');
+        headerNavList.classList.remove('no-display');
 
 
     }

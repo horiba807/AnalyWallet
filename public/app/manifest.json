@@ -1,19 +1,19 @@
 {
   "name": "AnalyWallet",
   "short_name": "AnalyWallet",
-  "start_url": "/app/",
-  "scope": "/app/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#FEFAF6",
   "theme_color": "#FEFAF6",
   "icons": [
     {
-      "src": "/app/img/logo192.png",
+      "src": "img/logo192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/app/img/logo.png",
+      "src": "img/logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
