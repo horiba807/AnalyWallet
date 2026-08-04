@@ -38,9 +38,10 @@
     cursor: pointer;
     top:-63px;
     left:0;
-    z-index: 3;
+    z-index: 99;
+    background: v.$white;
     @include v.mq(sm) {
-      top: - 50px;
+      top: -61px;
     
       }
 
@@ -142,24 +143,42 @@
     &-br {
       display: none;
     }
-
     @include v.mq(sm) {
-      font-size: 14px;
+      font-size: 10px;
       text-align: center;
       border-top: solid v.$acc100 2px;
       border-bottom: solid v.$acc100 2px;
       border-left: solid v.$acc100 1px;
       border-right: solid v.$acc100 1px;
       text-decoration: none;
-      padding: 20px 0;
       width: 100%;
+      aspect-ratio: 1 / 0.75;
+      position: relative;
 
       &-br {
         display: inline;
         line-height: 1.5;
       }
+      span{ // material symbols
+        position: absolute;
+        left:50%;
+        transform: translateX(-50%);
+        top:20%;
+      }
+      .drawer-menu__tab-text{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 20%;
+        width: 90%;
+      }
     }
 
+    @include v.mq(tb){
+      span{
+        display: none;
+      }
+    }
     // 下部の規約などの小さなボタン（Modifier）
     &--small {
       font-size: 12px;
