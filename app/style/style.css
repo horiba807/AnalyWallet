@@ -184,7 +184,7 @@ body .header__menu-btn:hover {
   bottom: 0;
   left: 0;
   width: 100%;
-  min-height: calc(75px + env(safe-area-inset-bottom));
+  min-height: calc(60px + env(safe-area-inset-bottom));
   z-index: 50;
   background: #FEFAF6;
   border-top: solid 2px #f7f1e9;
@@ -208,7 +208,7 @@ body .header__menu-btn:hover {
 }
 .header__sm-nav-item span {
   position: absolute;
-  top: 22.5%;
+  top: 15%;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -217,10 +217,10 @@ body .header__menu-btn:hover {
 .header__sm-nav-item p {
   position: absolute;
   left: 50%;
-  bottom: 22.5%;
+  bottom: 15%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  font-size: 11px;
+  font-size: 10px;
   width: 100%;
 }
 .header__sm-nav-item a {
