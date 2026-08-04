@@ -1132,7 +1132,7 @@ form::-webkit-date-and-time-value {
   display: -ms-flexbox;
   display: flex;
   margin-top: 10px;
-  gap: 45px;
+  gap: 3.5vw;
 }
 @media screen and (max-width: 599px) {
   .category-settings__layout {

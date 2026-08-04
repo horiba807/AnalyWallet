@@ -28,7 +28,7 @@
     &__layout {
         display: flex;
         margin-top: 10px;
-        gap: 45px;
+        gap: 3.5vw; 
 
         @include v.mq(sm) {
             display: block;
