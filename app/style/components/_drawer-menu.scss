@@ -146,13 +146,11 @@
     @include v.mq(sm) {
       font-size: 10px;
       text-align: center;
-      border-top: solid v.$acc100 2px;
-      border-bottom: solid v.$acc100 2px;
-      border-left: solid v.$acc100 1px;
-      border-right: solid v.$acc100 1px;
+
+
       text-decoration: none;
       width: 100%;
-      aspect-ratio: 1 / 0.75;
+      aspect-ratio: 1 / 0.6;
       position: relative;
 
       &-br {
@@ -163,13 +161,13 @@
         position: absolute;
         left:50%;
         transform: translateX(-50%);
-        top:20%;
+        top:18%;
       }
       .drawer-menu__tab-text{
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        bottom: 20%;
+        bottom: 18%;
         width: 90%;
       }
     }
@@ -216,7 +214,7 @@
 
       @include v.mq(sm) {
         text-decoration: none;
-        background: v.$acc200;
+        background: v.$acc120;
         color: v.$black;
         font-weight: 500;
       }

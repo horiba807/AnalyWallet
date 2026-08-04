@@ -461,13 +461,9 @@ footer a:hover {
   .drawer-menu__tab {
     font-size: 10px;
     text-align: center;
-    border-top: solid #f7f1e9 2px;
-    border-bottom: solid #f7f1e9 2px;
-    border-left: solid #f7f1e9 1px;
-    border-right: solid #f7f1e9 1px;
     text-decoration: none;
     width: 100%;
-    aspect-ratio: 1/0.75;
+    aspect-ratio: 1/0.6;
     position: relative;
   }
   .drawer-menu__tab-br {
@@ -479,14 +475,14 @@ footer a:hover {
     left: 50%;
     -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
-    top: 20%;
+    top: 18%;
   }
   .drawer-menu__tab .drawer-menu__tab-text {
     position: absolute;
     left: 50%;
     -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
-    bottom: 20%;
+    bottom: 18%;
     width: 90%;
   }
 }
@@ -530,7 +526,7 @@ footer a:hover {
 @media screen and (max-width: 599px) {
   .drawer-menu__tab:hover, .drawer-menu__tab.active {
     text-decoration: none;
-    background: #EADBC8;
+    background: #ded9d2;
     color: #222;
     font-weight: 500;
   }
