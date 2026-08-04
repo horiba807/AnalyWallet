@@ -41,8 +41,7 @@
     z-index: 99;
     background: v.$white;
     @include v.mq(sm) {
-      top: -61px;
-    
+      top: -41px;
       }
 
     &-title {
@@ -69,7 +68,7 @@
       height: 45px;
       display: inline-block;
       position: absolute;
-      top: 47.5%;
+      top: 40%;
       left: 0;
       transform: translateY(-50%);
 
@@ -106,7 +105,7 @@
     display: flex;
 
     @include v.mq(sm) {
-      padding: 100px 0% 0;
+      padding: 80px 0% 0;
       height: 100%;
       display: block;
     }
@@ -146,8 +145,7 @@
     @include v.mq(sm) {
       font-size: 10px;
       text-align: center;
-
-
+  
       text-decoration: none;
       width: 100%;
       aspect-ratio: 1 / 0.6;
@@ -170,6 +168,7 @@
         bottom: 18%;
         width: 90%;
       }
+      border-bottom: solid 2px v.$acc100;
     }
 
     @include v.mq(tb){
@@ -213,22 +212,20 @@
       font-weight: 500;
 
       @include v.mq(sm) {
-        text-decoration: none;
-        background: v.$acc120;
-        color: v.$black;
-        font-weight: 500;
+        border-bottom:solid 2px v.$acc300;
       }
     }
   }
 
-  // 右側：詳細コンテンツエリア（綺麗に1つに統合！）
+  // 右側：詳細コンテンツエリア
   &__content {
     padding-left: 30px;
     flex: 4;
-    max-height: calc(90dvh - 100px - 81px);
+    max-height: calc(90dvh - 80px - 81px);
     overflow: hidden;
     overflow-y: scroll;
     scrollbar-width: none; // Firefox用スクロールバー非表示
+    border-radius: 5px;
 
     @include v.mq(sm) {
       padding: 5vw 5% 0;

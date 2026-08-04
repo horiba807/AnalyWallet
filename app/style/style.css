@@ -354,7 +354,7 @@ footer a:hover {
 }
 @media screen and (max-width: 599px) {
   .drawer-menu .drawer-menu__logo {
-    top: -61px;
+    top: -41px;
   }
 }
 .drawer-menu .drawer-menu__logo-title {
@@ -380,7 +380,7 @@ footer a:hover {
   height: 45px;
   display: inline-block;
   position: absolute;
-  top: 47.5%;
+  top: 40%;
   left: 0;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -420,7 +420,7 @@ footer a:hover {
 }
 @media screen and (max-width: 599px) {
   .drawer-menu__inner {
-    padding: 100px 0% 0;
+    padding: 80px 0% 0;
     height: 100%;
     display: block;
   }
@@ -488,6 +488,9 @@ footer a:hover {
     bottom: 18%;
     width: 90%;
   }
+  .drawer-menu__tab {
+    border-bottom: solid 2px #f7f1e9;
+  }
 }
 @media screen and (min-width: 600px) {
   .drawer-menu__tab span {
@@ -528,10 +531,7 @@ footer a:hover {
 }
 @media screen and (max-width: 599px) {
   .drawer-menu__tab:hover, .drawer-menu__tab.active {
-    text-decoration: none;
-    background: #ded9d2;
-    color: #222;
-    font-weight: 500;
+    border-bottom: solid 2px #102C57;
   }
 }
 .drawer-menu__content {
@@ -539,10 +539,11 @@ footer a:hover {
   -webkit-box-flex: 4;
       -ms-flex: 4;
           flex: 4;
-  max-height: calc(90dvh - 100px - 81px);
+  max-height: calc(90dvh - 80px - 81px);
   overflow: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
+  border-radius: 5px;
 }
 @media screen and (max-width: 599px) {
   .drawer-menu__content {
