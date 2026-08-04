@@ -158,6 +158,7 @@ document.getElementById('header_menu_icon').addEventListener("click", () => {
     const headerMenu = document.getElementById('header_menu');
     const icon = document.getElementById('menuIcon');
     const headerNav = document.getElementById('sm_navlist');
+    const headerLogo = document.getElementById('header-logo');
 
     headerMenu.classList.toggle('active');
     headerNav.classList.toggle('remove');
@@ -166,10 +167,14 @@ document.getElementById('header_menu_icon').addEventListener("click", () => {
         // メニューが開いたとき
         icon.textContent = "close";                  
         document.body.classList.add('no-scroll');// 背景をロック
+        headerLogo.classList.add('no-display');
+
     } else {
         // メニューが閉じたとき
         icon.textContent = "menu";                   
         document.body.classList.remove('no-scroll'); 
+        headerLogo.classList.remove('no-display');
+
     }
 });
 

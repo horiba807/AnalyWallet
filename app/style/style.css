@@ -146,6 +146,9 @@ body .header__menu-btn:hover {
   width: 100%;
   height: 100%;
 }
+.header__logo.no-display {
+  display: none;
+}
 .header__nav {
   list-style: none;
   text-align: right;

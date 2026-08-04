@@ -108,6 +108,9 @@ body{
                 height: 100%;
             }
         }
+        &.no-display{
+            display: none;
+        }
     }
 
     // PC用ナビゲーション
