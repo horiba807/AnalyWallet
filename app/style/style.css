@@ -184,7 +184,7 @@ body .header__menu-btn:hover {
   bottom: 0;
   left: 0;
   width: 100%;
-  min-height: 75px;
+  min-height: calc(75px + env(safe-area-inset-bottom));
   z-index: 50;
   background: #FEFAF6;
   border-top: solid 2px #f7f1e9;
