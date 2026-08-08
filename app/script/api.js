@@ -1,6 +1,7 @@
 import { supabaseClient } from "./supabase.js";
 import { state, moneyForm } from './state.js';
 import { updateHistoryDisplay, updateCategoryMenu, renderCategorySettingsDOM, renderFilterCategoryDOM, renderSubscriptionsDOM } from './ui.js';
+import { showToast, showConfirm } from './toast.js';
 
 export async function fetchTransactions() {
     // ⭕️ 1. まずSupabaseからカテゴリーを取得し、画面の初期描画をすべて行う
@@ -25,12 +26,17 @@ export async function fetchTransactions() {
 
 //ヒストリー：項目削除
 export async function deleteTransaction(id) {
-    if (!confirm("本当に削除しますか？")) return;
+    const isConfirmed = await showConfirm(`本当に削除しますか？`, "確認", "キャンセル", "削除する", true);
+    if (!isConfirmed) return;
     const { error } = await supabaseClient.from('transactions').delete().eq('id', id);
-    if (error) alert("削除失敗");
+    if (error) showToast(`#${id} の削除に失敗しました:\n${error}`, "error");
     else fetchTransactions();
+    showToast(`#${id} を削除しました`,"success");
 }
-//ヒストリー：項目編集
+
+//==========================================================================
+//編集モーダル
+//==========================================================================
 export async function openEditModal(id){ 
     // 1. 全データの中から、クリックされたIDと一致するものを1件探す
     const target = state.transactions.find(item => item.id == id);
@@ -40,6 +46,11 @@ export async function openEditModal(id){
     }
     // 2. stateに記録
     state.editingId = id;
+
+    const registerIdElement = document.getElementById('register-id');
+    if (registerIdElement) {
+        registerIdElement.textContent = `#${state.editingId}`;
+    }
 
     // 3. モーダル内の入力欄に、現在の値をセットする
 
@@ -67,7 +78,7 @@ export async function openEditModal(id){
 export async function updateTransaction(id, updatedData) {
     // 指定したIDのデータを更新する
     const { data, error } = await supabaseClient
-        .from('transactions') // テーブル名
+        .from('transactions')
         .update(updatedData)
         .eq('id', id)
         .select();
@@ -96,9 +107,9 @@ export async function signIn(email, password) {
         email: email,
         password: password,
     });
-    if (error) alert("ログインエラー: " + error.message);
+    if (error) showToast(`ログインに失敗しました:\n${error.message}`, error);
     else {
-        alert("ログイン成功！");
+        showToast('ログインに成功しました', success);
         fetchTransactions(); // 自分のデータを取得
     }
 }
@@ -116,9 +127,6 @@ export async function fetchCategories() {
     const { data, error } = await supabaseClient
         .from('categories')
         .select('*');
-
-    console.log("【調査1】Supabaseから届いた生のデータ:", data);
-    console.log("【調査2】エラーが起きている場合:", error);
 
     if (error) {
         console.error("カテゴリーの読み込みエラー:", error);
@@ -145,7 +153,6 @@ export async function fetchCategories() {
         }
     });
 
-    console.log("【デバッグ】新しく読み込んだカテゴリー:", state.categories);
 }
 
 
@@ -154,21 +161,15 @@ export async function fetchCategories() {
 
 // 🔄 カテゴリーが更新されたら、アプリ内のすべてのセレクトボックスやリストを一斉更新するヘルパー
 async function refreshCategories_kanpa() {
-    console.log("【調査】1. refreshCategories_kanpa が動き出しました！");
     // 1. Supabaseから最新のカテゴリーを再取得して state.categories を更新（既存の関数を呼ぶ）
     await fetchCategories();
-    console.log("【調査】2. Supabaseからの再取得が完了！現在のデータ数:", state.categories.expense.length);
-
     // 2. 関連するすべてのUIを一斉リフレッシュ
-    renderCategorySettingsDOM(); // 今回の管理リスト
-    console.log("【調査】3. renderCategorySettingsDOM() の実行を通過しました！");
-    
+    renderCategorySettingsDOM(); // 今回の管理リスト    
     // 現在フォームで選ばれている収支タイプ（支出 or 収入）のプルダウンを更新する
     const currentType = document.querySelector('input[name="transaction-type"]:checked')?.value || 'expense';
     updateCategoryMenu(currentType, 'category');
     updateCategoryMenu('expense', 'edit_category'); // 編集用モーダルも一応更新
     renderFilterCategoryDOM();   // 履歴テーブルのフィルター
-    console.log("【調査】4. すべてのUIリフレッシュがエラーなく終了しました！");
 }
 
 // カテゴリーの追加処理
@@ -178,7 +179,7 @@ async function handleAddCategory(type) {
     const name = inputElement.value.trim();
 
     if (!name) {
-        alert('カテゴリー名を入力してください。');
+        showToast('カテゴリー名を入力してください', 'error');
         return;
     }
 
@@ -208,12 +209,12 @@ async function handleAddCategory(type) {
         }]);
 
     if (error) {
-        console.error('追加失敗:', error);
-        alert('カテゴリーの追加に失敗しました。');
+        console.error('error:', error);
+        showToast(`カテゴリーの追加に失敗しました\n${error}`, error);
         return;
     }
 
-    alert('カテゴリーを追加しました。');
+    showToast(`カテゴリー「${inputElement.value}」を追加しました`, "success");
     inputElement.value = ''; // 入力欄をクリア
     await refreshCategories_kanpa(); // UI更新
     
@@ -221,18 +222,16 @@ async function handleAddCategory(type) {
 
 // 🗑️ カテゴリーの削除処理（対策A）
 async function handleDeleteCategory(id, label) {
-    // 💡 【対策A】過去の家計簿データ（state.history）でこのIDが使われているかチェック
     const isUsed = state.history.some(item => String(item.category) === String(id));
 
     if (isUsed) {
-        alert(`「${label}」はすでに家計簿データで使用されているため、削除できません。`);
+        showToast(`カテゴリー「${label}」はすでに家計簿データで使用されているため、削除できません。`, "error");
         return;
     }
 
     // 確認アラート
-    if (!confirm(`「${label}」カテゴリーを削除しますか？`)) {
-        return;
-    }
+    const isConfirmed = await showConfirm(`カテゴリー「${label}」を削除しますか？`, "確認", "キャンセル", "削除する", true);
+    if (!isConfirmed) return;
 
     // Supabaseから削除
     const { error } = await supabaseClient
@@ -242,11 +241,12 @@ async function handleDeleteCategory(id, label) {
 
     if (error) {
         console.error('削除失敗:', error);
-        alert('カテゴリーの削除に失敗しました。');
+        showToast(`削除に失敗しました\n${error}`, error);
         return;
     }
 
     await refreshCategories_kanpa(); // UI更新
+    showToast(`カテゴリー「${label}」を削除しました`, "success");
 }
 
 // 🔌 イベントリスナーを一括設定する関数（アプリ起動時に1回呼ぶ）
@@ -257,7 +257,7 @@ export function setupCategorySettingsEvents() {
 
     // ゴミ箱ボタンのイベント紐付け（イベントデリゲーションという賢い手法を使います）
     const handleListClick = (e) => {
-        const deleteBtn = e.target.closest('.btn-delete');
+        const deleteBtn = e.target.closest('.category-settings__delete-btn');
         if (!deleteBtn) return; // ゴミ箱以外がクリックされたら無視
 
         const id = deleteBtn.dataset.id;
@@ -316,11 +316,11 @@ async function handleAddSubscription(e) {
 
     if (error) {
         console.error("サブスク登録失敗:", error);
-        alert("登録に失敗しました。");
+        showToast(`登録に失敗しました\n${error}`, error);
         return;
     }
 
-    console.log("登録に成功しました。");
+    showToast(`「${newSubsc.name}」を登録しました`, "success");
 
     // フォームをリセットして最新一覧を再取得
     document.getElementById('subsc-form').reset();
@@ -329,7 +329,8 @@ async function handleAddSubscription(e) {
 
 // 3. サブスクを削除する
 async function handleDeleteSubscription(id, name) {
-    if (!confirm(`「${name}」のサブスク登録を解除しますか？\n（※これまでの家計簿データは消えません）`)) return;
+    const isConfirmed = await showConfirm(`「${name}」のサブスク登録を解除しますか？\n（※これまでの家計簿データは消えません）`, "確認", "キャンセル", "削除する", true);
+    if (!isConfirmed) return;
 
     const { error } = await supabaseClient
         .from('subscriptions')
@@ -343,6 +344,7 @@ async function handleDeleteSubscription(id, name) {
     }
 
     await fetchSubscriptions(); // 最新一覧に更新
+    showToast(`「${name}」を削除しました`, "success");
 }
 
 // 4. サブスク画面のイベントリスナーを一括設定する
@@ -352,7 +354,7 @@ export function setupSubscriptionEvents() {
 
     // ゴミ箱ボタンのクリック（イベントデリゲーション）
     document.getElementById('subsc-list')?.addEventListener('click', (e) => {
-        const deleteBtn = e.target.closest('.btn-subsc-delete');
+        const deleteBtn = e.target.closest('.subsc-settings__delete-btn');
         if (!deleteBtn) return;
 
         const id = deleteBtn.dataset.id;
@@ -556,7 +558,7 @@ export async function challengeAndVerifyMFA(factorId, code) {
     });
 
     if (verifyError) {
-        alert(`コードが正しくありません: ${verifyError.message}`);
+        showToast(`コードが正しくありません:\n${verifyError}`, "error");
         return false;
     }
 
@@ -589,7 +591,7 @@ export async function unenrollMFA(factorId) {
 
     if (error) {
         console.error("MFA解除エラー:", error.message);
-        alert("解除できませんでした");
+        showToast(`二段階認証の解除に失敗しました:\n${verifyError}`, "error");
         return false;
     }
 

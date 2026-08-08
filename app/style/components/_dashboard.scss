@@ -6,16 +6,17 @@
     border-bottom: solid 2px v.$acc100;
 
     button {
-        border: solid 2px v.$acc100;
+        border: solid 1px v.$acc200;
+        background-color: v.$acc100;
         padding: 5px;
         border-radius: 10px;
         font-size: 20px;
         transition: .2s;
+        cursor: pointer;
 
         &:hover {
-            background-color: v.$acc300;
-            border-color: v.$acc300;
-            color: #fff;
+            background-color: v.$acc200;
+            border-color: v.$acc210;
         }
     }
 
@@ -23,6 +24,7 @@
         margin: 0 15px;
         font-weight: 600;
         font-family: 'Inter', sans-serif;
+        font-variant-numeric: tabular-nums; // 等幅
     }
 
     #next-year::before {
@@ -49,24 +51,24 @@
 
     .month_btn {
         padding: 10px 20px;
-        border: 2px solid v.$acc100;
+        border: 1px solid v.$acc200;
+        background: v.$acc100;
         border-radius: 10px;
-        cursor: poInter;
+        cursor: pointer;
         transition: all 0.3s ease;
-        color: v.$acc300;
         text-align: center;
         flex-shrink: 0;
 
         &:hover {
-            border: 2px solid v.$acc200;
-            font-weight: 500;
+            border: 1px solid v.$acc210;
+            background: v.$acc200;
         }
 
         &.active {
             background-color: v.$acc300;
             border-color: v.$acc300;
-            color: #fff;
-            font-weight: 500;
+            color: v.$white;
+            font-weight: 600;
         }
     }
 }

@@ -1,3 +1,5 @@
+@use "components/toast";
+
 $breakpoints: (
     'sm': 'screen and (max-width: 599px)',
     'tb': 'screen and (min-width: 600px)',
@@ -407,6 +409,10 @@ footer{
                 background: $white;
                 color:$black;
             }
+        }
+        @include mq(sm) {
+            width: 90%;
+            padding:30px;
         }
     }
 }

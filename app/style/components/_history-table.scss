@@ -23,7 +23,7 @@
 
         .filter_wrapper::after {
             content: '\e313';
-            font-family: "Material Symbols Rounded";
+        font-family: "Material Symbols Rounded";
             top: 50%;
             transform: translateY(-50%);
             font-size: 20px;
@@ -35,6 +35,7 @@
     td {
         padding: 15px 15px 10px;
         border-bottom: 1px solid v.$acc100;
+        vertical-align:middle;
 
         &.btn_wrapper {
             padding: 0 !important;
@@ -97,13 +98,16 @@
 }
 
 .column-btn {
-    padding: 16.5px 15px 11.5px;
+    padding:10px 15px;
+    border-radius: 7.5px;
     border: none;
-    cursor: poInter;
+    cursor: pointer;
     font-size: 12px;
     transition: .2s;
+    
 
     &.delete {
+        border: solid 1px v.$warning;
         background-color: v.$warning-light;
 
         &:hover {
@@ -113,12 +117,13 @@
     }
 
     &.edit {
-        background-color: v.$acc200;
-        margin-right: 15px;
+        background-color: v.$acc100;
+        border:solid 1px v.$acc200;
+        margin-left: 5px;
 
         &:hover {
-            background-color: v.$acc300;
-            color: v.$white;
+            background-color: v.$acc200;
+            border-color: v.$acc210;
         }
     }
 }

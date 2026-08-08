@@ -26,6 +26,7 @@
             textarea,
             select {
                 border-bottom: solid 2px v.$acc100;
+                
             }
 
             .radio_wrapper {
@@ -92,16 +93,16 @@
 
         button {
             padding: 15px 30px;
-            border: 2px solid v.$acc100;
+            border: 1px solid v.$acc200;
+            background-color: v.$acc100;
             border-radius: 10px;
             cursor: poInter;
             transition: all 0.3s ease;
             color: v.$acc300;
 
             &:hover {
-                background-color: v.$acc300; // 好きな色に
-                border-color: v.$acc300;
-                color: #fff;
+                background-color: v.$acc200;
+                border-color: v.$acc210;
                 font-weight: 500;
             }
         }

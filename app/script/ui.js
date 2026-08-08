@@ -3,6 +3,8 @@ import { fetchTransactions } from './api.js';
 import { state, moneyForm } from './state.js';
 import { renderCircleChart, renderLineChart } from './chart.js';
 import pkg from '../../package.json';
+import { showToast, showConfirm } from './toast.js';
+import { supabaseClient } from "./supabase.js";
 
 //==========================================================================
 // メイン-ダッシュボード：ダッシュボードの更新関数
@@ -75,25 +77,30 @@ export function calculateStats(filteredHistory) {
     let monthlyExpense = 0;
     let carryOverAmount = 0;
 
-    // 取ってきたすべてのカテゴリーIDをキーにしたオブジェクトを自動生成
-    let catTotals = {};
-    (state.categories.expense || []).forEach(cat => catTotals[cat.value] = 0);
-    (state.categories.income || []).forEach(cat => catTotals[cat.value] = 0);
+    // 1. 全カテゴリーをマップ化（IDで高速検索できるようにする）
+    const allCategories = [
+        ...(state.categories.expense || []),
+        ...(state.categories.income || [])
+    ];
+    const categoryMap = new Map(allCategories.map(cat => [String(cat.value), cat]));
 
-    //  「繰越金」のIDを動的に特定（コンソールの '9' や、万が一の 'carry_over' に対応）
-    const carryOverCat = (state.categories.income || []).find(c => c.label === '繰越金');
+    // カテゴリーIDをキーにした集計用オブジェクトを初期化
+    let catTotals = {};
+    allCategories.forEach(cat => catTotals[cat.value] = 0);
 
     // 今月・今年の分を集計
     filteredHistory.forEach(item => {
         const catValue = String(item.category);
+        const catObj = categoryMap.get(catValue);
 
-        if (item.type === 'income') {
-            // 繰越金かどうかの判定
-            if (item.category === 'carry_over' || (carryOverCat && catValue === carryOverCat.value)) {
-                carryOverAmount += item.amount;
-            } else {
-                monthlyIncome += item.amount;
-            }
+        // カテゴリー設定の繰越フラグ（isCarryOver）または旧ID 'carry_over' で判定
+        const isCarryOver = catObj ? Boolean(catObj.isCarryOver) : (item.category === 'carry_over');
+
+        if (isCarryOver) {
+            // 繰越金の場合：月間の収入/支出には加算せず、繰越金に振分
+            carryOverAmount += item.amount;
+        } else if (item.type === 'income') {
+            monthlyIncome += item.amount;
         } else {
             monthlyExpense += item.amount;
         }
@@ -102,12 +109,12 @@ export function calculateStats(filteredHistory) {
         if (catTotals[catValue] !== undefined) {
             catTotals[catValue] += item.amount;
         } else {
-            //古い平文データ（'food'など）が残っていた場合の救済処置
+            // 古い平文データ（'food'など）が残っていた場合の救済処置
             catTotals[catValue] = item.amount;
         }
     });
 
-    // 選択された月の末日時点での累積和を計算
+    // 選択された月の末日時点での累積和を計算（繰越金データも履歴に含まれるため残高に反映されます）
     const lastDayOfMonth = new Date(state.currentYear, state.currentMonth === 'annual' ? 12 : state.currentMonth, 0);
     const historyUpToNow = state.history.filter(item => new Date(item.date) <= lastDayOfMonth);
     const currentBalance = historyUpToNow.reduce((acc, item) => {
@@ -116,7 +123,6 @@ export function calculateStats(filteredHistory) {
 
     return { monthlyIncome, monthlyExpense, carryOverAmount, catTotals, currentBalance };
 }
-
 //==========================================================================
 // メイン-ダッシュボード：ダッシュボードのDOM描画
 //==========================================================================
@@ -346,7 +352,7 @@ export function updateCategoryMenu(type, targetId = 'category') {
     // 3. 選択肢を量産する
     options.forEach(cat => {
         const option = document.createElement('option');
-        option.value = cat.value;       //upabaseのIDが入る
+        option.value = cat.value;       //supabaseのIDが入る
         option.textContent = cat.label;  //画面に表示
         selectEl.appendChild(option);
     });

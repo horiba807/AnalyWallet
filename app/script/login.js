@@ -1,4 +1,5 @@
 import { supabaseClient } from './supabase.js'
+import { showToast } from './toast.js';
 
 //==========================================================================
 //ログインの実行
@@ -18,7 +19,8 @@ authForm.addEventListener('submit', async (e) => {
     });
 
     if (signInError) {
-        alert(`ログイン失敗: ${signInError.message}`);
+        showToast(`ログインに失敗しました: \n ${signInError.message}`, 'error');
+
         return;
     }
 
@@ -26,7 +28,7 @@ authForm.addEventListener('submit', async (e) => {
     const { data: mfaData, error: mfaError } = await supabaseClient.auth.mfa.getAuthenticatorAssuranceLevel();
 
     if (mfaError) {
-        alert("認証ステータスの取得に失敗しました。");
+        showToast(`ログインに失敗しました: \n 認証ステータスの取得に失敗しました`, 'error');
         return;
     }
     // currentLevelがaal1（パスワード完了）かつ、nextLevelがaal2（MFAが必要）になっている場合
@@ -40,14 +42,14 @@ authForm.addEventListener('submit', async (e) => {
 
         loginMfaVerifyBtn.onclick = async () => {
             const code = document.getElementById('login-mfa-code').value;
-            if (code.length !== 6) return alert("6桁の数字を入力してください。");
+            if (code.length !== 6) return showToast('6桁の数字を入力してください', 'error');
 
             // ユーザーに紐づいている有効なMFA設定（Factor）のIDを取得する
             const { data: factorsData } = await supabaseClient.auth.mfa.listFactors();
             const activeFactor = factorsData.all.find(f => f.status === 'verified');
 
             if (!activeFactor) {
-                alert("MFAの設定が見つかりません。");
+                showToast('MFAの設定が見つかりません', 'error');
                 return;
             }
 
@@ -56,7 +58,7 @@ authForm.addEventListener('submit', async (e) => {
                 factorId: activeFactor.id
             });
 
-            if (challengeError) return alert(challengeError.message);
+            if (challengeError) return showToast(`エラーが発生しました: \n ${challengeError.message}`, 'error');
 
             const { error: verifyError } = await supabaseClient.auth.mfa.verify({
                 factorId: activeFactor.id,
@@ -65,7 +67,7 @@ authForm.addEventListener('submit', async (e) => {
             });
 
             if (verifyError) {
-                alert("コードが正しくないか、有効期限が切れています。");
+                showToast('コードが正しくないか、有効期限が切れています。再度入力してください', 'error');
                 return;
             }
 
@@ -109,7 +111,7 @@ if (signupForm) {
         const termsCheckbox = document.getElementById('signup-terms');
         //チェックしていない場合
         if (termsCheckbox && !termsCheckbox.checked) {
-            alert("利用規約およびプライバシーポリシーへの同意が必要です。");
+            showToast('利用規約およびプライバシーポリシーへの同意が必要です', 'error');
             return;
         }
 
@@ -123,12 +125,14 @@ if (signupForm) {
         });
 
         if (error) {
-            alert(`登録失敗: ${error.message}`);
+            showToast(`アカウント登録に失敗しました: \n ${error.message}`, 'error');
+
             return;
         }
 
         // Supabaseのデフォルト設定への対策
-        alert("登録申請が完了しました！入力したメールアドレスに確認メールが届いているか確認してください。");
+        showToast('入力したメールアドレスに確認メールを送信しました。メールボックスをご確認ください。', 'success');
+
 
         // モーダルを閉じる
         signUpModal.classList.remove('active');
@@ -165,7 +169,7 @@ if (forgotPasswordLink) {
         const email = document.getElementById('forgotPass-email').value;
 
         if (!email) {
-            alert("パスワードをリセットするには、まずメールアドレスを入力してください。");
+            showToast('メールアドレスを入力してください', 'error');
             return;
         }
 
@@ -179,9 +183,10 @@ if (forgotPasswordLink) {
         });
 
         if (error) {
-            alert(`メール送信エラー: ${error.message}`);
+            showToast(`メール送信に失敗しました: \n ${error.message}`, 'error');
+
         } else {
-            alert("🎉 パスワード再設定メールを送信しました！メールボックスを確認してください。");
+            showToast('再設定メールを送信しました。メールボックスをご確認ください。', 'success');
         }
     });
 }

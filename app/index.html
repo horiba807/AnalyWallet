@@ -16,8 +16,6 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-
-
     <meta name="viewport" content="width=device-width, viewport-fit=cover">
     <link rel="icon" href="img/favicon.ico">
     <!-- <link rel="manifest" href="/app/manifest.json" crossorigin="use-credentials"> -->
@@ -170,6 +168,9 @@
                                     <form class="category-settings__form" onsubmit="return false;">
                                         <input type="text" id="new-income-name" class="category-settings__input" placeholder="カテゴリーを追加">
                                         <button type="button" id="add-income-btn" class="category-settings__add-btn">追加する</button>
+                                        <label class="category-settings__checkbox-label">
+                                            <input type="checkbox" id="new-income-carryover"> 直接残高に投入する
+                                        </label>
                                     </form>
 
                                     <h4 class="category-settings__subtitle">登録済みのカテゴリー</h4>
@@ -348,7 +349,9 @@
                                 <h4>アカウントの削除</h4>
                                 <div class="warning-box">
                                     <div class="warning-icon">
-                                        <span class="material-symbols-outlined">warning</span>
+                                        <span class="material-symbols-rounded">
+                                            warning
+                                        </span>
                                     </div>
                                     <div class="text">
                                         <p>アカウントを削除すると、これまでに登録された家計簿データや設定はすべて完全に消去されます。二度と復元することはできません。 あらかじめご注意ください。
@@ -518,7 +521,7 @@
         </section>
         <div class="editModal" id="edit-modal">
             <div class="editform_container">
-                <h2>編集</h2>
+                <h2>編集する<span id="register-id"></h2>
                 <div class="btn_wrapper">
                     <btn class="close_btn" id="close_editform_btn"><span class="material-icons">close</span></btn>
                 </div>

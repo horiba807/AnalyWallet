@@ -5,15 +5,15 @@
     <title>ログイン - AnalyWallet</title>
     <link rel="stylesheet" href="../style/destyle.css">
     <link rel="stylesheet" href="../style/auth.css"> 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <link
         href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@100..900&display=swap"
-        rel="stylesheet"
-    />
-    <link
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet"
-    />
+        rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <meta name="viewport" content="width=device-width, viewport-fit=cover">
     <link rel="icon" href="../img/favicon.ico">
     <link rel="manifest" href="../manifest.json" crossorigin="use-credentials">
@@ -66,10 +66,6 @@
         <p id="app-version"></p>
         <p class="copyright">© 2026 AnalyWallet.</p>
     </footer>
-    <script type="module" src="../script/login.js"></script>
-
-
-
     <div class="modal-wrapper" id="signup-modal_wrapper">
         <div id="signup-modal" class="modal">
             <div class="close_btn_wrapper">
@@ -106,7 +102,7 @@
             </div>
         </div>
     </div>
-    <div class="modal-wrapper" id="loginMFA-modal_wrapper">
+    <div class="modal-wrapper " id="loginMFA-modal_wrapper">
         <div id="loginMFA-modal" class="modal">
             <div class="modal-content" style="text-align: center;">
                 <h2>二段階認証コードの入力</h2>
@@ -145,6 +141,6 @@
             </div>
         </div>
     </div>
+    <script type="module" src="../script/login.js"></script>
 </body>
-
 </html>

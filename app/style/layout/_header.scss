@@ -4,16 +4,15 @@
 body{
     padding: 0 3.5%;
     
-            @include v.mq(tb) {
-                margin: 0 auto;
-                max-width: 1360px;
-            }
-        
-            @include v.mq(sm) {
-                margin: 0 auto;
-                max-width: 1360px;
-                padding: 0 5%;
-            }
+    @include v.mq(tb) {
+        margin: 0 auto;
+        max-width: 1360px;
+    }
+    @include v.mq(sm) {
+        margin: 0 auto;
+        max-width: 1360px;
+        padding: 0 5%;
+    }
     //ハンバーガー
     .header__menu-btn {
         display:block;
@@ -63,13 +62,11 @@ body{
         z-index: 3;
         line-height: 100px;
     }
-
     // ロゴ
     &__logo {
         position: relative;
         display: inline-block;
         cursor: pointer;
-
         &-title {
             font-size: 22px;
             font-weight: 500;
@@ -108,7 +105,7 @@ body{
                 height: 100%;
             }
         }
-        &#no-display{
+        &.no-display{
             display: none;
         }
     }

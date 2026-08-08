@@ -8,14 +8,15 @@ import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction,
 window.deleteTransaction = deleteTransaction; // グローバルスコープをモジュールスコープに変更
 window.openEditModal = openEditModal;
 import { state, moneyForm } from './state.js';
+import { showToast, showConfirm } from './toast.js';
 
 //■■■■■■■■■■■■■■■■■■ ログアウト処理 ■■■■■■■■■■■■■■■■■■
 async function logoutUser() {
     const { error } = await supabaseClient.auth.signOut();
 
     if (error) {
-        console.error("ログアウト時にエラーが発生しました:", error.message);
-        alert("ログアウトに失敗しました。");
+        console.error("Logout Error:", error.message);
+        showToast(`ログアウトに失敗しました:\n${error.message}`, error);
         return false;
     }
 
@@ -27,14 +28,16 @@ function setupLogoutEvent() {
 
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async () => {
-            // 確認ダイアログ
-            if (!confirm("ログアウトしますか？")) return;
+            // 自作モーダル
+            const isConfirmed = await showConfirm("ログアウトしますか？", "ログアウト", "キャンセル", "ログアウトする", true);
+            // キャンセルされたら処理を抜ける
+            if (!isConfirmed) return;
 
             // api.js のログアウト処理を実行
             const success = await logoutUser();
 
             if (success) {
-                // ログアウトが成功したら、ログイン画面へジャンプ！
+                // ログイン画面へジャンプ
                 window.location.href = './login/index.html';
             }
         });
@@ -123,6 +126,8 @@ async function checkLoginAndInit() {
 
     // アカウント削除 
     setupDeleteAccountEvent();
+
+    showToast(`${user.email} でログインしました`, 'success');
 }
 //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
@@ -234,8 +239,10 @@ moneyForm?.addEventListener('submit', async (e) => {
         category: cat, memo: fd.get('memo')
     }]);
 
-    if (error) alert("保存に失敗しました...");
-    else { alert("保存しました"); 
+    if (error) showToast(`保存に失敗しました\n\n${error.message}`, 'error');
+
+    else {
+        showToast('データを保存しました', 'success'); 
         moneyForm.reset(); 
         updateCategoryMenu('expense'); 
         fetchTransactions(); }
@@ -265,6 +272,7 @@ document.getElementById('edit_type-expense').addEventListener('change', (e) => {
         updateCategoryMenu('expense', 'edit_category');
     }
 });
+
 
 // モーダルの保存
 const saveBtn = document.getElementById('edit_btn');
@@ -303,10 +311,11 @@ saveBtn.addEventListener('click', async () => {
         // データを再取得して再描画
         await fetchTransactions();
 
-        alert('変更を保存しました！');
+        showToast('変更を保存しました', 'success');
+
 
     } catch (error) {
-        alert('保存に失敗しました。もう一度お試しください。');
+        showToast(`変更の保存に失敗しました\n${error.message}`, 'error');
      } 
      finally {
         // ボタンを元に戻す
@@ -328,12 +337,14 @@ function setupAccountUpdateEvents() {
             e.preventDefault();
             const newEmail = document.getElementById('input-new-email').value;
 
-            if (!confirm(`メールアドレスを ${newEmail} に変更しますか？`)) return;
+            // 自作モーダル
+            const isConfirmed = await showConfirm(`メールアドレスを ${newEmail} に変更しますか？`, "確認", "キャンセル", "変更する", false);
+            if (!isConfirmed) return;
 
             const success = await updateUserEmail(newEmail);
             if (success) {
                 // 💡 注意：デフォルト設定では即座に変更されません（後述の注意点参照）
-                alert("変更案内メールを送信しました。新旧両方のメールアドレスに届く確認リンクをクリックして変更を完了させてください。");
+                showToast(`${newEmail} に確認メールを送信しました。メールをご確認ください。`, success);
                 updateEmailForm.reset();
             }
         });
@@ -353,22 +364,23 @@ function setupAccountUpdateEvents() {
 
             // 2. バリデーション（入力チェック）
             if (newPassword.length < 12) {
-                alert("新しいパスワードは12文字以上で入力してください。");
+                showToast('新しいパスワードは、12文字以上で入力してください', error);
                 return;
             }
 
             if (currentPassword === newPassword) {
-                alert("新しいパスワードは、現在のパスワードと異なるものを入力してください。");
+                showToast('新しいパスワードは、現在のパスワードと異なるものを入力してください', error);
                 return;
             }
 
-            if (!confirm("パスワードを変更しますか？")) return;
+            const isConfirmed = await showConfirm(`パスワードを変更しますか？`, "確認", "キャンセル", "変更する", false);
+            if (!isConfirmed) return;
 
             // 3. 検証＆変更処理の実行
             const success = await updateUserPassword(user.email, currentPassword, newPassword);
 
             if (success) {
-                alert("🎉 パスワードを正常に変更しました！");
+                showToast('パスワードを変更しました', success);
                 updatePasswordForm.reset(); // 入力欄をきれいに掃除
             }
         });
@@ -409,7 +421,7 @@ function setupMFAEvent() {
             const codeInput = document.getElementById('mfa-code-input').value;
 
             if (codeInput.length !== 6) {
-                alert("6桁の数字を入力してください。");
+                showToast('6桁の数字を入力してください', error);
                 return;
             }
 
@@ -417,7 +429,7 @@ function setupMFAEvent() {
             const success = await challengeAndVerifyMFA(currentFactorId, codeInput);
 
             if (success) {
-                alert("🎉 二段階認証の設定が完全に完了しました！次回ログイン時からコードが必要になります。");
+                showToast('二段階認証を設定しました', "success");
                 unregisteredArea.classList.remove('active');
                 registeredArea.classList.add('active');
             }
@@ -451,11 +463,12 @@ async function checkAndRenderMFA() {
         // 解除ボタンのイベント
         if (unenrollBtn) {
             unenrollBtn.onclick = async () => {
-                if (!confirm("本当に二段階認証を解除しますか？\nアカウントのセキュリティ強度が低下します。")) return;
+                const isConfirmed = await showConfirm(`本当に二段階認証を解除しますか？\nアカウントのセキュリティ強度が低下します。`, "確認", "キャンセル", "解除する", true);
+                if (!isConfirmed) return;
 
                 const success = await unenrollMFA(activeFactor.id);
                 if (success) {
-                    alert("二段階認証を解除しました。");
+                    showToast('二段階認証を解除しました', "success");
                     // 画面を最新の状態にリフレッシュ
                     checkAndRenderMFA();
                 }
@@ -480,13 +493,14 @@ function setupDeleteAccountEvent() {
     if (deleteBtn) {
         deleteBtn.onclick = async () => {
             // 🛑 誤操作防止の2段階チェック
-            if (!confirm("警告：本当にアカウントを削除しますか？\nこの操作は取り消せません。")) return;
+            const isConfirmed = await showConfirm(`本当にアカウントを削除しますか？\nこの操作は取り消せません。`, "警告", "キャンセル", "アカウントを削除する", true);
+            if (!isConfirmed) return;
 
             // 処理を実行
             const success = await deleteAccount();
 
             if (success) {
-                alert("アカウントを削除しました。ご利用ありがとうございました。");
+                showToast('アカウント削除しました。\nご利用ありがとうございました。', success);
                 // すでにアカウントは存在しない（ログアウト状態）ので、ログイン画面へジャンプ
                 window.location.href = './login/index.html';
             }
