@@ -241,15 +241,12 @@ body .header__menu-btn:hover {
 
 footer {
   margin: 0 auto;
-  padding: 0 3.5%;
-  max-width: 1360px;
+  width: 100%;
   position: relative;
 }
 @media screen and (max-width: 599px) {
   footer {
-    margin: 0 auto;
-    max-width: 1360px;
-    padding: 0 5%;
+    margin-bottom: 60px;
   }
 }
 footer .copyright {
@@ -264,11 +261,6 @@ footer #app-version {
   margin-top: -35px;
   margin-right: 130px;
   font-family: "Inter", sans-serif;
-}
-@media screen and (max-width: 599px) {
-  footer #app-version {
-    display: none;
-  }
 }
 footer #logout-btn {
   padding: 10px 15px;
@@ -1147,8 +1139,8 @@ form::-webkit-date-and-time-value {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 12px;
-  width: 75vw;
+  gap: 10px;
+  width: 90vw;
   max-width: 400px;
   min-height: 60px;
   padding: 12px 16px;
@@ -1227,15 +1219,19 @@ form::-webkit-date-and-time-value {
   left: 0;
   width: 100vw;
   height: 100vh;
+  padding-top: 40vh;
+  padding-bottom: 20px;
+  overflow-y: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  backdrop-filter: blur(10px);
   z-index: 10000;
   opacity: 0;
   -webkit-transition: opacity 0.25s ease;

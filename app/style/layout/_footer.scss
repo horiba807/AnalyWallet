@@ -1,14 +1,10 @@
 @use "../foundation/variables" as v;
 footer {
     margin: 0 auto;
-    padding: 0 3.5%;
-    max-width: 1360px;
+    width: 100%;
     position: relative;
-
     @include v.mq(sm) {
-        margin: 0 auto;
-        max-width: 1360px;
-        padding: 0 5%;
+        margin-bottom:60px;
     }
 
     .copyright {
@@ -25,10 +21,7 @@ footer {
         margin-right: 130px;
         font-family: 'Inter', sans-serif;
 
-        @include v.mq(sm) {
-            display: none;
 
-        }
 
     }
 
