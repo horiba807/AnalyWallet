@@ -1,0 +1,98 @@
+// _toast.scss
+@use "../foundation/variables" as v;
+
+// 固定表示する親コンテナ
+.toast-container {
+    position: fixed;
+    top: 50px;
+    right: 50%;
+    transform: translateX(50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none; // 下の要素の操作を邪魔しない
+}
+
+.toast {
+    pointer-events: auto;
+    display: flex;
+    align-items: center; //上下中央揃え
+    gap: 10px;
+    width: 90vw;
+    max-width: 400px;
+    min-height: 60px;
+    padding: 12px 16px;
+    line-height: 1.5;
+    border-radius: 10px;
+    background: v.$white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    font-size: 14px;
+    color: v.$black;
+
+    // アニメーション
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    // 表示状態
+    &--show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    // アイコン設定
+    &__icon {
+        font-size: 20px;
+        flex-shrink: 0; //メッセージが伸びてもアイコンが潰れない
+    }
+
+    // メッセージ本文
+    &__message {
+        line-height: 1.4;
+        text-align: left;
+        white-space: pre-line; // \nで改行
+        flex: 1.1;
+        word-break: break-word;
+    }
+
+    // ✕ボタン
+    &__close-btn {
+        flex-shrink: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        transition: .2s;
+        position: relative;
+
+        span {
+            font-size: 16px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &:hover {
+            background: v.$warning;
+            color: v.$white;
+        }
+    }
+
+    // --- タイプ別（成功・エラー）のスタイル ---
+    &--success {
+        border: 1px solid v.$green;
+
+        .toast__icon {
+            color: v.$green;
+        }
+    }
+
+    &--error {
+        border: 1px solid v.$warning;
+
+        .toast__icon {
+            color: v.$warning;
+        }
+    }
+}
