@@ -2,9 +2,9 @@ import { createClient } from '@supabase/supabase-js';
 import { supabaseClient } from './supabase.js';
 import { categoryOptions } from './constant.js';
 import { updateHistoryDisplay, updateCategoryMenu, calculateStats, renderFilterCategoryDOM, renderCategorySettingsDOM } from './ui.js';
-import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction, fetchCategories, signUp, signIn, signOut, setupCategorySettingsEvents,
+import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction, fetchCategories, setupCategorySettingsEvents,
         setupSubscriptionEvents, fetchSubscriptions, checkAndProcessSubscriptions, enrollMFA, challengeAndVerifyMFA,
-    getMFAStatus, unenrollMFA, updateUserEmail, updateUserPassword, deleteAccount } from './api.js';
+    getMFAStatus, unenrollMFA, updateUserEmail, updateUserPassword, deleteAccount, createAndSaveBackupCodes, getUnusedBackupCodesCount, setupBackupAccordion, showGeneratedBackupCodes, updateBackupCount } from './api.js';
 window.deleteTransaction = deleteTransaction; // グローバルスコープをモジュールスコープに変更
 window.openEditModal = openEditModal;
 import { state, moneyForm } from './state.js';
@@ -48,86 +48,105 @@ const initialBtn = document.querySelector(`.month_btn[data-month="${state.curren
 if (initialBtn) initialBtn.classList.add('active');
 
 async function checkLoginAndInit() {
-    // 現在のログイン状況をチェック
-    const { data: { user } } = await supabaseClient.auth.getUser();
+    // =============================================================
+    // 認証チェック（最優先・2つの通信を並列実行）
+    // =============================================================
+    const [{ data: { user } }, { data: mfaData }] = await Promise.all([
+        supabaseClient.auth.getUser(),
+        supabaseClient.auth.mfa.getAuthenticatorAssuranceLevel()
+    ]);
+
+    // 未ログインチェック
     if (!user) {
         window.location.href = './login/index.html';
         return;
     }
 
-    // 現在のemail・アカウント作成日を取得
-    const currentEmailSpan = document.getElementById('current-email');
-    if (currentEmailSpan) {
-        currentEmailSpan.textContent = user.email; 
-    }
-
-    //アカウント作成日を取得
-    const createDateSpan = document.getElementById('created-at');
-    if (createDateSpan && user.created_at) {
-        // user.created_at から日付オブジェクトを作る
-        const createDate = new Date(user.created_at);
-        // もし時間まで細かく出したいならこっち：
-        createDateSpan.textContent = createDate.toLocaleString('ja-JP');
-    }
-
-    //最終ログインを取得
-    const lastLoginDate = document.getElementById('last-login');
-    if (lastLoginDate && user.last_sign_in_at) {
-        const lastDate = new Date(user.last_sign_in_at);
-        lastLoginDate.textContent = lastDate.toLocaleString('ja-JP');
-    }
-
-    //useridを取得
-    const UserId = document.getElementById('userID');
-    if (UserId) {
-        UserId.textContent = user.id;
-    }
-
-
-    // URLから直接アクセスした場合
-    const { data: mfaData } = await supabaseClient.auth.mfa.getAuthenticatorAssuranceLevel();
-    if (mfaData.currentLevel === 'aal1' && mfaData.nextLevel === 'aal2') {
-        //MFAを通過してないのでログイン画面に強制遷移
+    // MFAチェック
+    const isBackupPassed = sessionStorage.getItem('mfa_verified_by_backup') === 'true';
+    if (mfaData?.currentLevel === 'aal1' && mfaData?.nextLevel === 'aal2' && !isBackupPassed) {
         window.location.href = './login/index.html';
         return;
     }
 
-    //ログアウト処理
-    setupLogoutEvent();
+    // =============================================================
+    // UI読み込み
+    // =============================================================
+    renderStaticUserInfo(user);
+    bindStaticEvents();
 
-    //初期化処理
-    console.log("ログイン確認OK:", user.email);
+    // =============================================================
+    // データ取得（Promise.allで同時並列実行）
+    // =============================================================
+    // カテゴリと取引履歴を同時に取得開始する
+    await Promise.all([
+        loadCategoryData(),
+        fetchTransactions()
+    ]);
 
-    //MFA
-    checkAndRenderMFA();
-
-    //メアド・パス変更
-    setupAccountUpdateEvents();
-
-    await fetchCategories();
-    renderCategorySettingsDOM();
-    setupCategorySettingsEvents();
-    setupSubscriptionEvents();
-
-    //画面のドロップダウンを生成
-    updateCategoryMenu('expense', 'category');      //登録用フォーム
-    updateCategoryMenu('expense', 'edit_category'); //編集用モーダル
-
-    renderFilterCategoryDOM(); // フィルターの選択肢を生成
-
-    //サブスクテーブルからデータを取得
-    fetchSubscriptions();
-
-    //サブスクを自動登録（該当するものがあった場合）
-    await checkAndProcessSubscriptions();
-
-    // 履歴を読み込む
-    await fetchTransactions();
-
-    // アカウント削除 
-    setupDeleteAccountEvent();
+    // =============================================================
+    // バックグラウンド処理（画面表示を邪魔しない）
+    // =============================================================
+    // サブスク関連は画面表示後に非同期で回す (awaitしない)
+    runSubscriptionTasks();
 
     showToast(`${user.email} でログインしました`, 'success');
+}
+
+// -----------------------------------------------------------------
+// 補助関数：Static UIの描画
+// -----------------------------------------------------------------
+function renderStaticUserInfo(user) {
+    const emailSpan = document.getElementById('current-email');
+    if (emailSpan) emailSpan.textContent = user.email;
+
+    const createDateSpan = document.getElementById('created-at');
+    if (createDateSpan && user.created_at) {
+        createDateSpan.textContent = new Date(user.created_at).toLocaleString('ja-JP');
+    }
+
+    const lastLoginDate = document.getElementById('last-login');
+    if (lastLoginDate && user.last_sign_in_at) {
+        lastLoginDate.textContent = new Date(user.last_sign_in_at).toLocaleString('ja-JP');
+    }
+
+    const userIdSpan = document.getElementById('userID');
+    if (userIdSpan) userIdSpan.textContent = user.id;
+}
+
+// -----------------------------------------------------------------
+// 補助関数：イベント登録の一括セットアップ
+// -----------------------------------------------------------------
+function bindStaticEvents() {
+    setupLogoutEvent();
+    checkAndRenderMFA();
+    setupAccountUpdateEvents();
+    setupDeleteAccountEvent();
+    setupSubscriptionEvents();
+    setupCategorySettingsEvents();
+}
+
+// -----------------------------------------------------------------
+// 補助関数：カテゴリデータの読み込みとDOM構築
+// -----------------------------------------------------------------
+async function loadCategoryData() {
+    await fetchCategories();
+    renderCategorySettingsDOM();
+    updateCategoryMenu('expense', 'category');      // 登録用
+    updateCategoryMenu('expense', 'edit_category'); // 編集用
+    renderFilterCategoryDOM();                     // フィルター用
+}
+
+// -----------------------------------------------------------------
+// 補助関数：サブスク処理（バックグラウンド実行）
+// -----------------------------------------------------------------
+async function runSubscriptionTasks() {
+    fetchSubscriptions();
+    // サブスク自動登録を実行し、もし新しく登録されたら履歴を再読み込みする
+    const processed = await checkAndProcessSubscriptions();
+    if (processed) {
+        await fetchTransactions(); // 自動追加があった場合のみ履歴更新
+    }
 }
 //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
@@ -364,12 +383,12 @@ function setupAccountUpdateEvents() {
 
             // 2. バリデーション（入力チェック）
             if (newPassword.length < 12) {
-                showToast('新しいパスワードは、12文字以上で入力してください', error);
+                showToast('新しいパスワードは、12文字以上で入力してください', "error");
                 return;
             }
 
             if (currentPassword === newPassword) {
-                showToast('新しいパスワードは、現在のパスワードと異なるものを入力してください', error);
+                showToast('新しいパスワードは、現在のパスワードと異なるものを入力してください', "error");
                 return;
             }
 
@@ -380,7 +399,7 @@ function setupAccountUpdateEvents() {
             const success = await updateUserPassword(user.email, currentPassword, newPassword);
 
             if (success) {
-                showToast('パスワードを変更しました', success);
+                showToast('パスワードを変更しました', "success");
                 updatePasswordForm.reset(); // 入力欄をきれいに掃除
             }
         });
@@ -389,6 +408,7 @@ function setupAccountUpdateEvents() {
 //==========================================================================
 //MFA認証
 //==========================================================================
+// MFA新規登録のイベント設定
 function setupMFAEvent() {
     const enrollBtn = document.getElementById('btn-mfa-enroll');
     const setupArea = document.getElementById('mfa-setup-area');
@@ -397,91 +417,100 @@ function setupMFAEvent() {
     const registeredArea = document.getElementById('mfa-registered-area');
     const unregisteredArea = document.getElementById('mfa-unregistered-area');
 
-
-
-    let currentFactorId = null; // 発行されたMFAのIDを一時的に保存する変数
+    let currentFactorId = null;
 
     if (enrollBtn) {
         enrollBtn.onclick = async () => {
-            // SupabaseにMFAの秘密鍵を発行してもらう
             const mfaData = await enrollMFA();
 
             if (mfaData) {
                 currentFactorId = mfaData.id;
-                // 画面にシークレットキーを表示・入力エリアをオープン
-                secretKeyElement.textContent = mfaData.totp.secret;
-                setupArea.classList.add('active');
-                enrollBtn.disabled = true; // 二重押し防止
+                if (secretKeyElement) secretKeyElement.textContent = mfaData.totp.secret;
+                if (setupArea) setupArea.classList.add('active');
+                enrollBtn.disabled = true;
             }
         };
     }
 
     if (verifyBtn) {
-        verifyBtn.addEventListener('click', async () => {
+        verifyBtn.onclick = async () => {
             const codeInput = document.getElementById('mfa-code-input').value;
 
             if (codeInput.length !== 6) {
-                showToast('6桁の数字を入力してください', error);
+                showToast('6桁の数字を入力してください', 'error'); // 💡 文字列に修正
                 return;
             }
 
-            // 6桁のコードを検証しに行く
+            // 6桁コードの検証
             const success = await challengeAndVerifyMFA(currentFactorId, codeInput);
 
             if (success) {
                 showToast('二段階認証を設定しました', "success");
-                unregisteredArea.classList.remove('active');
-                registeredArea.classList.add('active');
+
+                // 画面切り替え
+                unregisteredArea?.classList.remove('active');
+                registeredArea?.classList.add('active');
+
+                // アコーディオンのイベントを初期設定
+                setupBackupAccordion();
+
+                // バックアップコードを生成・保存して画面表示
+                const backupCodes = await createAndSaveBackupCodes();
+                if (backupCodes) {
+                    showGeneratedBackupCodes(backupCodes);
+                    await updateBackupCount();
+                }
             }
-        });
+        };
     }
 }
 
-//mfaの登録状況をチェック
+// MFAの登録状況をチェックして画面を描画
 async function checkAndRenderMFA() {
     const unregisteredArea = document.getElementById('mfa-unregistered-area');
     const registeredArea = document.getElementById('mfa-registered-area');
     const activatedAtSpan = document.getElementById('mfa-activated-at');
     const unenrollBtn = document.getElementById('btn-mfa-unenroll');
-    const setupArea = document.getElementById('mfa-setup-area');
 
-    // Supabaseから現在のMFA登録状況をゲット
     const activeFactor = await getMFAStatus();
 
     if (activeFactor) {
-        // すでに登録済みのパターン
+        // 【パターンA：すでに登録済みの場合】
         unregisteredArea?.classList.remove('active');
         registeredArea?.classList.add('active');
-        
 
-        // 登録日時を日本時間に変換して表示
+        // 登録日時の表示
         const enrollDate = new Date(activeFactor.created_at);
         if (activatedAtSpan) {
             activatedAtSpan.textContent = enrollDate.toLocaleString('ja-JP');
         }
 
+        // アコーディオンのイベント登録 ＆ 残数表示
+        setupBackupAccordion();
+        await updateBackupCount();
+
         // 解除ボタンのイベント
         if (unenrollBtn) {
             unenrollBtn.onclick = async () => {
-                const isConfirmed = await showConfirm(`本当に二段階認証を解除しますか？\nアカウントのセキュリティ強度が低下します。`, "確認", "キャンセル", "解除する", true);
+                const isConfirmed = await showConfirm(
+                    `本当に二段階認証を解除しますか？\nアカウントのセキュリティ強度が低下します。`,
+                    "確認", "キャンセル", "解除する", true
+                );
                 if (!isConfirmed) return;
 
                 const success = await unenrollMFA(activeFactor.id);
                 if (success) {
                     showToast('二段階認証を解除しました', "success");
-                    // 画面を最新の状態にリフレッシュ
                     checkAndRenderMFA();
                 }
             };
         }
     } else {
-        // まだ未登録のパターン
+        // 【パターンB：まだ未登録の場合】
         unregisteredArea?.classList.add('active');
         registeredArea?.classList.remove('active');
-        //セットアップ関数を呼び出す（上にあり）
         setupMFAEvent();
     }
-    
 }
 
 //==========================================================================
@@ -500,7 +529,7 @@ function setupDeleteAccountEvent() {
             const success = await deleteAccount();
 
             if (success) {
-                showToast('アカウント削除しました。\nご利用ありがとうございました。', success);
+                showToast('アカウント削除しました。\nご利用ありがとうございました。', "success");
                 // すでにアカウントは存在しない（ログアウト状態）ので、ログイン画面へジャンプ
                 window.location.href = './login/index.html';
             }

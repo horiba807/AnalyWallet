@@ -150,15 +150,16 @@
     &__td {
         padding: 7.5px 15px;
         border-top: solid 1px v.$acc110;
+        vertical-align: middle;
     }
 
     &__delete-btn {
         padding: 5px 10px;
-        background: v.$warning-light;
+        background: v.$white;
         border-radius: 7.5px;
         font-family: 'Noto Sans JP', sans-serif;
-        font-size: 10px;
-        border: none;
+        font-size: 12px;
+        border: solid 1px v.$warning;
         cursor: pointer;
         transition: .2s;
 

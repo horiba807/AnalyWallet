@@ -1,4 +1,4 @@
-export function showToast(message, type = 'success', duration = 10000) {
+export function showToast(message, type = 'success', duration = 5000) {
     // トーストを入れるコンテナを取得（無ければ作成）
     let container = document.getElementById('toast-container');
     if (!container) {

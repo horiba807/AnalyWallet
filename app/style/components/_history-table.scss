@@ -98,7 +98,7 @@
 }
 
 .column-btn {
-    padding:10px 15px;
+    padding:6px 15px;
     border-radius: 7.5px;
     border: none;
     cursor: pointer;
@@ -108,7 +108,7 @@
 
     &.delete {
         border: solid 1px v.$warning;
-        background-color: v.$warning-light;
+        background-color: v.$white;
 
         &:hover {
             background-color: v.$warning;

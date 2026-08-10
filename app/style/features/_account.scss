@@ -4,8 +4,23 @@
 #account_settings {
     .setting_items {
         &.email {
-            p {
-                margin-bottom: 15px;
+            .setting-items__flexwrapper{
+                display:flex;
+                gap:20px;
+                margin-bottom:15px;
+                align-items: center;
+            }
+            .current-email__label{
+                flex:1;
+            }
+            .current-email__address{
+                border: solid 1px v.$acc200;
+                background: v.$acc110;
+                color: v.$gray;
+                padding: 10px 15px;
+                border-radius: 10px;
+                font-family: 'Inter', sans-serif;
+                flex:3;
             }
 
             span {
@@ -81,10 +96,11 @@
             }
         }
 
-        div {
+        .setting-items__flexwrapper {
             display: flex;
             gap: 20px;
             margin-bottom: 15px;
+            align-items: center;
 
             @include v.mq(sm) {
                 gap: 7.5px;
@@ -92,8 +108,6 @@
 
             label {
                 flex: 1;
-                line-height: 40.39px;
-
                 .line_break {
                     display: none;
                 }
@@ -119,7 +133,7 @@
 
     .resetPass_btn_wrapper {
         text-align: right;
-        margin-top: 15px;
+        margin            : 15px 0;
     }
 
     .resetPass_btn {
@@ -347,7 +361,6 @@
                 margin-left: 15px;
 
                 @include v.mq(sm) {
-                    font-size: 14px;
                     margin-left: 1.5% !important;
                 }
 
@@ -400,7 +413,6 @@
             margin: 15px 0 0px;
 
             @include v.mq(sm) {
-                font-size: 14px;
                 margin-left: 1.5% !important;
             }
 
@@ -438,6 +450,17 @@
         }
     }
 
+    .logout__btn{
+        border: solid 1px v.$acc120;
+        padding: 10px 20px;
+        border-radius: 10px;
+        transition: .2s;
+        &:hover {
+            background: v.$acc300;
+            color: v.$white;
+        }
+    }
+
     #btn-delete-account {
         border: solid 1px v.$warning;
         padding: 10px 20px;
@@ -453,6 +476,99 @@
 
         &:hover {
             background: v.$warning;
+            color: v.$white;
+        }
+    }
+}
+
+.mfa-accordion {
+    margin: 15px 0;
+    border: 1px solid v.$acc200;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 500px;
+
+    &__header {
+        width: 100%;
+        padding: 10px 20px;
+        background: v.$acc100;
+        border: none;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+        transition: .2s;
+        &:hover {
+            background: v.$acc200;
+        }
+        span{
+            position: absolute;
+            top:50%;
+            right:20px;
+            transform: translateY(-50%);
+        }
+    }
+
+    .accordion-body {
+        display: none; // デフォルトは閉じる
+        padding: 16px;
+        background: v.$white;
+
+
+        &.open {
+            display: block; // 開いた時
+        }
+    }
+
+    .status-text {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    .backup-codes-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        background: v.$acc100;
+        padding: 12px;
+        border-radius: 6px;
+        font-family: "Noto Sans Mono", monospace;
+        font-weight:500 ;
+        margin-bottom: 12px;
+        font-size:16px;
+        letter-spacing: 0.05rem;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .btn-secondary{
+        border:solid 1px v.$acc200;
+        font-size:12px;
+        padding:5px 10px;
+        border-radius: 5px;
+        display:inline-flex;
+        gap:5px;
+        transition: .2s;
+        .material-symbols-rounded{
+            font-size:14px;
+        }
+        &:hover{
+            border-color: v.$acc210;
+            background-color: v.$acc200;
+        }
+    }
+
+    .btn-regenerate {
+        border: solid 1px v.$acc120;
+        padding: 10px 20px;
+        border-radius: 10px;
+        transition: .2s;
+        &:hover {
+            background: v.$acc300;
             color: v.$white;
         }
     }

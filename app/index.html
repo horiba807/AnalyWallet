@@ -8,17 +8,16 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link
-        href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@100..900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+Mono:wght@100..900&display=swap"
         rel="stylesheet"
     />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
+
     <meta name="viewport" content="width=device-width, viewport-fit=cover">
     <link rel="icon" href="img/favicon.ico">
-    <!-- <link rel="manifest" href="/app/manifest.json" crossorigin="use-credentials"> -->
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -169,7 +168,7 @@
                                         <input type="text" id="new-income-name" class="category-settings__input" placeholder="カテゴリーを追加">
                                         <button type="button" id="add-income-btn" class="category-settings__add-btn">追加する</button>
                                         <label class="category-settings__checkbox-label">
-                                            <input type="checkbox" id="new-income-carryover"> 直接残高に投入する
+                                            <input type="checkbox" id="new-income-carryover">調整用カテゴリーにする
                                         </label>
                                     </form>
 
@@ -247,9 +246,12 @@
                             </div>
                             <h4>メールアドレス</h4>
                             <div class="setting_items email">
-                                <p>現在のメールアドレス: <span id="current-email"></span></p>
+                                <div class="setting-items__flexwrapper">
+                                    <p class="current-email__label">現在のメールアドレス</p>
+                                    <p class="current-email__address" id="current-email"></p>
+                                </div>
                                 <form id="form-update-email">
-                                    <div>
+                                    <div class="setting-items__flexwrapper">
                                         <label for="input-new-email">新しいメールアドレス</label>
                                         <input type="email" id="input-new-email" placeholder="新しいメールアドレス" required>
                                     </div>
@@ -260,28 +262,23 @@
                             <h4>パスワード</h4>
                             <div class="setting_items">
                                 <form id="form-update-password">
-                                    <div>
-                                        <label for="current-new-password">現在の<span
-                                                class="line_break"><br></span>パスワード</label>
-                                        <input type="password" id="current-new-password" placeholder="現在のパスワード"
-                                            required>
+                                    <div class="setting-items__flexwrapper">
+                                        <label for="current-new-password">現在の<span class="line_break"><br></span>パスワード</label>
+                                        <input type="password" id="current-new-password" placeholder="現在のパスワード" required>
                                     </div>
-                                    <div>
-                                        <label for="input-new-password">新しい<span
-                                                class="line_break"><br></span>パスワード</label>
-                                        <input type="password" id="input-new-password" placeholder="新しいパスワード（12文字以上）"
-                                            required>
+                                    <div class="resetPass_btn_wrapper">
+                                        <a class="resetPass_btn" id="openResetPassModal">パスワードをお忘れの場合</a>
+                                    </div>
+                                    <div class="setting-items__flexwrapper">
+                                        <label for="input-new-password">新しい<spanclass="line_break"><br></span>パスワード</label>
+                                        <input type="password" id="input-new-password" placeholder="新しいパスワード（12文字以上）" required>
                                     </div>
                                     <button type="submit">パスワードを更新</button>
                                 </form>
-                                <div class="resetPass_btn_wrapper">
-                                    <a class="resetPass_btn" id="openResetPassModal">パスワードをお忘れの場合</a>
-                                </div>
                                 <div class="modal-wrapper" id="forgetPass-modal_wrapper">
                                     <div id="forgetPass-modal" class="modal">
                                         <div class="close_btn_wrapper">
-                                            <button class="close_btn" id="close_FogetPassModal_btn"><span
-                                                    class="material-icons">close</span></button>
+                                            <button class="close_btn" id="close_FogetPassModal_btn"><spanclass="material-icons">close</span></button>
                                         </div>
                                         <div class="logo_wrapper">
                                             <div>
@@ -298,15 +295,14 @@
 
                                             <form id="forgotPass-form">
                                                 <div class="input_wrapper">
-                                                    <input type="email" id="forgotPass-email" placeholder="メールアドレス"
-                                                        required>
+                                                    <input type="email" id="forgotPass-email" placeholder="メールアドレス" required>
                                                 </div>
                                                 <a id="link-forgot-password" href="#">登録する</a>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                             <div class="line"></div>
                             <h4>二段階認証（MFA）</h4>
                             <div class="setting_items">
@@ -325,6 +321,50 @@
                                 <div id="mfa-registered-area" class="">
                                     <p class="stats">二段階認証（MFA）は有効です</p>
                                     <p class="date">設定日時: <span id="mfa-activated-at">-</span></p>
+
+                                    <div class="mfa-accordion">
+                                        <button type="button" id="btn-toggle-backup" class="mfa-accordion__header">
+                                            <h5>バックアップコードの確認</h5>
+                                            <span id="accordion-arrow" class="material-symbols-rounded">
+                                                keyboard_arrow_down
+                                            </span>
+                                        </button>
+                                    
+                                        <div id="backup-accordion-body" class="accordion-body">
+                                            <!-- 残数の表示 -->
+                                            <p class="status-text">利用可能なコード: <strong id="backup-remaining-count">-</strong> / 10個</p>
+                                    
+                                            <!-- コード表示エリア（初回設定時・再発行時のみ中身が入る） -->
+                                            <div id="backup-display-area" style="display: none;">
+                                                <div id="backup-codes-list" class="backup-codes-grid"></div>
+                                    
+                                                <div class="action-buttons">
+                                                    <button type="button" id="btn-copy-backup-codes" class="btn-secondary">
+                                                        <span class="material-symbols-rounded">
+                                                            content_copy
+                                                        </span>
+                                                        <span>
+                                                            コピー
+                                                        </span>
+                                                    </button>
+                                                    <button type="button" id="btn-download-backup-codes" class="btn-secondary">
+                                                        <span class="material-symbols-rounded">
+                                                            download
+                                                        </span>
+                                                        <span>
+                                                            .txtでダウンロード
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                    
+                                            <!-- 再発行ボタン -->
+                                            <button type="button" id="btn-regenerate-backup" class="btn-regenerate">
+                                                新しいコードを再発行する
+                                            </button>
+                                        </div>
+                                    </div>
+
                                     <button id="btn-mfa-unenroll">二段階認証を解除する</button>
                                 </div>
                             </div>
@@ -345,6 +385,11 @@
                                 </div>
                             </div>
                             <div class="line"></div>
+                            <div class="setting_items logout">
+                                <h4>ログアウト</h4>
+                                <button class="logout__btn" id="logout-btn">ログアウトする</button>
+                            </div>
+                            <div class="line"></div>
                             <div class="setting_items delete-account">
                                 <h4>アカウントの削除</h4>
                                 <div class="warning-box">
@@ -361,7 +406,8 @@
                                 <button id="btn-delete-account">アカウントを完全に削除する</button>
                             </div>
                         </section>
-                        <section id="other_settings" class="drawer-menu__panel" data-target="other_settings">                            <h3>その他の情報</h3>
+                        <section id="other_settings" class="drawer-menu__panel" data-target="other_settings">                            
+                            <h3>その他の情報</h3>
                             <ul>
                                 <li>
                                     <a class="link_text">AnalyWalletについて<span

@@ -96,9 +96,9 @@ main section {
   line-height: 1.4;
   text-align: left;
   white-space: pre-line;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -webkit-box-flex: 1.1;
+      -ms-flex: 1.1;
+          flex: 1.1;
   word-break: break-word;
 }
 .toast__close-btn {
@@ -328,13 +328,11 @@ footer .copyright {
   color: #9e9e9e;
   font-size: 12px;
   margin-top: -16px;
-  text-align: left;
+  text-align: center;
 }
 footer #app-version {
   font-family: "Inter", sans-serif;
-  color: #9e9e9e;
-  font-size: 12px;
-  text-align: right;
+  margin-left: 15px;
 }
 
 .modal-wrapper {
@@ -451,14 +449,26 @@ footer #app-version {
   margin-bottom: 15px;
   font-family: "Inter", sans-serif;
 }
-#signup-modal_wrapper label {
-  font-size: 16px;
+#signup-modal_wrapper .input__checkbox {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
-#signup-modal_wrapper #signup-terms {
+#signup-modal_wrapper .input__checkbox label {
+  font-size: 14px;
+}
+#signup-modal_wrapper .input__checkbox #signup-terms {
   -moz-appearance: auto;
        appearance: auto;
-  -webkit-appearance: auto; /* Safari用 */
-  margin-right: 5px; /* 文字との間に少し隙間をあける */
+  -webkit-appearance: auto;
+  /* Safari用 */
+  margin-right: 10px;
+  position: relative;
+  -webkit-transform: translateY(1px);
+          transform: translateY(1px);
 }
 #signup-modal_wrapper #signup-submit-btn {
   margin-top: 30px;
@@ -492,7 +502,7 @@ footer #app-version {
   -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
           box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.05);
 }
-#loginMFA-modal_wrapper .modal #login-mfa-code {
+#loginMFA-modal_wrapper .modal .loginMFA-modal__input {
   width: 100%;
   font-size: 20px;
   font-family: "Inter", sans-serif;
@@ -501,7 +511,17 @@ footer #app-version {
   border: solid 1px #ded9d2;
   border-radius: 10px;
 }
-#loginMFA-modal_wrapper .modal #btn-login-mfa-verify {
+#loginMFA-modal_wrapper .modal .loginMFA-modal__switch-btn {
+  color: #102C57;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-align: center;
+  font-size: 14px;
+}
+#loginMFA-modal_wrapper .modal .loginMFA-modal__switch-btn:hover {
+  text-decoration-thickness: 2px;
+}
+#loginMFA-modal_wrapper .modal .loginMFA-modal__form-btn {
   display: block;
   width: 100%;
   padding: 15px 0;
@@ -512,7 +532,7 @@ footer #app-version {
   background: #102C57;
   color: #FEFAF6;
 }
-#loginMFA-modal_wrapper .modal #btn-login-mfa-verify:hover {
+#loginMFA-modal_wrapper .modal .loginMFA-modal__form-btn:hover {
   background: #FEFAF6;
   color: #222;
 }

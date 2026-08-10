@@ -175,6 +175,7 @@ main{
         text-decoration-thickness: 2px;
     }
 }
+
 .resetPass_btn {
     color: $gray;
     font-size:12px;
@@ -209,13 +210,11 @@ footer{
         color:$gray;
         font-size:12px;
         margin-top:-16px;
-        text-align: left;
+        text-align: center;
     }
     #app-version{
         font-family: 'Inter', sans-serif;
-        color: $gray;
-        font-size: 12px;
-        text-align: right;
+        margin-left:15px;
     }
 }
 
@@ -262,7 +261,6 @@ footer{
             width: 90%;
             padding:30px;
         }
-
         .close_btn_wrapper {
             position: relative;
 
@@ -347,14 +345,23 @@ footer{
         }
 
     }
-    label{
-        font-size: 16px;
+
+    .input__checkbox{
+        display: inline-flex;
+        align-items: center;
+        label {
+            font-size: 14px;
+        }
+        #signup-terms {
+            appearance: auto;
+            -webkit-appearance: auto;
+            /* Safari用 */
+            margin-right: 10px;
+            position: relative;
+            transform: translateY(1px);
+        }
     }
-    #signup-terms{
-        appearance: auto;
-        -webkit-appearance: auto; /* Safari用 */
-        margin-right: 5px;        /* 文字との間に少し隙間をあける */
-    }
+
 
     #signup-submit-btn {
         margin-top: 30px;
@@ -386,7 +393,7 @@ footer{
         border-radius: 30px;
         padding: 40px 50px;
         box-shadow: (0px 0px 30px 10px rgba(0, 0, 0, 0.05));
-        #login-mfa-code{
+        .loginMFA-modal__input{
             width: 100%;
             font-size:20px;
             font-family: 'Inter', sans-serif;
@@ -396,7 +403,17 @@ footer{
             border-radius: 10px;
 
         }
-        #btn-login-mfa-verify{
+        .loginMFA-modal__switch-btn{
+            color: $acc4;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-align: center;
+            font-size: 14px;
+            &:hover {
+                text-decoration-thickness: 2px;
+            }
+        }
+        .loginMFA-modal__form-btn{
             display:block;
             width: 100%;
             padding:15px 0;
