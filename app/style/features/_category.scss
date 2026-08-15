@@ -76,7 +76,7 @@
     }
 
     &__add-btn {
-        border: solid 1px v.$acc120;
+        border: solid 1px v.$acc200;
         padding: 10px 15px;
         border-radius: 10px;
         margin-left: 10px;
@@ -90,8 +90,8 @@
         }
 
         &:hover {
-            background: v.$acc300;
-            color: v.$white;
+            background: v.$acc200;
+            border-color: v.$acc210;
         }
     }
 

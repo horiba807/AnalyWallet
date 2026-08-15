@@ -7,7 +7,7 @@
 
     button {
         border: solid 1px v.$acc200;
-        background-color: v.$acc100;
+
         padding: 5px;
         border-radius: 10px;
         font-size: 20px;
@@ -52,7 +52,7 @@
     .month_btn {
         padding: 10px 20px;
         border: 1px solid v.$acc200;
-        background: v.$acc100;
+
         border-radius: 10px;
         cursor: pointer;
         transition: all 0.3s ease;

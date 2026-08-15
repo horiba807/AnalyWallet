@@ -1,71 +1,64 @@
 @use "../foundation/variables" as v;
+
 footer {
-    margin: 0 auto;
+    margin: 0 auto 20px;
     width: 100%;
     position: relative;
     @include v.mq(sm) {
-        margin-bottom:60px;
+        margin-bottom:80px;
     }
 
-    .copyright {
-        font-size: 13px;
-        line-height: 100px;
-        color: #a8a8a8;
-        font-family: 'Inter', sans-serif;
-    }
-
-    #app-version {
-        font-size: 13px;
-        color: #a8a8a8;
-        margin-top: -35px;
-        margin-right: 130px;
-        font-family: 'Inter', sans-serif;
-
-
-
-    }
-
-    #logout-btn {
-        padding: 10px 15px;
-        border: solid 2px v.$acc100;
-        color: #a8a8a8;
-        border-radius: 7px;
-        text-align: right;
-        position: absolute;
-        right: 0;
-        top: 80%;
-        transform: translateY(-50%);
-        font-size: 14px;
-        transition: .2s;
-
-        &:hover {
-            background-color: v.$acc300;
-            border-color: v.$acc300;
-            color: #fff;
-            font-weight: 500;
+    .footer{
+        &__copy{
+            font-size: 14px;
+            line-height: 16px;
+            color: v.$gray;
+            span{
+                margin-left:20px;
+                font-size: 11px;
+            }
+            @include v.mq(sm){
+                line-height: 1.75;
+            }
         }
-
-        @include v.mq(sm) {
-            top: 50%;
-
+        &__line{
+            display:none;
+            height: 2px;
+            background: v.$acc100;
+            margin:15px 0;
+            @include v.mq(sm){
+                display:block;
+            }
         }
-    }
-
-    a {
-        position: absolute;
-        top: 80%;
-        transform: translateY(-50%);
-        right: 120px;
-        font-family: 'Inter', sans-serif;
-        color: #a8a8a8;
-
-        &:hover {
-            color: v.$acc300;
+        &__link-list{
+            text-align: right;
+            margin-top:-16px;
+            line-height: 16px;
+            @include v.mq(sm){
+                text-align: left;
+                margin: 0;
+                line-height: 1.75;
+            }
         }
+        &__link-item{
+            display:inline-block;
+            margin-left:10px;
+            @include v.mq(sm){
+                margin-left:0;
+                margin-right: 10px;
+            }
+        }
+        &__link{
+            font-size:14px;
+            color: v.$gray;
+            &:hover{
+                color: v.$acc300;
+                text-decoration: underline;
+                text-underline-offset: 5px;
+                text-decoration-thickness: 2px;
+                text-decoration-color: v.$acc200;
 
-        @include v.mq(sm) {
-            top: 50%;
-
+            }
         }
     }
 }

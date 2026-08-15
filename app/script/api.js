@@ -586,7 +586,7 @@ export async function enrollMFA() {
     });
 
     if (error) {
-        showToast(`エラーが発生しました。しばらくしてから再度お試しください。:\n${error.message}`, 'error');
+        showToast(`エラーが発生しました。時間を空けて再度お試しください。:\n${error.message}`, 'error');
         return null;
     }
 
@@ -656,7 +656,7 @@ export async function unenrollMFA(factorId) {
 }
 
 //==========================================================================
-// 可逆暗号化版 バックアップコード機能
+// バックアップコード
 //==========================================================================
 
 // 💡 【更新】バックアップコードを発行して「可逆暗号化」でDB保存する
@@ -770,7 +770,7 @@ export function showGeneratedBackupCodes(codesData) {
             const blob = new Blob([activeCodes.join('\n')], { type: 'text/plain' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
-            a.download = `backup-codes-${Date.now()}.txt`;
+            a.download = `AnalyWallet-backup-codes-${Date.now()}.txt`;
             a.click();
         };
     }

@@ -138,6 +138,7 @@
     padding: 13px 0;
     font-family: 'Noto Sans JP', sans-serif;
     position: relative;
+    
 
     &-br {
       display: none;
@@ -172,14 +173,17 @@
     }
 
     @include v.mq(tb){
+      display:inline-flex;
+      gap:5px;
       span{
-        display: none;
+        font-size:20px;
       }
     }
     // 下部の規約などの小さなボタン（Modifier）
     &--small {
       font-size: 12px;
       padding: 8px 0;
+      display: block;
 
       @include v.mq(sm) {
         display: none;
@@ -203,16 +207,27 @@
     // ホバー・アクティブ時の共通スタイルを整理
     &:hover,
     &.active {
-      text-decoration: underline;
-      text-decoration-color: v.$acc300;
-      text-underline-offset: 5px;
-      text-decoration-skip: 1.5px;
-      text-decoration-thickness: 2px;
+      .drawer-menu__tab-text{
+        text-decoration: underline;
+        text-decoration-color: v.$acc300;
+        text-underline-offset: 5px;
+        text-decoration-skip: 1.5px;
+        text-decoration-thickness: 2px;
+        font-weight: 500;
+      }
       color: v.$acc300;
-      font-weight: 500;
 
       @include v.mq(sm) {
         border-bottom:solid 2px v.$acc300;
+        .drawer-menu__tab-text{
+          text-decoration: none;
+        }
+      }
+
+      @include v.mq(tb){
+        span{
+          text-decoration: none;
+        }
       }
     }
   }

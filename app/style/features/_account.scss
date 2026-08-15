@@ -9,26 +9,58 @@
                 gap:20px;
                 margin-bottom:15px;
                 align-items: center;
+                @include v.mq(sm) {
+                    display:block;
+                }
+
             }
-            .current-email__label{
-                flex:1;
+            .email__label{
+                @include v.mq(sm) {
+                    font-size:14px;
+                    margin:0 0 5px;
+                    display:block;
+                }
+                flex: 1;
+
             }
-            .current-email__address{
-                border: solid 1px v.$acc200;
-                background: v.$acc110;
-                color: v.$gray;
-                padding: 10px 15px;
-                border-radius: 10px;
-                font-family: 'Inter', sans-serif;
-                flex:3;
+            .email__address{
+                &--current{
+                    border: solid 1px v.$acc200;
+                    background: v.$acc110;
+                    color: v.$gray;
+                    padding: 10px 15px;
+                    border-radius: 10px;
+                    font-family: 'Inter', sans-serif;
+                    flex:3;
+                }
+                &--new{
+                    width: 100%;
+                    border: solid 1px v.$acc200;
+                    background: v.$acc100;
+                    padding: 10px 15px;
+                    border-radius: 10px;
+                    font-family: 'Inter', sans-serif;
+                    flex:3;
+                }
             }
 
             span {
                 font-family: 'Inter', sans-serif;
-
                 @include v.mq(sm) {
                     display: block;
                     margin-top: 5px;
+                }
+            }
+
+            button{
+                border: solid 1px v.$acc200;
+                padding: 10px 15px;
+                border-radius: 10px;
+                transition: .2s;
+            
+                &:hover {
+                    background: v.$acc200;
+                    border-color: v.$acc210;
                 }
             }
         }
@@ -40,23 +72,18 @@
                 border-radius: 10px;
                 display: flex;
                 gap: 15px;
-
                 @include v.mq(sm) {
                     display: block;
                 }
-
                 .warning-icon {
                     flex: 1;
-
                     span {
                         color: v.$warning;
                         font-size: 30px;
                     }
                 }
-
                 .text {
                     flex: 30;
-
                     p {
                         line-height: 1.5;
                     }
@@ -73,29 +100,8 @@
         display: block;
     }
 
-    #form-update-email,
+
     #form-update-password {
-        input {
-            width: 400px;
-            border: solid 1px v.$acc200;
-            background: v.$acc100;
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        button {
-            border: solid 1px v.$acc120;
-            padding: 10px 15px;
-            border-radius: 10px;
-            transition: .2s;
-
-            &:hover {
-                background: v.$acc300;
-                color: v.$white;
-            }
-        }
-
         .setting-items__flexwrapper {
             display: flex;
             gap: 20px;
@@ -103,30 +109,39 @@
             align-items: center;
 
             @include v.mq(sm) {
-                gap: 7.5px;
+                display: block;
             }
 
             label {
                 flex: 1;
-                .line_break {
-                    display: none;
-                }
-
                 @include v.mq(sm) {
-                    line-height: 1;
                     font-size: 14px;
-                    text-align: center;
-                    line-height: 18px;
-
-                    .line_break {
-                        display: block;
-                        height: 0;
-                    }
+                    margin-bottom:5px;
+                    display:block;
                 }
             }
 
             input {
                 flex: 3;
+                width: 100%;
+                border: solid 1px v.$acc200;
+                background: v.$acc100;
+                padding: 10px 15px;
+                border-radius: 10px;
+                font-family: 'Inter', sans-serif;
+
+            }
+        }
+
+        button{
+            border: solid 1px v.$acc200;
+            padding: 10px 15px;
+            border-radius: 10px;
+            transition: .2s;
+            
+            &:hover {
+                background: v.$acc200;
+                border-color: v.$acc210;
             }
         }
     }
@@ -329,8 +344,26 @@
                 display: block;
             }
 
-            p {
+            .mfa-setup__textbox{
                 margin: 20px 0 20px 0;
+                display:inline-flex;
+                gap:10px;
+                vertical-align: middle;
+                &--text{
+                    line-height: 1.5;
+                }
+                &--num{
+                    padding: 5px 11px;
+                    width: 30px;
+                    height: 30px;
+
+                    aspect-ratio: 1 / 1;
+                    background-color: v.$acc300;
+                    color: v.$white;
+                    font-family: 'Inter', sans-serif;
+                    font-weight: 500;
+                    border-radius: 50%;
+                }
             }
 
             code {
@@ -339,6 +372,9 @@
                 padding: 15px 20px;
                 border-radius: 7.5px;
                 display: block;
+                font-family: 'Noto Sans Mono', sans-serif;
+                letter-spacing: 0.05rem;
+
             }
 
             input {
@@ -456,8 +492,8 @@
         border-radius: 10px;
         transition: .2s;
         &:hover {
-            background: v.$acc300;
-            color: v.$white;
+            background: v.$acc200;
+            border-color: v.$acc210;
         }
     }
 

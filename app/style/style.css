@@ -171,11 +171,11 @@ body .header__menu-btn:hover {
   color: #000;
   padding: 5px 0;
 }
-.header__nav-link:visited {
-  color: #000;
-}
 .header__nav-link:hover {
   border-bottom: #EADBC8 solid 2px;
+}
+.header__nav.no-display {
+  display: none;
 }
 
 .header__sm-nav {
@@ -240,70 +240,72 @@ body .header__menu-btn:hover {
 }
 
 footer {
-  margin: 0 auto;
+  margin: 0 auto 20px;
   width: 100%;
   position: relative;
 }
 @media screen and (max-width: 599px) {
   footer {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
   }
 }
-footer .copyright {
-  font-size: 13px;
-  line-height: 100px;
-  color: #a8a8a8;
-  font-family: "Inter", sans-serif;
-}
-footer #app-version {
-  font-size: 13px;
-  color: #a8a8a8;
-  margin-top: -35px;
-  margin-right: 130px;
-  font-family: "Inter", sans-serif;
-}
-footer #logout-btn {
-  padding: 10px 15px;
-  border: solid 2px #f7f1e9;
-  color: #a8a8a8;
-  border-radius: 7px;
-  text-align: right;
-  position: absolute;
-  right: 0;
-  top: 80%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+footer .footer__copy {
   font-size: 14px;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
+  line-height: 16px;
+  color: #999999;
 }
-footer #logout-btn:hover {
-  background-color: #102C57;
-  border-color: #102C57;
-  color: #fff;
-  font-weight: 500;
+footer .footer__copy span {
+  margin-left: 20px;
+  font-size: 11px;
 }
 @media screen and (max-width: 599px) {
-  footer #logout-btn {
-    top: 50%;
+  footer .footer__copy {
+    line-height: 1.75;
   }
 }
-footer a {
-  position: absolute;
-  top: 80%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  right: 120px;
-  font-family: "Inter", sans-serif;
-  color: #a8a8a8;
+footer .footer__line {
+  display: none;
+  height: 2px;
+  background: #f7f1e9;
+  margin: 15px 0;
 }
-footer a:hover {
+@media screen and (max-width: 599px) {
+  footer .footer__line {
+    display: block;
+  }
+}
+footer .footer__link-list {
+  text-align: right;
+  margin-top: -16px;
+  line-height: 16px;
+}
+@media screen and (max-width: 599px) {
+  footer .footer__link-list {
+    text-align: left;
+    margin: 0;
+    line-height: 1.75;
+  }
+}
+footer .footer__link-item {
+  display: inline-block;
+  margin-left: 10px;
+}
+@media screen and (max-width: 599px) {
+  footer .footer__link-item {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+}
+footer .footer__link {
+  font-size: 14px;
+  color: #999999;
+}
+footer .footer__link:hover {
   color: #102C57;
-}
-@media screen and (max-width: 599px) {
-  footer a {
-    top: 50%;
-  }
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #EADBC8;
 }
 
 .drawer-menu {
@@ -485,13 +487,20 @@ footer a:hover {
   }
 }
 @media screen and (min-width: 600px) {
+  .drawer-menu__tab {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    gap: 5px;
+  }
   .drawer-menu__tab span {
-    display: none;
+    font-size: 20px;
   }
 }
 .drawer-menu__tab--small {
   font-size: 12px;
   padding: 8px 0;
+  display: block;
 }
 @media screen and (max-width: 599px) {
   .drawer-menu__tab--small {
@@ -511,19 +520,29 @@ footer a:hover {
 .drawer-menu__tab:nth-of-type(5) {
   margin-top: 25px;
 }
-.drawer-menu__tab:hover, .drawer-menu__tab.active {
+.drawer-menu__tab:hover .drawer-menu__tab-text, .drawer-menu__tab.active .drawer-menu__tab-text {
   text-decoration: underline;
   text-decoration-color: #102C57;
   text-underline-offset: 5px;
   -webkit-text-decoration-skip: 1.5px;
           text-decoration-skip: 1.5px;
   text-decoration-thickness: 2px;
-  color: #102C57;
   font-weight: 500;
+}
+.drawer-menu__tab:hover, .drawer-menu__tab.active {
+  color: #102C57;
 }
 @media screen and (max-width: 599px) {
   .drawer-menu__tab:hover, .drawer-menu__tab.active {
     border-bottom: solid 2px #102C57;
+  }
+  .drawer-menu__tab:hover .drawer-menu__tab-text, .drawer-menu__tab.active .drawer-menu__tab-text {
+    text-decoration: none;
+  }
+}
+@media screen and (min-width: 600px) {
+  .drawer-menu__tab:hover span, .drawer-menu__tab.active span {
+    text-decoration: none;
   }
 }
 .drawer-menu__content {
@@ -587,7 +606,6 @@ footer a:hover {
 }
 .year_select_wrapper button {
   border: solid 1px #EADBC8;
-  background-color: #f7f1e9;
   padding: 5px;
   border-radius: 10px;
   font-size: 20px;
@@ -629,7 +647,6 @@ footer a:hover {
 .month_select_wrapper .month_btn {
   padding: 10px 20px;
   border: 1px solid #EADBC8;
-  background: #f7f1e9;
   border-radius: 10px;
   cursor: pointer;
   -webkit-transition: all 0.3s ease;
@@ -905,12 +922,10 @@ form .form_group .radio_wrapper input[type=radio]:checked + label {
 form button {
   padding: 15px 30px;
   border: 1px solid #EADBC8;
-  background-color: #f7f1e9;
   border-radius: 10px;
   cursor: poInter;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  color: #102C57;
 }
 form button:hover {
   background-color: #EADBC8;
@@ -1023,7 +1038,6 @@ form::-webkit-date-and-time-value {
   color: #FEFAF6;
 }
 .column-btn.edit {
-  background-color: #f7f1e9;
   border: solid 1px #EADBC8;
   margin-left: 5px;
 }
@@ -1087,7 +1101,8 @@ form::-webkit-date-and-time-value {
 #edit-modal .close_btn {
   position: relative;
   display: inline-block;
-  background: #EADBC8;
+  background: #f7f1e9;
+  border: solid 1px #EADBC8;
   width: 50px;
   height: 50px;
   border-radius: 50px;
@@ -1100,8 +1115,8 @@ form::-webkit-date-and-time-value {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -45%);
+          transform: translate(-50%, -45%);
 }
 #edit-modal .close_btn:hover {
   background: #d95252;
@@ -1222,8 +1237,8 @@ form::-webkit-date-and-time-value {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
-  padding-top: 40vh;
+  height: 100dvh;
+  padding-top: 40dvh;
   padding-bottom: 20px;
   overflow-y: auto;
   display: -webkit-box;
@@ -1398,7 +1413,7 @@ form::-webkit-date-and-time-value {
   }
 }
 .category-settings__add-btn {
-  border: solid 1px #ded9d2;
+  border: solid 1px #EADBC8;
   padding: 10px 15px;
   border-radius: 10px;
   margin-left: 10px;
@@ -1414,8 +1429,8 @@ form::-webkit-date-and-time-value {
   }
 }
 .category-settings__add-btn:hover {
-  background: #102C57;
-  color: #FEFAF6;
+  background: #EADBC8;
+  border-color: #DAC0A3;
 }
 .category-settings__list {
   height: 300px;
@@ -1511,6 +1526,9 @@ form::-webkit-date-and-time-value {
   display: flex;
   margin-bottom: 15px;
   position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 @media screen and (max-width: 599px) {
   .subsc-settings__group {
@@ -1542,7 +1560,6 @@ form::-webkit-date-and-time-value {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  line-height: 40.39px;
 }
 @media screen and (max-width: 599px) {
   .subsc-settings__label {
@@ -1561,6 +1578,27 @@ form::-webkit-date-and-time-value {
             flex: 2.5;
   }
 }
+.subsc-settings__input-wrapper--day {
+  -webkit-box-flex: 3;
+      -ms-flex: 3;
+          flex: 3;
+}
+@media screen and (max-width: 599px) {
+  .subsc-settings__input-wrapper--day {
+    -webkit-box-flex: 2.5;
+        -ms-flex: 2.5;
+            flex: 2.5;
+  }
+}
+.subsc-settings__input-wrapper--day {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
 .subsc-settings__input, .subsc-settings__select {
   width: 100%;
   border: solid 1px #EADBC8;
@@ -1570,15 +1608,25 @@ form::-webkit-date-and-time-value {
   line-height: 1;
 }
 .subsc-settings__prefix {
-  display: inline-block;
-  padding-right: 15px;
-  height: 1px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 .subsc-settings__select {
-  width: calc(100% - 51px);
+  -webkit-box-flex: 10;
+      -ms-flex: 10;
+          flex: 10;
+  padding: 12px 15px;
+}
+@media screen and (max-width: 599px) {
+  .subsc-settings__select {
+    -webkit-box-flex: 4;
+        -ms-flex: 4;
+            flex: 4;
+  }
 }
 .subsc-settings__submit-btn {
-  border: solid 1px #ded9d2;
+  border: solid 1px #EADBC8;
   margin-bottom: 30px;
   padding: 15px 30px;
   border-radius: 10px;
@@ -1594,8 +1642,8 @@ form::-webkit-date-and-time-value {
   }
 }
 .subsc-settings__submit-btn:hover {
-  background: #102C57;
-  color: #FEFAF6;
+  background: #EADBC8;
+  border-color: #DAC0A3;
 }
 .subsc-settings__table-wrapper {
   position: relative;
@@ -1646,15 +1694,38 @@ form::-webkit-date-and-time-value {
       -ms-flex-align: center;
           align-items: center;
 }
-#account_settings .setting_items.email .current-email__label {
+@media screen and (max-width: 599px) {
+  #account_settings .setting_items.email .setting-items__flexwrapper {
+    display: block;
+  }
+}
+@media screen and (max-width: 599px) {
+  #account_settings .setting_items.email .email__label {
+    font-size: 14px;
+    margin: 0 0 5px;
+    display: block;
+  }
+}
+#account_settings .setting_items.email .email__label {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
-#account_settings .setting_items.email .current-email__address {
+#account_settings .setting_items.email .email__address--current {
   border: solid 1px #EADBC8;
   background: #efeeec;
   color: #999999;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-family: "Inter", sans-serif;
+  -webkit-box-flex: 3;
+      -ms-flex: 3;
+          flex: 3;
+}
+#account_settings .setting_items.email .email__address--new {
+  width: 100%;
+  border: solid 1px #EADBC8;
+  background: #f7f1e9;
   padding: 10px 15px;
   border-radius: 10px;
   font-family: "Inter", sans-serif;
@@ -1670,6 +1741,17 @@ form::-webkit-date-and-time-value {
     display: block;
     margin-top: 5px;
   }
+}
+#account_settings .setting_items.email button {
+  border: solid 1px #EADBC8;
+  padding: 10px 15px;
+  border-radius: 10px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+#account_settings .setting_items.email button:hover {
+  background: #EADBC8;
+  border-color: #DAC0A3;
 }
 #account_settings .setting_items.delete-account .warning-box {
   padding: 15px;
@@ -1709,29 +1791,6 @@ form::-webkit-date-and-time-value {
   background: #f7f1e9;
   display: block;
 }
-#account_settings #form-update-email input,
-#account_settings #form-update-password input {
-  width: 400px;
-  border: solid 1px #EADBC8;
-  background: #f7f1e9;
-  padding: 10px 15px;
-  border-radius: 10px;
-  font-family: "Inter", sans-serif;
-}
-#account_settings #form-update-email button,
-#account_settings #form-update-password button {
-  border: solid 1px #ded9d2;
-  padding: 10px 15px;
-  border-radius: 10px;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-}
-#account_settings #form-update-email button:hover,
-#account_settings #form-update-password button:hover {
-  background: #102C57;
-  color: #FEFAF6;
-}
-#account_settings #form-update-email .setting-items__flexwrapper,
 #account_settings #form-update-password .setting-items__flexwrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1743,40 +1802,43 @@ form::-webkit-date-and-time-value {
           align-items: center;
 }
 @media screen and (max-width: 599px) {
-  #account_settings #form-update-email .setting-items__flexwrapper,
   #account_settings #form-update-password .setting-items__flexwrapper {
-    gap: 7.5px;
+    display: block;
   }
 }
-#account_settings #form-update-email .setting-items__flexwrapper label,
 #account_settings #form-update-password .setting-items__flexwrapper label {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
-#account_settings #form-update-email .setting-items__flexwrapper label .line_break,
-#account_settings #form-update-password .setting-items__flexwrapper label .line_break {
-  display: none;
-}
 @media screen and (max-width: 599px) {
-  #account_settings #form-update-email .setting-items__flexwrapper label,
   #account_settings #form-update-password .setting-items__flexwrapper label {
-    line-height: 1;
     font-size: 14px;
-    text-align: center;
-    line-height: 18px;
-  }
-  #account_settings #form-update-email .setting-items__flexwrapper label .line_break,
-  #account_settings #form-update-password .setting-items__flexwrapper label .line_break {
+    margin-bottom: 5px;
     display: block;
-    height: 0;
   }
 }
-#account_settings #form-update-email .setting-items__flexwrapper input,
 #account_settings #form-update-password .setting-items__flexwrapper input {
   -webkit-box-flex: 3;
       -ms-flex: 3;
           flex: 3;
+  width: 100%;
+  border: solid 1px #EADBC8;
+  background: #f7f1e9;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-family: "Inter", sans-serif;
+}
+#account_settings #form-update-password button {
+  border: solid 1px #EADBC8;
+  padding: 10px 15px;
+  border-radius: 10px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+#account_settings #form-update-password button:hover {
+  background: #EADBC8;
+  border-color: #DAC0A3;
 }
 #account_settings .resetPass_btn_wrapper {
   text-align: right;
@@ -1955,8 +2017,27 @@ form::-webkit-date-and-time-value {
 #account_settings #mfa-unregistered-area #mfa-setup-area.active {
   display: block;
 }
-#account_settings #mfa-unregistered-area #mfa-setup-area p {
+#account_settings #mfa-unregistered-area #mfa-setup-area .mfa-setup__textbox {
   margin: 20px 0 20px 0;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  gap: 10px;
+  vertical-align: middle;
+}
+#account_settings #mfa-unregistered-area #mfa-setup-area .mfa-setup__textbox--text {
+  line-height: 1.5;
+}
+#account_settings #mfa-unregistered-area #mfa-setup-area .mfa-setup__textbox--num {
+  padding: 5px 11px;
+  width: 30px;
+  height: 30px;
+  aspect-ratio: 1/1;
+  background-color: #102C57;
+  color: #FEFAF6;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  border-radius: 50%;
 }
 #account_settings #mfa-unregistered-area #mfa-setup-area code {
   background-color: #ded9d2;
@@ -1964,6 +2045,8 @@ form::-webkit-date-and-time-value {
   padding: 15px 20px;
   border-radius: 7.5px;
   display: block;
+  font-family: "Noto Sans Mono", sans-serif;
+  letter-spacing: 0.05rem;
 }
 #account_settings #mfa-unregistered-area #mfa-setup-area input {
   border: solid 1px #ded9d2;
@@ -2081,8 +2164,8 @@ form::-webkit-date-and-time-value {
   transition: 0.2s;
 }
 #account_settings .logout__btn:hover {
-  background: #102C57;
-  color: #FEFAF6;
+  background: #EADBC8;
+  border-color: #DAC0A3;
 }
 #account_settings #btn-delete-account {
   border: solid 1px #d95252;
@@ -2217,4 +2300,8 @@ form::-webkit-date-and-time-value {
   font-family: "Material Icons";
   font-size: 14px;
   padding-left: 5px;
+}
+
+html {
+  font-family: "Inter", "Noto Sans JP", sans-serif;
 }

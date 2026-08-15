@@ -357,7 +357,7 @@ function setupAccountUpdateEvents() {
             const newEmail = document.getElementById('input-new-email').value;
 
             // 自作モーダル
-            const isConfirmed = await showConfirm(`メールアドレスを ${newEmail} に変更しますか？`, "確認", "キャンセル", "変更する", false);
+            const isConfirmed = await showConfirm(`メールアドレスを ${newEmail} に変更しますか？`, "メールアドレス変更確認", "キャンセル", "変更する", false);
             if (!isConfirmed) return;
 
             const success = await updateUserEmail(newEmail);
@@ -392,7 +392,7 @@ function setupAccountUpdateEvents() {
                 return;
             }
 
-            const isConfirmed = await showConfirm(`パスワードを変更しますか？`, "確認", "キャンセル", "変更する", false);
+            const isConfirmed = await showConfirm(`パスワードを変更しますか？`, "パスワード変更確認", "キャンセル", "変更する", false);
             if (!isConfirmed) return;
 
             // 3. 検証＆変更処理の実行

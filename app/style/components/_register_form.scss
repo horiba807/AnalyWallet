@@ -94,12 +94,9 @@
         button {
             padding: 15px 30px;
             border: 1px solid v.$acc200;
-            background-color: v.$acc100;
             border-radius: 10px;
             cursor: poInter;
             transition: all 0.3s ease;
-            color: v.$acc300;
-
             &:hover {
                 background-color: v.$acc200;
                 border-color: v.$acc210;

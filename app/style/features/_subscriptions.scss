@@ -30,13 +30,13 @@
         display: flex;
         margin-bottom: 15px;
         position: relative;
+        align-items: center;
 
         @include v.mq(sm) {
             gap: 7.5px;
             flex: 1;
         }
 
-        // 共通の疑似要素ベース（金額やアイコンのベース位置）
         &::after {
             display: inline-block;
             position: absolute;
@@ -46,14 +46,12 @@
             transform: translateY(-50%);
         }
 
-        // 金額グループ固有のスタイル（Modifier）
         &--amount {
             &::after {
                 content: '円';
             }
         }
 
-        // 支払日グループ固有のスタイル（Modifier）
         &--day {
             &::after {
                 content: '\e313';
@@ -66,7 +64,6 @@
 
     &__label {
         flex: 1;
-        line-height: 40.39px;
 
         @include v.mq(sm) {
             font-size: 14px;
@@ -75,9 +72,17 @@
 
     &__input-wrapper {
         flex: 3;
-
         @include v.mq(sm) {
             flex: 2.5;
+        }
+        &--day{
+            flex:3;
+            @include v.mq(sm) {
+                flex: 2.5;
+            }
+            display:flex;
+            gap:10px;
+            align-items: center;
         }
     }
 
@@ -94,18 +99,21 @@
 
     // 「毎月」テキストのラッパー
     &__prefix {
-        display: inline-block;
-        padding-right: 15px;
-        height: 1px; // 元のコードの挙動を維持
+        flex:1;
+    
     }
 
     // 支払日セレクトボックス固有の幅調整
     &__select {
-        width: calc(100% - 51px);
+        flex:10;
+        padding: 12px 15px;
+        @include v.mq(sm) {
+            flex: 4;
+        }
     }
 
     &__submit-btn {
-        border: solid 1px v.$acc120;
+        border: solid 1px v.$acc200;
         margin-bottom: 30px;
         padding: 15px 30px;
         border-radius: 10px;
@@ -119,8 +127,8 @@
         }
 
         &:hover {
-            background: v.$acc300;
-            color: v.$white;
+            background: v.$acc200;
+            border-color: v.$acc210;
         }
     }
 
