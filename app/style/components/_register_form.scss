@@ -12,6 +12,9 @@
             textarea,
             .radio_wrapper,
             select {
+                -webkit-appearance: none; // iOSのデフォルトスタイルを強制リセット
+                -moz-appearance: none;
+                appearance: none;
                 flex: 1;
                 line-height: 2;
                 color: v.$black;
@@ -83,10 +86,19 @@
                 // アクティブ（チェックされた時）のスタイル
                 // 「チェックされたinputのすぐ隣にあるlabel」を指す
                 input[type="radio"]:checked+label {
-                    background-color: v.$acc300; // 好きな色に
+                    background-color: v.$acc300;
                     border-color: v.$acc300;
                     color: #fff;
                     font-weight: 500;
+                }
+
+                input[type="date"] {
+                    background-color: transparent;
+                    // iOS Safariの日付テキスト位置調整
+                    &::-webkit-date-and-time-value {
+                        text-align: left;
+                        margin: 0;
+                    }
                 }
             }
         }

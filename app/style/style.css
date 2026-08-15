@@ -848,6 +848,9 @@ form .form_group input,
 form .form_group textarea,
 form .form_group .radio_wrapper,
 form .form_group select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -918,6 +921,13 @@ form .form_group .radio_wrapper input[type=radio]:checked + label {
   border-color: #102C57;
   color: #fff;
   font-weight: 500;
+}
+form .form_group .radio_wrapper input[type=date] {
+  background-color: transparent;
+}
+form .form_group .radio_wrapper input[type=date]::-webkit-date-and-time-value {
+  text-align: left;
+  margin: 0;
 }
 form button {
   padding: 15px 30px;
