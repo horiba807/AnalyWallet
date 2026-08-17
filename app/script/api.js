@@ -112,7 +112,8 @@ export async function fetchCategories() {
     data.forEach(item => {
         const formatted = {
             value: String(item.id), // IDを value にする
-            label: item.name       // カテゴリー名を label にする
+            label: item.name,       // カテゴリー名を label にする
+            isCarryOver: Boolean(item.is_carry_over)
         };
 
         if (item.type === 'expense') {
@@ -152,6 +153,10 @@ async function handleAddCategory(type) {
         return;
     }
 
+    // ⭕️ 【追加1】収入カテゴリーの場合、調整用チェックボックスの状態を取得
+    const carryoverCheckbox = document.getElementById('new-income-carryover');
+    const isCarryOver = (type === 'income' && carryoverCheckbox) ? carryoverCheckbox.checked : false;
+
     // 重複チェック
     const isDuplicate = state.categories[type].some(cat => cat.label === name);
     if (isDuplicate) {
@@ -159,7 +164,7 @@ async function handleAddCategory(type) {
         return;
     }
 
-    // ⭕️ 1. 現在ログインしているユーザーの情報をSupabaseから取得する
+    // 1. 現在ログインしているユーザーの情報をSupabaseから取得する
     const { data: { user } } = await supabaseClient.auth.getUser();
 
     if (!user) {
@@ -168,25 +173,28 @@ async function handleAddCategory(type) {
     }
 
     // Supabaseへデータを挿入
-    // ⚠️ カラム名（name や type）はご自身のSupabaseのテーブル定義に合わせて調整してください
     const { error } = await supabaseClient
         .from('categories')
-        .insert([{ 
-            name: name, 
+        .insert([{
+            name: name,
             type: type,
+            is_carry_over: isCarryOver, // ⭕️ 【追加2】調整用フラグを保存
             user_id: user.id
         }]);
 
     if (error) {
         console.error('error:', error);
-        showToast(`カテゴリーの追加に失敗しました\n${error}`, error);
+        showToast(`カテゴリーの追加に失敗しました\n${error.message || error}`, 'error');
         return;
     }
 
-    showToast(`カテゴリー「${inputElement.value}」を追加しました`, "success");
-    inputElement.value = ''; // 入力欄をクリア
+    showToast(`カテゴリー「${name}」を追加しました`, "success");
+
+    // 入力フォームのリセット
+    inputElement.value = '';
+    if (carryoverCheckbox) carryoverCheckbox.checked = false; // ⭕️ 【追加3】チェックボックスを未チェックに戻す
+
     await refreshCategories_kanpa(); // UI更新
-    
 }
 
 // 🗑️ カテゴリーの削除処理（対策A）
@@ -828,14 +836,40 @@ export function setupBackupAccordion() {
 //==========================================================================
 //アカウント削除
 //==========================================================================
-// 🚨 アカウントを完全に削除する
-export async function deleteAccount() {
-    // Supabase側に作ったカスタム関数（RPC）を名前を指定して実行する
-    const { error } = await supabaseClient.rpc('delete_user_account');
+// 🚨 アカウントを完全に削除する（パスワード検証付き）
+export async function deleteAccount(password) {
+    try {
+        // 1. 現在ログイン中のユーザー情報を取得
+        const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+        if (userError || !user) {
+            showToast('ユーザー情報の取得に失敗しました。再ログインしてください。', 'error');
+            return false;
+        }
 
-    if (error) {
-        alert(`アカウントの削除に失敗しました: ${error.message}`);
+        // 2. パスワードの再検証（ログイン試行）
+        const { error: authError } = await supabaseClient.auth.signInWithPassword({
+            email: user.email,
+            password: password
+        });
+
+        if (authError) {
+            showToast('パスワードが正しくありません。', 'error');
+            return false;
+        }
+
+        // 3. パスワード確認成功 ➔ RPC実行でアカウント削除
+        const { error: rpcError } = await supabaseClient.rpc('delete_user_account');
+
+        if (rpcError) {
+            showToast(`アカウントの削除に失敗しました:\n${rpcError.message}`, 'error');
+            return false;
+        }
+
+        return true;
+
+    } catch (err) {
+        console.error(err);
+        showToast('処理中にエラーが発生しました。', 'error');
         return false;
     }
-    return true;
 }

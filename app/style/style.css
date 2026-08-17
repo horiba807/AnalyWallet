@@ -65,7 +65,7 @@ body .header__menu-btn {
   -webkit-transition: 0.2s;
   transition: 0.2s;
   border: solid 1px #EADBC8;
-  z-index: 99;
+  z-index: 9;
   cursor: pointer;
 }
 @media screen and (max-width: 599px) {
@@ -998,7 +998,7 @@ form::-webkit-date-and-time-value {
   width: 320px;
 }
 #transaction-table td:nth-of-type(5) {
-  width: 200px;
+  width: 230px;
 }
 #transaction-table tr:hover {
   background-color: #f7f1e9;
@@ -1125,8 +1125,8 @@ form::-webkit-date-and-time-value {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -45%);
-          transform: translate(-50%, -45%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 #edit-modal .close_btn:hover {
   background: #d95252;
@@ -1389,15 +1389,16 @@ form::-webkit-date-and-time-value {
 }
 .category-settings__form {
   margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: calc(100% - 100px - 10px) 100px;
+  gap: 10px;
 }
 .category-settings__checkbox-label {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-top: 15px;
+  margin-top: 5px;
+  margin-left: 0;
   font-size: 14px;
 }
 .category-settings__checkbox-label input {
@@ -1414,23 +1415,19 @@ form::-webkit-date-and-time-value {
   background: #f7f1e9;
   padding: 10px;
   border-radius: 10px;
-  width: calc(100% - 96px - 10px - 15px);
-}
-@media screen and (max-width: 599px) {
-  .category-settings__input {
-    width: calc(100% - 96px - 1.5%);
-    font-size: 14px;
-  }
+  width: 100%;
+  display: block;
 }
 .category-settings__add-btn {
   border: solid 1px #EADBC8;
   padding: 10px 15px;
   border-radius: 10px;
-  margin-left: 10px;
   background: transparent;
   cursor: pointer;
   -webkit-transition: 0.2s;
   transition: 0.2s;
+  display: block;
+  text-align: center;
 }
 @media screen and (max-width: 599px) {
   .category-settings__add-btn {
@@ -1481,6 +1478,18 @@ form::-webkit-date-and-time-value {
     width: 100%;
     padding: 10px 10px;
   }
+}
+.category-settings__label-wrapper {
+  display: inline-block;
+  margin-left: 10px;
+}
+.category-settings__badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 5px;
+  background-color: #102C57;
+  color: #f7f1e9;
+  line-height: 1.4;
 }
 .category-settings__delete-btn {
   position: absolute;
@@ -1763,37 +1772,6 @@ form::-webkit-date-and-time-value {
   background: #EADBC8;
   border-color: #DAC0A3;
 }
-#account_settings .setting_items.delete-account .warning-box {
-  padding: 15px;
-  border: solid 1px #d95252;
-  border-radius: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 15px;
-}
-@media screen and (max-width: 599px) {
-  #account_settings .setting_items.delete-account .warning-box {
-    display: block;
-  }
-}
-#account_settings .setting_items.delete-account .warning-box .warning-icon {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-#account_settings .setting_items.delete-account .warning-box .warning-icon span {
-  color: #d95252;
-  font-size: 30px;
-}
-#account_settings .setting_items.delete-account .warning-box .text {
-  -webkit-box-flex: 30;
-      -ms-flex: 30;
-          flex: 30;
-}
-#account_settings .setting_items.delete-account .warning-box .text p {
-  line-height: 1.5;
-}
 #account_settings .line {
   margin: 30px 0;
   width: 100%;
@@ -1876,6 +1854,7 @@ form::-webkit-date-and-time-value {
   top: 0;
   left: 0;
   display: none;
+  z-index: 99999;
 }
 #account_settings #forgetPass-modal_wrapper.active {
   display: block;
@@ -2177,6 +2156,37 @@ form::-webkit-date-and-time-value {
   background: #EADBC8;
   border-color: #DAC0A3;
 }
+#account_settings .delete-account .warning-box {
+  padding: 15px;
+  border: solid 1px #d95252;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 15px;
+}
+@media screen and (max-width: 599px) {
+  #account_settings .delete-account .warning-box {
+    display: block;
+  }
+}
+#account_settings .delete-account .warning-box .warning-icon {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+#account_settings .delete-account .warning-box .warning-icon span {
+  color: #d95252;
+  font-size: 30px;
+}
+#account_settings .delete-account .warning-box .text {
+  -webkit-box-flex: 30;
+      -ms-flex: 30;
+          flex: 30;
+}
+#account_settings .delete-account .warning-box .text p {
+  line-height: 1.5;
+}
 #account_settings #btn-delete-account {
   border: solid 1px #d95252;
   padding: 10px 20px;
@@ -2185,7 +2195,6 @@ form::-webkit-date-and-time-value {
 }
 @media screen and (max-width: 599px) {
   #account_settings #btn-delete-account {
-    font-size: 14px;
     margin-left: 1.5% !important;
   }
 }
@@ -2292,6 +2301,20 @@ form::-webkit-date-and-time-value {
 .mfa-accordion .btn-regenerate:hover {
   background: #102C57;
   color: #FEFAF6;
+}
+
+.delete-account__pass-form-wrapper {
+  margin-bottom: 30px;
+}
+.delete-account__pass-form {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #EADBC8;
+  background: #f7f1e9;
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 16px;
 }
 
 #other_settings li {

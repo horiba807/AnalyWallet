@@ -93,8 +93,9 @@ export function calculateStats(filteredHistory) {
         const catValue = String(item.category);
         const catObj = categoryMap.get(catValue);
 
-        // カテゴリー設定の繰越フラグ（isCarryOver）または旧ID 'carry_over' で判定
-        const isCarryOver = catObj ? Boolean(catObj.isCarryOver) : (item.category === 'carry_over');
+        const isCarryOver = catObj
+            ? Boolean(catObj.isCarryOver ?? catObj.is_carry_over)
+            : (item.category === 'carry_over');
 
         if (isCarryOver) {
             // 繰越金の場合：月間の収入/支出には加算せず、繰越金に振分
@@ -141,7 +142,7 @@ function renderSummaryDOM(stats) {
 
     // 繰越金表示
     if (state.currentMonth === 'annual') {
-        updateText('carry-over-display', `前年からの繰越: ¥ ${stats.carryOverAmount.toLocaleString()}`);
+        updateText('carry-over-display', `調整用: ¥ ${stats.carryOverAmount.toLocaleString()}`);
     } else {
         updateText('carry-over-display', `¥ 0`);
     }
@@ -172,9 +173,10 @@ function renderSummaryDOM(stats) {
     const incomeContainer = document.getElementById('income-categories-list');
     if (incomeContainer) {
         incomeContainer.innerHTML = ''; // 一度リセット
+        // 収入内訳のループ生成
         (state.categories.income || []).forEach(cat => {
-            // ※ 繰越金は下部の「現在の残高」エリアで別枠表示するため、一覧からは除外します
-            if (cat.label === '繰越金' || cat.value === 'carry_over') return;
+            // ※ 調整用（繰越用）カテゴリーは内訳一覧から除外する
+            if (cat.isCarryOver) return; // ⭕️ フラグで判定
 
             const amount = stats.catTotals[cat.value] || 0;
 
@@ -222,7 +224,7 @@ function renderTableDOM(historyList, filteredHistory) {
 
         // 「次のデータの日付が違う」または「これが最後のデータ」なら合計行を出す
         const nextItem = filteredHistory[index + 1];
-        const isLastItem = index === filteredHistory.length - 1;
+        const isLastItem = index === filteredHistory.length - 1; 
 
         if (isLastItem || nextItem.date !== item.date) {
             const totalTr = document.createElement('tr');
@@ -415,6 +417,7 @@ export function renderCategorySettingsDOM() {
     // 一度リストを空にする
     expenseList.innerHTML = '';
     incomeList.innerHTML = '';
+    
 
     // 💡 支出リストの生成
     (state.categories.expense || []).forEach(cat => {
@@ -432,9 +435,20 @@ function createCategoryRow(cat) {
     const li = document.createElement('li');
     li.classList.add("category-settings__item");
 
+    //isCarryOverでもis_carry_overでも対応できるように
+    const isCarryOver = Boolean(cat.isCarryOver ?? cat.is_carry_over);
+
+    //調整用カテゴリーのバッジ
+    const badgeHtml = cat.isCarryOver
+        ? `<span class="category-settings__badge">調整用</span>`
+        : '';
+
     // ゴミ箱ボタンに data-id と data-label を仕込む
     li.innerHTML = `
         ${cat.label}
+        <div class="category-settings__label-wrapper">
+            ${badgeHtml}
+        </div>
         <button type="button" class="category-settings__delete-btn"  data-id="${cat.value}" data-label="${cat.label}">
             削除する
         </button>

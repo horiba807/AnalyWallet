@@ -23,12 +23,11 @@
 
         .filter_wrapper::after {
             content: '\e313';
-        font-family: "Material Symbols Rounded";
+            font-family: "Material Symbols Rounded";
             top: 50%;
             transform: translateY(-50%);
             font-size: 20px;
             position: absolute;
-
         }
     }
 
@@ -58,7 +57,7 @@
         }
 
         &:nth-of-type(5) {
-            width: 200px;
+            width: 230px;
         }
 
 
@@ -72,7 +71,6 @@
         &.is-day-start {
             td {
                 border-top: solid 2px v.$acc200;
-
             }
         }
     }

@@ -103,3 +103,89 @@ export function showConfirm(
         });
     });
 }
+
+// toast.js
+
+// パスワード入力フォーム付き Confirm モーダル
+export function showPasswordConfirm(
+    message,
+    title = "確認",
+    placeholder = "現在のパスワード",
+    cancelBtn = "キャンセル",
+    okBtn = "削除する"
+) {
+    return new Promise((resolve) => {
+        // 既に存在するモーダルがあれば削除
+        const existingModal = document.getElementById('confirm-modal');
+        if (existingModal) existingModal.remove();
+
+        const modal = document.createElement('div');
+        modal.id = 'confirm-modal';
+        modal.className = 'modal-backdrop';
+
+        modal.innerHTML = `
+      <div class="modal">
+        <h3 class="modal__title">${title}</h3>
+        <p class="modal__message">${message}</p>
+        
+        <form id="confirm-password-form" class="delete-account__pass-form-wrapper">
+          <input 
+            type="password" 
+            class="delete-account__pass-form"
+            id="confirm-password-input" 
+            placeholder="${placeholder}" 
+            required 
+            autocomplete="current-password"
+          >
+        </form>
+
+        <div class="modal__actions">
+          <button type="button" class="modal__btn modal__btn--cancel" id="confirm-cancel">${cancelBtn}</button>
+          <button type="button" class="modal__btn modal__btn--danger" id="confirm-ok">${okBtn}</button>
+        </div>
+      </div>
+    `;
+
+        document.body.appendChild(modal);
+
+        const passwordInput = document.getElementById('confirm-password-input');
+        const form = document.getElementById('confirm-password-form');
+
+        requestAnimationFrame(() => {
+            modal.classList.add('modal-backdrop--show');
+            if (passwordInput) passwordInput.focus(); // モーダル開いた時に自動フォーカス
+        });
+
+        // モーダルを閉じる内部関数
+        const closeModal = (result) => {
+            modal.classList.remove('modal-backdrop--show');
+            modal.addEventListener('transitionend', () => {
+                modal.remove();
+                resolve(result); // 入力されたパスワード文字列 または null を返す
+            }, { once: true });
+        };
+
+        // 確定処理
+        const handleOk = () => {
+            const val = passwordInput ? passwordInput.value.trim() : '';
+            if (!val) {
+                passwordInput.reportValidity(); // 未入力の場合ブラウザ標準の警告を表示
+                return;
+            }
+            closeModal(val);
+        };
+
+        // フォーム送信（Enterキーでの送信）対応
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            handleOk();
+        });
+
+        document.getElementById('confirm-ok').addEventListener('click', handleOk);
+        document.getElementById('confirm-cancel').addEventListener('click', () => closeModal(null));
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal(null);
+        });
+    });
+}

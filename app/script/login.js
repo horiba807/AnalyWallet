@@ -1,6 +1,7 @@
 import { supabaseClient } from './supabase.js'
-import { showToast } from './toast.js';
-import { decryptText } from "./api.js"
+import { showToast } from './toast.js'
+import { decryptText } from './api.js'
+import { initPasswordResetModal } from './resetPassModal.js';
 
 //==========================================================================
 //ログインの実行
@@ -190,6 +191,7 @@ authForm.addEventListener('submit', async (e) => {
         // 二段階認証を設定していないユーザ
         window.location.href = '../index.html';
     }
+
 });
 
 //==========================================================================
@@ -237,6 +239,7 @@ if (signupForm) {
 
         if (error) {
             showToast(`アカウント登録に失敗しました: \n ${error.message}`, 'error');
+            console.log(`error: ${error.message}`);
 
             return;
         }
@@ -254,50 +257,8 @@ if (signupForm) {
 //==========================================================================
 //パスワードを忘れた場合の処理
 //==========================================================================
-const resetPassModalBtn = document.getElementById('openResetPassModal');
-const resetPassModal = document.getElementById('forgetPass-modal_wrapper');
-const resetPassModal_closeBtn = document.getElementById('close_FogetPassModal_btn');
+initPasswordResetModal();
 
-resetPassModalBtn.addEventListener('click', async() => {
-    resetPassModal.classList.add('active');
+document.getElementById('openResetPassModal').addEventListener('click', async() => {
+    initPasswordResetModal();
 });
-resetPassModal_closeBtn.addEventListener("click", async () => {
-    resetPassModal.classList.remove('active');
-});
-//背景のどこかを押しても削除
-resetPassModal.addEventListener('click', (e) => {
-    if (e.target === resetPassModal) {
-        resetPassModal.classList.remove('active');
-    }
-});
-
-const forgotPasswordLink = document.getElementById('link-forgot-password');
-
-if (forgotPasswordLink) {
-    forgotPasswordLink.addEventListener('click', async (e) => {
-        e.preventDefault();
-
-        const email = document.getElementById('forgotPass-email').value;
-
-        if (!email) {
-            showToast('メールアドレスを入力してください', 'error');
-            return;
-        }
-
-        if (!confirm(`${email} 宛てにパスワード再設定メールを送信しますか？`)) return;
-
-        // 🚀 Supabaseに再設定メールの送信をリクエスト
-        const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-            // 💡 ユーザーがメールのリンクをクリックしたときの「飛び先」を指定します
-            // ※ローカル開発（Live Serverなど）の環境に合わせてポート番号(5500など)を調整してください
-            redirectTo: 'http://localhost:5173/AnalyWallet/login/reset.html',
-        });
-
-        if (error) {
-            showToast(`メール送信に失敗しました: \n ${error.message}`, 'error');
-
-        } else {
-            showToast('再設定メールを送信しました。メールボックスをご確認ください。', 'success');
-        }
-    });
-}

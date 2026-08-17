@@ -64,32 +64,6 @@
                 }
             }
         }
-
-        &.delete-account {
-            .warning-box {
-                padding: 15px;
-                border: solid 1px v.$warning;
-                border-radius: 10px;
-                display: flex;
-                gap: 15px;
-                @include v.mq(sm) {
-                    display: block;
-                }
-                .warning-icon {
-                    flex: 1;
-                    span {
-                        color: v.$warning;
-                        font-size: 30px;
-                    }
-                }
-                .text {
-                    flex: 30;
-                    p {
-                        line-height: 1.5;
-                    }
-                }
-            }
-        }
     }
 
     .line {
@@ -176,6 +150,7 @@
         top: 0;
         left: 0;
         display: none;
+        z-index: 99999;
 
         &.active {
             display: block;
@@ -497,6 +472,32 @@
         }
     }
 
+    .delete-account {
+        .warning-box {
+            padding: 15px;
+            border: solid 1px v.$warning;
+            border-radius: 10px;
+            display: flex;
+            gap: 15px;
+            @include v.mq(sm) {
+                display: block;
+            }
+            .warning-icon {
+                flex: 1;
+                span {
+                    color: v.$warning;
+                    font-size: 30px;
+                }
+            }
+            .text {
+                flex: 30;
+                p {
+                    line-height: 1.5;
+                }
+            }
+        }
+    }
+
     #btn-delete-account {
         border: solid 1px v.$warning;
         padding: 10px 20px;
@@ -504,7 +505,6 @@
         margin: 15px 0 50px;
 
         @include v.mq(sm) {
-            font-size: 14px;
             margin-left: 1.5% !important;
         }
 
@@ -607,5 +607,20 @@
             background: v.$acc300;
             color: v.$white;
         }
+    }
+}
+
+.delete-account{
+    &__pass-form-wrapper{
+    margin-bottom:30px;
+    }
+    &__pass-form{
+        width: 100%; 
+        padding: 10px 15px; 
+        border: 1px solid v.$acc200;
+        background: v.$acc100; 
+        border-radius: 6px; 
+        box-sizing: border-box; 
+        font-size: 16px;
     }
 }

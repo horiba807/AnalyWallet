@@ -8,7 +8,8 @@ import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction,
 window.deleteTransaction = deleteTransaction; // グローバルスコープをモジュールスコープに変更
 window.openEditModal = openEditModal;
 import { state, moneyForm } from './state.js';
-import { showToast, showConfirm } from './toast.js';
+import { showToast, showConfirm, showPasswordConfirm } from './toast.js';
+import { initPasswordResetModal } from './resetPassModal.js';
 
 //■■■■■■■■■■■■■■■■■■ ログアウト処理 ■■■■■■■■■■■■■■■■■■
 async function logoutUser() {
@@ -87,6 +88,8 @@ async function checkLoginAndInit() {
     // =============================================================
     // バックグラウンド処理（画面表示を邪魔しない）
     // =============================================================
+    // パスワード再設定モーダルの初期化
+    initPasswordResetModal();
     // サブスク関連は画面表示後に非同期で回す (awaitしない)
     runSubscriptionTasks();
 
@@ -405,6 +408,71 @@ function setupAccountUpdateEvents() {
         });
     }
 }
+
+//==========================================================================
+// メインページ：パスワードを忘れた場合のモーダル処理
+//==========================================================================
+export function setupForgotPasswordModal() {
+    const resetPassModalBtn = document.getElementById('openResetPassModal');
+    const resetPassModal = document.getElementById('forgetPass-modal_wrapper');
+    const resetPassModal_closeBtn = document.getElementById('close_FogetPassModal_btn');
+    const forgotPasswordLink = document.getElementById('link-forgot-password');
+
+    // 1. モーダルを開く
+    if (resetPassModalBtn && resetPassModal) {
+        resetPassModalBtn.addEventListener('click', () => {
+            resetPassModal.classList.add('active');
+        });
+    }
+
+    // 2. モーダルを閉じる（閉じるボタン）
+    if (resetPassModal_closeBtn && resetPassModal) {
+        resetPassModal_closeBtn.addEventListener('click', () => {
+            resetPassModal.classList.remove('active');
+        });
+    }
+
+    // 3. モーダルを閉じる（背景クリック）
+    if (resetPassModal) {
+        resetPassModal.addEventListener('click', (e) => {
+            if (e.target === resetPassModal) {
+                resetPassModal.classList.remove('active');
+            }
+        });
+    }
+
+    // 4. Supabaseへ再設定メール送信リクエスト
+    if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const emailInput = document.getElementById('forgotPass-email');
+            const email = emailInput ? emailInput.value : '';
+
+            if (!email) {
+                showToast('メールアドレスを入力してください', 'error');
+                return;
+            }
+
+            if (!confirm(`${email} 宛てにパスワード再設定メールを送信しますか？`)) return;
+
+            // 🚀 Supabaseに再設定メールの送信をリクエスト
+            const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                redirectTo: 'http://localhost:5173/AnalyWallet/login/reset.html',
+            });
+
+            if (error) {
+                showToast(`メール送信に失敗しました: \n ${error.message}`, 'error');
+            } else {
+                showToast('再設定メールを送信しました。メールボックスをご確認ください。', 'success');
+                // 送信に成功したらモーダルを閉じる
+                resetPassModal.classList.remove('active');
+                if (emailInput) emailInput.value = ''; // 入力欄をクリア
+            }
+        });
+    }
+}
+
 //==========================================================================
 //MFA認証
 //==========================================================================
@@ -521,16 +589,22 @@ function setupDeleteAccountEvent() {
 
     if (deleteBtn) {
         deleteBtn.onclick = async () => {
-            // 🛑 誤操作防止の2段階チェック
-            const isConfirmed = await showConfirm(`本当にアカウントを削除しますか？\nこの操作は取り消せません。`, "警告", "キャンセル", "アカウントを削除する", true);
-            if (!isConfirmed) return;
+            const password = await showPasswordConfirm(
+                'アカウントを完全に削除するには、確認のため現在のパスワードを入力してください。',
+                'アカウントの削除',
+                '現在のパスワードを入力',
+                'キャンセル',
+                'アカウントを削除する'
+            );
 
-            // 処理を実行
-            const success = await deleteAccount();
+            // キャンセル（または未入力閉じる）の場合は処理中断
+            if (!password) return;
+
+            // パスワードを渡して削除処理を実行
+            const success = await deleteAccount(password);
 
             if (success) {
-                showToast('アカウント削除しました。\nご利用ありがとうございました。', "success");
-                // すでにアカウントは存在しない（ログアウト状態）ので、ログイン画面へジャンプ
+                showToast('アカウントを削除しました。\nご利用ありがとうございました。', "success");
                 window.location.href = './login/index.html';
             }
         };

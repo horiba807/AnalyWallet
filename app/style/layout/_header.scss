@@ -26,7 +26,7 @@ body{
         border-radius: 10px;
         transition: .2s;
         border: solid 1px v.$acc200;
-        z-index:99;
+        z-index:9;
         cursor: pointer;
 
         @include v.mq(sm) {

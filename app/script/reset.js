@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { supabaseClient } from './supabase.js';
+import { showToast, showConfirm } from './toast.js';
 
 // パスワード更新のロジック
 const resetForm = document.getElementById('form-reset-password');
@@ -8,7 +9,7 @@ resetForm.addEventListener('submit', async (e) => {
     const newPassword = document.getElementById('input-reset-new-password').value;
 
     if (newPassword.length < 12) { 
-        alert("パスワードは12文字以上で入力してください。");
+        showToast("パスワードは12文字以上で入力してください。", 'error');
         return;
     }
 
@@ -20,10 +21,10 @@ resetForm.addEventListener('submit', async (e) => {
     });
 
     if (error) {
-        alert(`更新に失敗しました: ${error.message}`);
+        showToast(`更新に失敗しました:\n${error.message}`, 'error');
     } else {
-        alert("🎉 パスワードが正常に更新されました！メイン画面へ進みます。");
+        showToast("🎉 パスワードが正常に更新されました！メイン画面へ進みます。", 'success');
         // パスワード変更と同時にログインも完了しているので、そのままメイン画面へ
-        window.location.href = '../index.html';
+        window.location.href = 'index.html';
     }
 });

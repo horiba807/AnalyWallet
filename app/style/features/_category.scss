@@ -45,12 +45,15 @@
 
     &__form {
         margin-bottom: 30px;
+        display:grid;
+        grid-template-columns: calc(100% - 100px - 10px) 100px;
+        gap:10px;
     }
 
     &__checkbox-label{
         display: inline-flex;
-        align-items: center;
-        margin-top:15px;
+        margin-top:5px;
+        margin-left:0;
         font-size:14px;
         input{
             appearance: auto;
@@ -67,22 +70,19 @@
         background: v.$acc100;
         padding: 10px;
         border-radius: 10px;
-        width: calc(100% - 96px - 10px - 15px);
-
-        @include v.mq(sm) {
-            width: calc(100% - 96px - 1.5%);
-            font-size: 14px;
-        }
+        width: 100%;
+        display:block;
     }
 
     &__add-btn {
         border: solid 1px v.$acc200;
         padding: 10px 15px;
         border-radius: 10px;
-        margin-left: 10px;
         background: transparent;
         cursor: pointer;
         transition: .2s;
+        display: block;
+        text-align: center;
 
         @include v.mq(sm) {
             font-size: 14px;
@@ -139,7 +139,20 @@
         }
     }
 
-    // アイテム内の削除ボタン用クラス
+    &__label-wrapper {
+        display: inline-block;
+        margin-left:10px;
+    }
+
+    &__badge {
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 5px;
+        background-color: v.$acc300;
+        color: v.$acc100;
+        line-height: 1.4;
+    }
+
     &__delete-btn {
         position: absolute;
         right: 13px;

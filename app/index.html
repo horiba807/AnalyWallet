@@ -110,7 +110,7 @@
                                 <span class="material-symbols-rounded">
                                     account_circle
                                 </span>
-                                <p class="drawer-menu__tab-text">アカウント<span class="drawer-menu__tab-br"><br></span>設定</p>
+                                <p class="drawer-menu__tab-text">アカウント<span class="drawer-menu__tab-br"><br></span>情報</p>
                             </li>
                             <li id="menu_btn_04" class="drawer-menu__tab btn" data-target="other_settings">
                                 <span class="material-symbols-rounded">
@@ -231,7 +231,7 @@
                             </div>
                         </section>
                         <section id="account_settings" class="drawer-menu__panel" data-target="account_settings">                            
-                            <h3>アカウント設定</h3>
+                            <h3>アカウント情報</h3>
                             <div class="setting_items">
                             </div>
                             <h4>メールアドレス</h4>
@@ -265,10 +265,11 @@
                                     </div>
                                     <button type="submit">パスワードを更新する</button>
                                 </form>
+                                <!-- 再設定モーダル -->
                                 <div class="modal-wrapper" id="forgetPass-modal_wrapper">
                                     <div id="forgetPass-modal" class="modal">
                                         <div class="close_btn_wrapper">
-                                            <button class="close_btn" id="close_FogetPassModal_btn"><spanclass="material-icons">close</span></button>
+                                            <button class="close_btn" id="close_FogetPassModal_btn"><span class="material-icons">close</span></button>
                                         </div>
                                         <div class="logo_wrapper">
                                             <div>
@@ -565,7 +566,11 @@
             <div class="editform_container">
                 <h2>編集する<span id="register-id"></h2>
                 <div class="btn_wrapper">
-                    <btn class="close_btn" id="close_editform_btn"><span class="material-icons">close</span></btn>
+                    <btn class="close_btn" id="close_editform_btn">
+                        <span class="material-symbols-rounded">
+                            close
+                        </span>
+                    </btn>
                 </div>
                 <form id="money-form" class="register_form">
                     <div class="form_group">
