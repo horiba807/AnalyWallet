@@ -3,7 +3,8 @@ import { fetchTransactions } from './api.js';
 import { state, moneyForm } from './state.js';
 import { renderCircleChart, renderLineChart } from './chart.js';
 import pkg from '../../package.json';
-import { showToast, showConfirm } from './toast.js';
+import { showToast } from './toast.js';
+import { showConfirm } from "./confirmModal.js";
 import { supabaseClient } from "./supabase.js";
 
 //==========================================================================

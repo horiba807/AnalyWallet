@@ -1,7 +1,8 @@
 import { supabaseClient } from "./supabase.js";
 import { state, moneyForm } from './state.js';
 import { updateHistoryDisplay, updateCategoryMenu, renderCategorySettingsDOM, renderFilterCategoryDOM, renderSubscriptionsDOM } from './ui.js';
-import { showToast, showConfirm } from './toast.js';
+import { showToast } from './toast.js';
+import { showConfirm } from "./confirmModal.js";
 
 export async function fetchTransactions() {
     // ⭕️ 1. まずSupabaseからカテゴリーを取得し、画面の初期描画をすべて行う

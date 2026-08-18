@@ -1,7 +1,8 @@
-// resetPass.js
+// resetPassModal.js
 import { createClient } from '@supabase/supabase-js';
 import { supabaseClient } from './supabase.js'
-import { showToast, showConfirm } from './toast.js';
+import { showToast } from './toast.js';
+import { showConfirm } from "./confirmModal.js";
 import { decryptText } from "./api.js"
 
 /**

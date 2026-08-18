@@ -8,7 +8,8 @@ import { fetchTransactions, deleteTransaction, openEditModal, updateTransaction,
 window.deleteTransaction = deleteTransaction; // グローバルスコープをモジュールスコープに変更
 window.openEditModal = openEditModal;
 import { state, moneyForm } from './state.js';
-import { showToast, showConfirm, showPasswordConfirm } from './toast.js';
+import { showToast } from './toast.js';
+import { showConfirm, showPasswordConfirm } from "./confirmModal.js";
 import { initPasswordResetModal } from './resetPassModal.js';
 
 //■■■■■■■■■■■■■■■■■■ ログアウト処理 ■■■■■■■■■■■■■■■■■■
