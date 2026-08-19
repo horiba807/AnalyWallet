@@ -9,6 +9,7 @@ export default defineConfig({
                 main: path.resolve(__dirname, 'index.html'),
                 app: path.resolve(__dirname, 'app/index.html'),
                 login: path.resolve(__dirname, 'app/login/index.html'),
+                reset: path.resolve(__dirname, 'app/login/reset.html'),
                 about: path.resolve(__dirname, 'about/index.html')
             },
         },

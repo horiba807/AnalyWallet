@@ -16,10 +16,13 @@
   "main": "./js/main.js",
   "scripts": {
     "dev": "vite",
-      "build": "vite build"
+    "build": "vite build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.2",
     "vite": "^8.0.16"
+  },
+  "devDependencies": {
+    "sass": "^1.102.0"
   }
 }

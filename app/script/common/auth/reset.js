@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
-import { supabaseClient } from './supabase.js';
-import { showToast } from './toast.js';
-import { showConfirm } from "./confirmModal.js";
+import { supabaseClient } from '@/common/config/supabase.js';
+import { showToast } from '@/common/ui/toast.js';
+import { showConfirm } from "@/common/ui/confirmModal.js";
 
 //==========================================================================
 // パスワードリセット
@@ -27,7 +27,7 @@ resetForm.addEventListener('submit', async (e) => {
         showToast(`更新に失敗しました:\n${error.message}`, 'error');
     } else {
         showToast("パスワードが更新されました。", 'success');
-        // パスワード変更と同時にログインも完了しているので、そのままメイン画面へ
+        // パスワード変更と同時にログインも完了しているので、そのままメイン画面へnop
         window.location.href = 'index.html';
     }
 });
