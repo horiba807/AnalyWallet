@@ -1,7 +1,7 @@
 import pkg from '@/../../package.json';
 
 //==========================================================================
-// バージョン番号の描画
+// バージョン番号の描画ss
 //==========================================================================
 export function renderAppVersion() {
     const appVerElement = document.getElementById('app-version');
