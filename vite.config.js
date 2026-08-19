@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import path from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -6,11 +6,16 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                main: resolve(__dirname, 'index.html'),
-                app: resolve(__dirname, 'app/index.html'),
-                login: resolve(__dirname, 'app/login/index.html'),
-                about: resolve(__dirname, 'about/index.html')
-            }
-        }
-    }
-})
+                main: path.resolve(__dirname, 'index.html'),
+                app: path.resolve(__dirname, 'app/index.html'),
+                login: path.resolve(__dirname, 'app/login/index.html'),
+                about: path.resolve(__dirname, 'about/index.html')
+            },
+        },
+    },
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './app/script'), // @ を app/script へのショートカットに設定
+        },
+    },
+});

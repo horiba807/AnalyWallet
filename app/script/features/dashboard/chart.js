@@ -1,5 +1,5 @@
-import { calculateStats } from './ui.js';
-import { state } from './state.js';
+import { calculateStats } from '@/features/dashboard/dashboardUi.js';
+import { state } from '@/common/state/state.js';
 
 // 12ヶ月分の残高、収入、支出の配列を生成
 function getMonthlyStatsData() {
@@ -7,21 +7,21 @@ function getMonthlyStatsData() {
     const monthlyIncomes = [];
     const monthlyExpenses = [];
 
-    // 💡 繰越金カテゴリーのIDを動的に特定しておく
+    //繰越金カテゴリーのIDを動的に特定しておく
     const carryOverCat = (state.categories.income || []).find(c => c.label === '繰越金');
 
     for (let m = 1; m <= 12; m++) {
-        // その月の開始日と末日
+        //その月の開始日と末日
         const startOfMonth = new Date(state.currentYear, m - 1, 1);
         const endOfMonth = new Date(state.currentYear, m, 0);
 
-        // その月だけの集計
+        //その月だけの集計
         const currentMonthData = state.history.filter(item => {
             const d = new Date(item.date);
             return d >= startOfMonth && d <= endOfMonth;
         });
 
-        // 💡 繰越金以外の収入を集計（動的IDに対応）
+        //繰越金以外の収入を集計（動的IDに対応）
         const inc = currentMonthData
             .filter(item => {
                 const catValue = String(item.category);
@@ -34,7 +34,7 @@ function getMonthlyStatsData() {
             .filter(item => item.type === 'expense')
             .reduce((acc, item) => acc + item.amount, 0);
 
-        // 月末時点での総残高（累積）
+        //月末時点での総残高（累積）
         const balance = state.history
             .filter(item => new Date(item.date) <= endOfMonth)
             .reduce((acc, item) => item.type === 'income' ? acc + item.amount : acc - item.amount, 0);
@@ -51,12 +51,12 @@ export function renderCircleChart(catTotals) {
     const ctx = document.getElementById('expenseChart');
     if (!ctx) return;
 
-    // 前のページのグラフを消去
+    //前のページのグラフを消去
     if (state.myChart) {
         state.myChart.destroy();
     }
 
-    // 💡 1. グラフ用の空の配列を用意する
+    // 1. グラフ用の空の配列を用意する
     const chartLabels = [];
     const chartData = [];
     const chartColors = [];
@@ -68,7 +68,7 @@ export function renderCircleChart(catTotals) {
         '#c9cbcf', '#4bc0c0', '#36a2eb', '#ffcd56'
     ];
 
-    // 💡 2. 支出カテゴリーの配列をループして、金額があるものだけをグラフに詰める
+    // 2. 支出カテゴリーの配列をループして、金額があるものだけをグラフに詰める
     (state.categories.expense || []).forEach((cat, index) => {
         const amount = catTotals[cat.value] || 0;
 
@@ -83,10 +83,10 @@ export function renderCircleChart(catTotals) {
 
     // グラフに表示するデータ構造を組み立て
     const data = {
-        labels: chartLabels, // 👈 動的配列
+        labels: chartLabels, // 動的配列
         datasets: [{
-            data: chartData, // 👈 動的配列
-            backgroundColor: chartColors, // 👈 動的配列
+            data: chartData, // 動的配列
+            backgroundColor: chartColors, // 動的配列
             hoverOffset: 4
         }]
     };

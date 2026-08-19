@@ -1,7 +1,7 @@
-import { supabaseClient } from './supabase.js'
-import { showToast } from './toast.js'
-import { decryptText } from './api.js'
-import { initPasswordResetModal } from './resetPassModal.js';
+import { supabaseClient } from "@/common/config/supabase.js";
+import { showToast } from '@/common/ui/toast.js';
+import { decryptText } from '@/common/utils/crypto.js';
+import { initPasswordResetModal } from '@/common/auth/resetPassModal.js';
 
 //==========================================================================
 //ログインの実行

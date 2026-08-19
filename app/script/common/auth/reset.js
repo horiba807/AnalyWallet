@@ -3,7 +3,9 @@ import { supabaseClient } from './supabase.js';
 import { showToast } from './toast.js';
 import { showConfirm } from "./confirmModal.js";
 
-// パスワード更新のロジック
+//==========================================================================
+// パスワードリセット
+//==========================================================================
 const resetForm = document.getElementById('form-reset-password');
 resetForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ resetForm.addEventListener('submit', async (e) => {
     if (error) {
         showToast(`更新に失敗しました:\n${error.message}`, 'error');
     } else {
-        showToast("🎉 パスワードが正常に更新されました！メイン画面へ進みます。", 'success');
+        showToast("パスワードが更新されました。", 'success');
         // パスワード変更と同時にログインも完了しているので、そのままメイン画面へ
         window.location.href = 'index.html';
     }
