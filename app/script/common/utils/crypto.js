@@ -27,7 +27,7 @@ async function getCryptoKey() {
 }
 
 // 生コードを暗号化
-async function encryptText(text) {
+export async function encryptText(text) {
     const key = await getCryptoKey();
     const iv = crypto.getRandomValues(new Uint8Array(12));
     const encoded = new TextEncoder().encode(text);
@@ -65,7 +65,7 @@ export async function decryptText(encryptedBase64, ivBase64) {
 }
 
 // ランダムな8桁コード生成ユーティリティ
-function generateBackupCodes(count = 10) {
+export function generateBackupCodes(count = 10) {
     const codes = [];
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     for (let i = 0; i < count; i++) {

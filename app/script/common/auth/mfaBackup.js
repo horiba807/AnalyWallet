@@ -2,6 +2,7 @@ import { supabaseClient } from "@/common/config/supabase.js";
 import { showToast } from '@/common/ui/toast.js';
 import { showConfirm } from "@/common/ui/confirmModal.js";
 
+import { decryptText, generateBackupCodes, encryptText } from "@/common/utils/crypto.js";
 //==========================================================================
 // MFA バックアップコード操作 & UI連携
 //==========================================================================

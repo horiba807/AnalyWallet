@@ -399,7 +399,7 @@ footer #app-version {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  font-family: "Material Icons";
+  font-family: "Material Symbols Rounded";
 }
 #signup-modal_wrapper .modal .close_btn_wrapper .close_btn:hover {
   background: #d95252;
@@ -582,7 +582,7 @@ footer #app-version {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  font-family: "Material Icons";
+  font-family: "Material Symbols Rounded";
 }
 #forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn:hover {
   background: #d95252;

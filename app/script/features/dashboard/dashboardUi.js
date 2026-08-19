@@ -5,6 +5,7 @@ import { state, moneyForm } from '@/common/state/state.js';
 import { supabaseClient } from "@/common/config/supabase.js";
 import { renderCircleChart, renderLineChart } from './chart.js';
 import { fetchCategories } from '@/features/categories/categoryApi.js';
+import { renderTableDOM } from '@/features/transactions/transactionUi.js';
 
 //==========================================================================
 // ダッシュボードの更新
@@ -23,6 +24,9 @@ export function updateHistoryDisplay() {
 
     //計算結果を画面のテキストに反映する
     renderSummaryDOM(stats);
+
+    //フィルター済みのデータを使って明細テーブルを再描画
+    renderTableDOM(filteredHistory);
 
     //前月比の計算とグラフの更新
     calculatePrevMonthDiff(stats.monthlyIncome, stats.monthlyExpense);
@@ -49,15 +53,31 @@ function updateDiffLabels() {
 
 //データのソート・抽出を行う関数
 export function getFilteredHistory() {
-    //日付の新しい順にソート
-    state.history.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // 参照するデータを state.transactions (または state.history) に統一
+    const sourceData = state.transactions || state.history || [];
 
-    //条件に合うデータをフィルター
-    return state.history.filter(item => {
-        const D = new Date(item.date);
-        const isYearMatch = D.getFullYear() === state.currentYear;
-        const isMonthMatch = (state.currentMonth === 'annual') || ((D.getMonth() + 1) === state.currentMonth);
-        const isCategoryMatch = (state.currentCategory === 'all') || (item.category === state.currentCategory);
+    // 日付の新しい順にソート
+    sourceData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // 条件に合うデータをフィルター
+    return sourceData.filter(item => {
+        if (!item.date) return false;
+
+        // "2026-08-15" を ["2026", "08", "15"] に分解して数値化
+        const [yearStr, monthStr] = item.date.split('-');
+        const itemYear = Number(yearStr);
+        const itemMonth = Number(monthStr);
+
+        // 1. 年判定（数値に変換して比較）
+        const isYearMatch = itemYear === Number(state.currentYear);
+
+        // 2. 月判定（'annual' の場合は全月ヒット、数値の場合は一致判定）
+        const isMonthMatch = (state.currentMonth === 'annual') ||
+            (itemMonth === Number(state.currentMonth));
+
+        // 3. カテゴリ判定（文字列に揃えて比較）
+        const isCategoryMatch = (state.currentCategory === 'all') ||
+            (String(item.category) === String(state.currentCategory));
 
         return isYearMatch && isMonthMatch && isCategoryMatch;
     });

@@ -508,7 +508,7 @@ footer .footer__link:hover {
   }
 }
 .drawer-menu__tab--small span {
-  font-family: "Material Icons";
+  font-family: "Material Symbols Rounded";
   padding-left: 7.5px;
   font-size: 14px;
   text-decoration: none;
@@ -1571,7 +1571,7 @@ form::-webkit-date-and-time-value {
 }
 .subsc-settings__group--day::after {
   content: "\e313";
-  font-family: "Material Icons";
+  font-family: "Material Symbols Rounded";
   font-size: 20px;
   right: 13.5px;
 }
@@ -1909,7 +1909,7 @@ form::-webkit-date-and-time-value {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  font-family: "Material Icons";
+  font-family: "Material Symbols Rounded";
 }
 #account_settings #forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn:hover {
   background: #d95252;
@@ -2330,7 +2330,7 @@ form::-webkit-date-and-time-value {
   color: #102C57;
 }
 #other_settings .link_text span {
-  font-family: "Material Icons";
+  font-family: "Material Symbols Rounded";
   font-size: 14px;
   padding-left: 5px;
 }

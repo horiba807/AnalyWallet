@@ -15,8 +15,13 @@ export function setupDashboardEvents() {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.month_btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            const val = btn.dataset.month;
-            state.currentMonth = val === 'annual' ? 'annual' : Number(val);
+
+            const val = btn.dataset.month; // "1"〜"12" または "annual"
+
+            // 'annual' ならそのまま文字列、数字なら Number 型にしてセット
+            state.currentMonth = (val === 'annual') ? 'annual' : Number(val);
+
+            // 再描画を実行！
             updateHistoryDisplay();
         });
     });
