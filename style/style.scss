@@ -203,6 +203,9 @@ main {
                 background: $acc200;
                 border-color: $acc210;
             }
+            @include mq(sm){
+                padding:20px;
+            }
         }
         &__title{
             font-size:24px;

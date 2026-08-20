@@ -192,6 +192,11 @@ main .point-card-wrapper__card:hover {
   background: #EADBC8;
   border-color: #DAC0A3;
 }
+@media screen and (max-width: 599px) {
+  main .point-card-wrapper__card {
+    padding: 20px;
+  }
+}
 main .point-card-wrapper__title {
   font-size: 24px;
   word-break: keep-all;

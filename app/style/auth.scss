@@ -27,7 +27,7 @@ $warning: #d95252;
 $warning-light: #f5b6b6;
 
 * {
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 html{
     background: $white;
@@ -37,8 +37,6 @@ html{
     max-width: 400px;
 }
 body{
-    position: relative;
-    margin:0 auto;
 }
 
 header {
@@ -54,7 +52,6 @@ header {
     .header_logo{
         height:65px;
         width: auto;
-        display:inline-block;
         margin:17.5px 0;
         img{
             width: 100%;
@@ -73,7 +70,8 @@ main{
 }
 
 .auth_box{
-    width: 100%;
+    width: 90%;
+    max-width: 450px;
     border: solid 1px $acc2;
     background-color: $acc1;
     border-radius: 20px;
@@ -228,17 +226,16 @@ footer{
         }
         .close_btn_wrapper {
             position: relative;
-
             .close_btn {
                 position: absolute;
-                background: $acc2;
+                background: $acc1;
+                border: solid 1px $acc2;
                 width: 50px;
                 height: 50px;
                 right: 0px;
                 top: 0px;
                 border-radius: 50%;
                 transition: .2s;
-
                 span {
                     position: absolute;
                     top: 50%;
@@ -246,28 +243,22 @@ footer{
                     transform: translate(-50%, -50%);
                     font-family: 'Material Symbols Rounded';
                 }
-
                 &:hover {
                     background: $warning;
-
                     span {
                         color: $white;
                     }
                 }
             }
-
-
         }
-
         .logo_wrapper {
             margin-bottom: 30px;
-            display: flex; // ⭕️ Flexboxにして親のtext-alignの影響を遮断
+            display: flex;
             justify-content: flex-start;
 
             div{
                 height:65px;
                 width: auto;
-                display:inline-block;
                 margin: 0 0 17.5px;
                 img{
                     height: 100%;
@@ -275,18 +266,15 @@ footer{
                 }
             }
         }
-
         #signup-form {
             margin: 0;
         }
-
         p {
             font-size: 14px;
             text-align: center;
             margin-bottom: 30px;
             line-height: 1.5;
         }
-
         input[type="email"],
         input[type="password"] {
             display: block;
@@ -297,9 +285,7 @@ footer{
             margin-bottom: 15px;
             font-family: 'Inter', sans-serif;
         }
-
     }
-
     .input__checkbox{
         display: inline-flex;
         align-items: center;
@@ -315,8 +301,6 @@ footer{
             transform: translateY(1px);
         }
     }
-
-
     #signup-submit-btn {
         margin-top: 30px;
         width: 100%;
@@ -408,7 +392,8 @@ footer{
 
             .close_btn {
                 position: absolute;
-                background: $acc2;
+                background: $acc1;
+                    border: solid 1px $acc2;
                 width: 50px;
                 height: 50px;
                 right: 0px;
@@ -432,19 +417,15 @@ footer{
                     }
                 }
             }
-
-
         }
-
         .logo_wrapper {
             margin-bottom: 30px;
             div {
                 height: 65px;
                 width: auto;
-                display: inline-block;
                 margin: 0 0 17.5px;
                 img {
-                    width: 100%;
+                    width: auto;
                     height: 100%;
                 }
             }

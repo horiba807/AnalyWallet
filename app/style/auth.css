@@ -149,11 +149,6 @@ html {
   max-width: 400px;
 }
 
-body {
-  position: relative;
-  margin: 0 auto;
-}
-
 header {
   position: absolute;
   top: 0;
@@ -169,7 +164,6 @@ header .header_wrapper {
 header .header_logo {
   height: 65px;
   width: auto;
-  display: inline-block;
   margin: 17.5px 0;
 }
 header .header_logo img {
@@ -187,7 +181,8 @@ main {
 }
 
 .auth_box {
-  width: 100%;
+  width: 90%;
+  max-width: 450px;
   border: solid 1px #EADBC8;
   background-color: #f7f1e9;
   border-radius: 20px;
@@ -351,7 +346,8 @@ footer #app-version {
 }
 #signup-modal_wrapper .modal .close_btn_wrapper .close_btn {
   position: absolute;
-  background: #EADBC8;
+  background: #f7f1e9;
+  border: solid 1px #EADBC8;
   width: 50px;
   height: 50px;
   right: 0px;
@@ -386,7 +382,6 @@ footer #app-version {
 #signup-modal_wrapper .modal .logo_wrapper div {
   height: 65px;
   width: auto;
-  display: inline-block;
   margin: 0 0 17.5px;
 }
 #signup-modal_wrapper .modal .logo_wrapper div img {
@@ -530,7 +525,8 @@ footer #app-version {
 }
 #forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn {
   position: absolute;
-  background: #EADBC8;
+  background: #f7f1e9;
+  border: solid 1px #EADBC8;
   width: 50px;
   height: 50px;
   right: 0px;
@@ -559,11 +555,10 @@ footer #app-version {
 #forgetPass-modal_wrapper .modal .logo_wrapper div {
   height: 65px;
   width: auto;
-  display: inline-block;
   margin: 0 0 17.5px;
 }
 #forgetPass-modal_wrapper .modal .logo_wrapper div img {
-  width: 100%;
+  width: auto;
   height: 100%;
 }
 #forgetPass-modal_wrapper .modal p {
