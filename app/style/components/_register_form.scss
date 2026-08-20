@@ -73,10 +73,10 @@
             .radio_wrapper {
                 border-bottom: none;
                 margin-bottom: 10px;
-                display: flex;
+                display: inline-flex;
                 justify-content: flex-start;
                 align-items: center;
-                gap: 10px;
+                gap: 20px;
 
                 input[type="radio"] {
                     display: none;
@@ -84,10 +84,10 @@
 
                 label {
                     flex: initial;
-                    width: auto;
+                    width: 100%;
                     padding: 6px 20px;
                     line-height: 1.25;
-                    border: 2px solid v.$acc100;
+                    border: 1px solid v.$acc200;
                     border-radius: 10px;
                     cursor: pointer;
                     transition: all 0.3s ease;
@@ -95,7 +95,8 @@
                     text-align: center;
 
                     &:hover {
-                        border: 2px solid v.$acc200;
+                        border: 1px solid v.$acc210;
+                        background: v.$acc200;
                     }
                 }
 

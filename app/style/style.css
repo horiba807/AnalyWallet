@@ -860,16 +860,16 @@ form .form_group .category::after {
 form .form_group .radio_wrapper {
   border-bottom: none;
   margin-bottom: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 form .form_group .radio_wrapper input[type=radio] {
   display: none;
@@ -878,10 +878,10 @@ form .form_group .radio_wrapper label {
   -webkit-box-flex: initial;
       -ms-flex: initial;
           flex: initial;
-  width: auto;
+  width: 100%;
   padding: 6px 20px;
   line-height: 1.25;
-  border: 2px solid #f7f1e9;
+  border: 1px solid #EADBC8;
   border-radius: 10px;
   cursor: pointer;
   -webkit-transition: all 0.3s ease;
@@ -890,7 +890,8 @@ form .form_group .radio_wrapper label {
   text-align: center;
 }
 form .form_group .radio_wrapper label:hover {
-  border: 2px solid #EADBC8;
+  border: 1px solid #DAC0A3;
+  background: #EADBC8;
 }
 form .form_group .radio_wrapper input[type=radio]:checked + label {
   background-color: #102C57;
