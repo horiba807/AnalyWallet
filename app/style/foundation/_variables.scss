@@ -61,11 +61,9 @@ main {
 
     section {
         padding: 30px 0 90px;
-        margin: 0 auto;
         max-width: 1360px;
 
         @include mq(sm) {
-            margin: 0 auto;
             max-width: 1360px;
             padding: 30px 0 90px;
         }

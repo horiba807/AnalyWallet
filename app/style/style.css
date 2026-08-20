@@ -25,12 +25,10 @@ main h2 {
 }
 main section {
   padding: 30px 0 90px;
-  margin: 0 auto;
   max-width: 1360px;
 }
 @media screen and (max-width: 599px) {
   main section {
-    margin: 0 auto;
     max-width: 1360px;
     padding: 30px 0 90px;
   }
@@ -38,19 +36,8 @@ main section {
 
 body {
   padding: 0 3.5%;
-}
-@media screen and (min-width: 600px) {
-  body {
-    margin: 0 auto;
-    max-width: 1360px;
-  }
-}
-@media screen and (max-width: 599px) {
-  body {
-    margin: 0 auto;
-    max-width: 1360px;
-    padding: 0 5%;
-  }
+  margin: 0 auto;
+  max-width: 1360px;
 }
 body .header__menu-btn {
   display: block;

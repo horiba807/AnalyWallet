@@ -3,16 +3,8 @@
 
 body{
     padding: 0 3.5%;
-    
-    @include v.mq(tb) {
-        margin: 0 auto;
-        max-width: 1360px;
-    }
-    @include v.mq(sm) {
-        margin: 0 auto;
-        max-width: 1360px;
-        padding: 0 5%;
-    }
+    margin: 0 auto;
+    max-width: 1360px;
     //ハンバーガー
     .header__menu-btn {
         display:block;
