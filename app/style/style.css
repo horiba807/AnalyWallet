@@ -6,7 +6,7 @@
 html {
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Inter", "Noto Sans JP", sans-serif;
   background: #FEFAF6;
 }
 
@@ -104,45 +104,12 @@ body .header__menu-btn:hover {
   line-height: 100px;
 }
 .header__logo {
-  position: relative;
+  height: 65px;
+  width: auto;
   display: inline-block;
-  cursor: pointer;
+  margin: 17.5px 0;
 }
-.header__logo-title {
-  font-size: 22px;
-  font-weight: 500;
-  display: inline-block;
-  margin-left: 60px;
-  font-family: "Albert Sans", sans-serif;
-}
-@media screen and (max-width: 599px) {
-  .header__logo-title {
-    margin-left: 45px;
-    font-size: 20px;
-  }
-}
-.header__logo-title span {
-  font-size: 12px;
-  color: #818181;
-  margin-left: 10px;
-}
-.header__logo-img {
-  width: 45px;
-  height: 45px;
-  display: inline-block;
-  position: absolute;
-  top: 47.5%;
-  left: 0;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-}
-@media screen and (max-width: 599px) {
-  .header__logo-img {
-    width: 35px;
-    height: 35px;
-  }
-}
-.header__logo-img img {
+.header__logo img {
   width: 100%;
   height: 100%;
 }
@@ -1909,7 +1876,7 @@ form::-webkit-date-and-time-value {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  font-family: "Material Symbols Rounded";
+  font-family: "Material Icons";
 }
 #account_settings #forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn:hover {
   background: #d95252;
