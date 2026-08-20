@@ -820,10 +820,15 @@ form .form_group textarea,
 form .form_group select {
   border-bottom: solid 2px #f7f1e9;
 }
-form .form_group .radio_wrapper {
-  border-bottom: none;
+form .form_group input[type=date] {
+  background-color: transparent;
 }
-form .form_group label {
+form .form_group input[type=date]::-webkit-date-and-time-value {
+  text-align: left !important;
+  margin: 0 !important;
+  width: 100%;
+}
+form .form_group > label {
   -webkit-box-flex: 0.5;
       -ms-flex: 0.5;
           flex: 0.5;
@@ -853,16 +858,36 @@ form .form_group .category::after {
           transform: translateY(-50%);
 }
 form .form_group .radio_wrapper {
+  border-bottom: none;
   margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+form .form_group .radio_wrapper input[type=radio] {
+  display: none;
 }
 form .form_group .radio_wrapper label {
-  padding: 5px 20px;
+  -webkit-box-flex: initial;
+      -ms-flex: initial;
+          flex: initial;
+  width: auto;
+  padding: 6px 20px;
+  line-height: 1.25;
   border: 2px solid #f7f1e9;
   border-radius: 10px;
-  cursor: poInter;
+  cursor: pointer;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   color: #102C57;
+  text-align: center;
 }
 form .form_group .radio_wrapper label:hover {
   border: 2px solid #EADBC8;
@@ -873,18 +898,11 @@ form .form_group .radio_wrapper input[type=radio]:checked + label {
   color: #fff;
   font-weight: 500;
 }
-form .form_group .radio_wrapper input[type=date] {
-  background-color: transparent;
-}
-form .form_group .radio_wrapper input[type=date]::-webkit-date-and-time-value {
-  text-align: left;
-  margin: 0;
-}
 form button {
   padding: 15px 30px;
   border: 1px solid #EADBC8;
   border-radius: 10px;
-  cursor: poInter;
+  cursor: pointer;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
@@ -1860,7 +1878,7 @@ form::-webkit-date-and-time-value {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  font-family: "Material Icons";
+  font-family: "Material Symbols Rounded";
 }
 #account_settings #forgetPass-modal_wrapper .modal .close_btn_wrapper .close_btn:hover {
   background: #d95252;

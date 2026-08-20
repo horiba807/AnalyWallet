@@ -12,7 +12,7 @@
             textarea,
             .radio_wrapper,
             select {
-                -webkit-appearance: none; // iOSのデフォルトスタイルを強制リセット
+                -webkit-appearance: none;
                 -moz-appearance: none;
                 appearance: none;
                 flex: 1;
@@ -29,14 +29,19 @@
             textarea,
             select {
                 border-bottom: solid 2px v.$acc100;
-                
             }
 
-            .radio_wrapper {
-                border-bottom: none;
+            input[type="date"] {
+                background-color: transparent;
+
+                &::-webkit-date-and-time-value {
+                    text-align: left !important;
+                    margin: 0 !important;
+                    width: 100%;
+                }
             }
 
-            label {
+            >label {
                 flex: 0.5;
                 line-height: 2;
             }
@@ -63,42 +68,42 @@
                 right: 0px;
                 top: 50%;
                 transform: translateY(-50%);
-
             }
 
             .radio_wrapper {
+                border-bottom: none;
                 margin-bottom: 10px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 10px;
+
+                input[type="radio"] {
+                    display: none;
+                }
 
                 label {
-                    // 非アクティブ（通常時）のスタイル
-                    padding: 5px 20px;
+                    flex: initial;
+                    width: auto;
+                    padding: 6px 20px;
+                    line-height: 1.25;
                     border: 2px solid v.$acc100;
                     border-radius: 10px;
-                    cursor: poInter;
+                    cursor: pointer;
                     transition: all 0.3s ease;
                     color: v.$acc300;
+                    text-align: center;
 
                     &:hover {
                         border: 2px solid v.$acc200;
                     }
                 }
 
-                // アクティブ（チェックされた時）のスタイル
-                // 「チェックされたinputのすぐ隣にあるlabel」を指す
                 input[type="radio"]:checked+label {
                     background-color: v.$acc300;
                     border-color: v.$acc300;
                     color: #fff;
                     font-weight: 500;
-                }
-
-                input[type="date"] {
-                    background-color: transparent;
-                    // iOS Safariの日付テキスト位置調整
-                    &::-webkit-date-and-time-value {
-                        text-align: left;
-                        margin: 0;
-                    }
                 }
             }
         }
@@ -107,8 +112,9 @@
             padding: 15px 30px;
             border: 1px solid v.$acc200;
             border-radius: 10px;
-            cursor: poInter;
+            cursor: pointer;
             transition: all 0.3s ease;
+
             &:hover {
                 background-color: v.$acc200;
                 border-color: v.$acc210;
