@@ -274,7 +274,7 @@ main .feature__mock-img--sm {
 }
 main .feature__mock-img--sm img {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 main .feature__mock-img--pc {
   position: absolute;
@@ -288,7 +288,7 @@ main .feature__mock-img--pc {
 }
 main .feature__mock-img--pc img {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 main .splide__arrow {
   background: #f7f1e9;

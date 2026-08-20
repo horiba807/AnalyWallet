@@ -261,6 +261,8 @@ footer{
 
         .logo_wrapper {
             margin-bottom: 30px;
+            display: flex; // ⭕️ Flexboxにして親のtext-alignの影響を遮断
+            justify-content: flex-start;
 
             div{
                 height:65px;
@@ -268,8 +270,8 @@ footer{
                 display:inline-block;
                 margin: 0 0 17.5px;
                 img{
-                    width: 100%;
                     height: 100%;
+                    width: auto;
                 }
             }
         }
