@@ -49,6 +49,8 @@ body{
 
 .header {
     height: 100px;
+    display: flex; 
+    justify-content: flex-start; //明示的に左揃えに
     &__logo-svg{
         height:65px;
         width: auto;
@@ -57,7 +59,7 @@ body{
         margin-bottom:17.5px;
         margin-left:0;
         img{
-            width: 100%;
+            width: auto;
             height: 100%;
         }
     }
@@ -78,7 +80,7 @@ main {
         position: relative;
         height: calc( 100dvh - 100px - 50px);
         max-height: 900px;
-        min-height: 700px;
+        min-height: 570px;
         &__mock-img{
             &--pc{
                 position: absolute;
@@ -137,6 +139,7 @@ main {
                 top:30px;
                 left:20px;
                 font-size:30px;
+                line-height: 1.25;
                 span{
                     display:block;
                 }
@@ -172,7 +175,7 @@ main {
             z-index: 3;
             font-size:14px;
             @include mq(sm) {
-                top: calc(200px + 30px);
+                top: 195px;
                 left: 20px;
                 line-height: 1.5;
                 span{

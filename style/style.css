@@ -15,6 +15,12 @@ body {
 
 .header {
   height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 .header__logo-svg {
   height: 65px;
@@ -25,7 +31,7 @@ body {
   margin-left: 0;
 }
 .header__logo-svg img {
-  width: 100%;
+  width: auto;
   height: 100%;
 }
 .header.no-display {
@@ -41,7 +47,7 @@ main .hero {
   position: relative;
   height: calc(100dvh - 100px - 50px);
   max-height: 900px;
-  min-height: 700px;
+  min-height: 570px;
 }
 main .hero__mock-img--pc {
   position: absolute;
@@ -109,6 +115,7 @@ main .hero__catch {
     top: 30px;
     left: 20px;
     font-size: 30px;
+    line-height: 1.25;
   }
   main .hero__catch span {
     display: block;
@@ -149,7 +156,7 @@ main .hero__caption {
 }
 @media screen and (max-width: 599px) {
   main .hero__caption {
-    top: 230px;
+    top: 195px;
     left: 20px;
     line-height: 1.5;
   }
