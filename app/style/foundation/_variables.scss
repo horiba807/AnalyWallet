@@ -38,6 +38,9 @@ html {
     scroll-behavior: smooth;
     font-family: 'Inter', 'Noto Sans JP', sans-serif;
     background: $white;
+    padding: 0 3.5%;
+    max-width: 1360px;
+    margin: 0 auto;
 }
 
 body.no-scroll {
@@ -53,6 +56,7 @@ body.no-scroll {
 }
 
 main {
+    
     h2 {
         font-weight: 500;
         margin-bottom: 25px;

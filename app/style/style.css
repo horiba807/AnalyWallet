@@ -8,6 +8,9 @@ html {
   scroll-behavior: smooth;
   font-family: "Inter", "Noto Sans JP", sans-serif;
   background: #FEFAF6;
+  padding: 0 3.5%;
+  max-width: 1360px;
+  margin: 0 auto;
 }
 
 body.no-scroll {
@@ -34,11 +37,6 @@ main section {
   }
 }
 
-body {
-  padding: 0 3.5%;
-  margin: 0 auto;
-  max-width: 1360px;
-}
 body .header__menu-btn {
   display: block;
   background: #f7f1e9;
