@@ -20,7 +20,9 @@ body {
   height: 65px;
   width: auto;
   display: inline-block;
-  margin: 17.5px 0;
+  margin-top: 17.5px;
+  margin-bottom: 17.5px;
+  margin-left: 0;
 }
 .header__logo-svg img {
   width: 100%;
