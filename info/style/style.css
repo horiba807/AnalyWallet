@@ -1,0 +1,143 @@
+* {
+  margin: 0 auto;
+}
+
+html {
+  max-width: 1440px;
+  padding: 0 5%;
+  font-family: "Inter", "Noto Sans JP", sans-serif;
+  color: #222;
+}
+
+body {
+  background: #FEFAF6;
+}
+
+.header {
+  height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+.header__logo-svg {
+  height: 65px;
+  width: auto;
+  display: inline-block;
+  margin-top: 17.5px;
+  margin-bottom: 17.5px;
+  margin-left: 0;
+}
+.header__logo-svg img {
+  width: auto;
+  height: 100%;
+}
+.header.no-display {
+  display: none;
+}
+
+main {
+  max-width: 800px;
+}
+main .title {
+  margin: 30px 0 50px;
+}
+main .title__text {
+  font-size: 30px;
+  font-weight: 500;
+}
+main .title__date {
+  font-size: 14px;
+  color: #999999;
+  margin-top: 10px;
+  letter-spacing: 0.025rem;
+}
+main .terms {
+  line-height: 1.75;
+}
+main .terms p {
+  margin-bottom: 5px;
+}
+main .terms p a {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  color: #102C57;
+}
+main .terms p a:hover {
+  color: #999999;
+  text-decoration-thickness: 2px;
+}
+main .terms h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 20px 0 5px;
+}
+main .terms ol {
+  list-style-type: lower;
+  padding-left: 1.5rem;
+}
+main .terms ol li {
+  margin-bottom: 5px;
+}
+main .terms ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+main .terms ul li {
+  margin-bottom: 5px;
+}
+
+footer {
+  height: 100px;
+  color: #999999;
+}
+@media screen and (max-width: 599px) {
+  footer {
+    height: auto;
+    margin-bottom: 30px;
+  }
+}
+footer .footer__copy {
+  line-height: 100px;
+  font-size: 14px;
+}
+@media screen and (max-width: 599px) {
+  footer .footer__copy {
+    line-height: 1;
+    margin-bottom: 30px;
+  }
+}
+footer .footer__nav-list {
+  line-height: 100px;
+  text-align: right;
+  margin-top: -100px;
+}
+@media screen and (max-width: 599px) {
+  footer .footer__nav-list {
+    line-height: 2;
+    margin-top: 0;
+    text-align: left;
+  }
+}
+footer .footer__nav-list-item {
+  display: inline-block;
+  margin-left: 15px;
+}
+@media screen and (max-width: 599px) {
+  footer .footer__nav-list-item {
+    margin-left: 0;
+    margin-right: 15px;
+  }
+}
+footer .footer__nav-list-item a {
+  font-size: 14px;
+  padding: 14px 0;
+}
+footer .footer__nav-list-item a:hover {
+  color: #102C57;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
