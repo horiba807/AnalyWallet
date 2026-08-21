@@ -11,7 +11,7 @@ export default defineConfig({
                 login: path.resolve(__dirname, 'app/login/index.html'),
                 reset: path.resolve(__dirname, 'app/login/reset.html'),
                 privacy: path.resolve(__dirname, 'info/privacy.html'),
-                trems: path.resolve(__dirname, 'info/trems.html'),
+                terms: path.resolve(__dirname, 'info/terms.html'),
                 contact: path.resolve(__dirname, 'info/contact.html'),
 
 
