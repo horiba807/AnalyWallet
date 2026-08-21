@@ -88,6 +88,9 @@ main .terms ul {
 main .terms ul li {
   margin-bottom: 5px;
 }
+main .terms .iframe-wrapper {
+  margin: 30px 0;
+}
 
 footer {
   height: 100px;
