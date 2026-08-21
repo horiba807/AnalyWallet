@@ -63,7 +63,7 @@ export function initPasswordResetModal(options = {}) {
             if (!isConfirmed) return;
 
             // デフォルトのリダイレクトURL（引数で上書き可能）
-            const redirectUrl = options.redirectTo || 'http://localhost:5173/AnalyWallet/app/login/reset.html';
+            const redirectUrl = options.redirectTo || 'https://analywallet.com/app/login/reset.html';
 
             // Supabaseに送信リクエスト
             const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
