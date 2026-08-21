@@ -49,7 +49,7 @@ export function setupAccountUpdateEvents() {
     if (updateEmailForm) {
         updateEmailForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const newEmail = document.getElementById('input-new-email').value;
+            const newEmail = document.getElementById('input-new-email')?.value;
 
             const isConfirmed = await showConfirm(`メールアドレスを ${newEmail} に変更しますか？`, "メールアドレス変更確認", "キャンセル", "変更する", false);
             if (!isConfirmed) return;
@@ -69,8 +69,8 @@ export function setupAccountUpdateEvents() {
             const { data: { user } } = await supabaseClient.auth.getUser();
             if (!user) return;
 
-            const currentPassword = document.getElementById('input-current-password').value;
-            const newPassword = document.getElementById('input-new-password').value;
+            const currentPassword = document.getElementById('input-current-password')?.value;
+            const newPassword = document.getElementById('input-new-password')?.value;
 
             if (newPassword.length < 12) {
                 showToast('新しいパスワードは、12文字以上で入力してください', "error");

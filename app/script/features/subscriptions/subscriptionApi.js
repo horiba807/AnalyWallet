@@ -126,7 +126,7 @@ export async function checkAndProcessSubscriptions() {
     let categoryId;
 
     if (!existingCat) {
-        console.log("「サブスク」カテゴリーがデータベースに無いため、1回目のみ自動作成します...");
+        console.log("サブスクカテゴリを自動生成します");
 
         const { data: newCat, error: catError } = await supabaseClient
             .from('categories')
@@ -144,13 +144,13 @@ export async function checkAndProcessSubscriptions() {
         }
 
         categoryId = newCat.id;
-        console.log(`「サブスク」カテゴリーを新規作成しました。ID: ${categoryId}`);
+        console.log(`サブスクカテゴリーを新規作成しました(ID: ${categoryId})`);
 
         if (typeof fetchCategories === 'function') await fetchCategories();
 
     } else {
         categoryId = existingCat.id;
-        console.log(`既存の「サブスク」カテゴリー（ID: ${categoryId}）を使用します。`);
+        console.log(`既存のサブスクカテゴリー(ID: ${categoryId})を使用します。`);
     }
 
     const today = new Date();

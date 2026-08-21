@@ -29,7 +29,7 @@ import { fetchSubscriptions, setupSubscriptionEvents, checkAndProcessSubscriptio
 //アカウント設定
 import { renderStaticUserInfo, setupLogoutEvent, setupAccountUpdateEvents, setupDeleteAccountEvent } from '@/features/accountSettings/settingsUi.js';
 
-//=======
+//==============================
 
 //mfa
 import { checkAndRenderMFA } from '@/common/auth/mfaUi.js';
