@@ -235,6 +235,9 @@ if (signupForm) {
         const { data, error } = await supabaseClient.auth.signUp({
             email: email,
             password: password,
+            options: {
+                emailRedirectTo: 'https://analywallet.com/app/index.html', // 認証完了後に表示するページ
+            },
         });
 
         if (error) {
