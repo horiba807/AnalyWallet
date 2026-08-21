@@ -13,7 +13,7 @@ export async function enrollMFA() {
     });
 
     if (error) {
-        showToast(`エラーが発生しました。時間を空けて再度お試しください。:\n${error.message}`, 'error');
+        showToast(`エラーが発生しました:\n${error.message}`, 'error');
         return null;
     }
 
@@ -27,7 +27,7 @@ export async function challengeAndVerifyMFA(factorId, code) {
     });
 
     if (challengeError) {
-        showToast(`エラーが発生しました\n${challengeError.message}`, 'error');
+        showToast(`エラーが発生しました:\n${challengeError.message}`, 'error');
         return false;
     }
 

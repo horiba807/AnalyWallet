@@ -11,6 +11,9 @@ import { showConfirm } from "@/common/ui/confirmModal.js";
 export async function updateUserEmail(newEmail) {
     const { data, error } = await supabaseClient.auth.updateUser({
         email: newEmail
+    },
+    {
+        emailRedirectTo: 'https://analywallet.com/app/index.html'
     });
 
     if (error) {

@@ -50,12 +50,14 @@ export function setupAccountUpdateEvents() {
         updateEmailForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const newEmail = document.getElementById('input-new-email').value;
+
             const isConfirmed = await showConfirm(`メールアドレスを ${newEmail} に変更しますか？`, "メールアドレス変更確認", "キャンセル", "変更する", false);
             if (!isConfirmed) return;
 
+            // メールアドレス変更処理を実行（内部でemailRedirectToが適用されます）
             const success = await updateUserEmail(newEmail);
             if (success) {
-                showToast(`${newEmail} に確認メールを送信しました。メールをご確認ください。`, success);
+                showToast(`${newEmail} に確認メールを送信しました。メールをご確認ください。`, "success");
                 updateEmailForm.reset();
             }
         });
