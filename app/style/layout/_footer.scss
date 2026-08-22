@@ -1,7 +1,7 @@
 @use "../foundation/variables" as v;
 
 footer {
-    margin: 0 auto 20px;
+    margin: 0 auto 30px;
     width: 100%;
     position: relative;
     @include v.mq(sm) {
@@ -55,9 +55,6 @@ footer {
                 color: v.$acc300;
                 text-decoration: underline;
                 text-underline-offset: 5px;
-                text-decoration-thickness: 2px;
-                text-decoration-color: v.$acc200;
-
             }
         }
     }

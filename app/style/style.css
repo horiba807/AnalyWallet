@@ -191,7 +191,7 @@ body .header__menu-btn:hover {
 }
 
 footer {
-  margin: 0 auto 20px;
+  margin: 0 auto 30px;
   width: 100%;
   position: relative;
 }
@@ -255,8 +255,6 @@ footer .footer__link:hover {
   color: #102C57;
   text-decoration: underline;
   text-underline-offset: 5px;
-  text-decoration-thickness: 2px;
-  text-decoration-color: #EADBC8;
 }
 
 .drawer-menu {

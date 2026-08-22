@@ -91,6 +91,12 @@ main .terms ul li {
 main .terms .iframe-wrapper {
   margin: 30px 0;
 }
+main .form {
+  line-height: 1.75;
+}
+main .form .iframe-wrapper {
+  margin: 30px 0;
+}
 
 footer {
   height: 100px;

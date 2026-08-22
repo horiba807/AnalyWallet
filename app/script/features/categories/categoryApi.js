@@ -2,6 +2,8 @@ import { supabaseClient } from "@/common/config/supabase.js";
 import { state, moneyForm } from '@/common/state/state.js';
 import { showToast } from '@/common/ui/toast.js';
 import { showConfirm } from "@/common/ui/confirmModal.js";
+import { renderCategorySettingsDOM } from '@/features/categories/categoryUi.js'
+import { updateCategoryMenu, renderFilterCategoryDOM } from "@/features/transactions/transactionForm.js";
 
 //==========================================================================
 // カテゴリー管理
