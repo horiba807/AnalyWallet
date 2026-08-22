@@ -23,6 +23,12 @@
         font-weight: 500;
         margin-bottom: 15px;
         font-size: 18px;
+        &--expence{
+            margin-top: calc( 30px + 16px + 10px); // tilte + 調整用カテゴリーの文字 + margin
+            @include v.mq(sm){
+                margin-top: 0;
+            }
+        }
     }
 
     &__layout {
@@ -95,11 +101,10 @@
         }
     }
 
-    // 衝突していたリストのスタイルを一元化
     &__list {
         height: 300px;
         overflow: hidden;
-        overflow-y: scroll;
+        overflow-y: auto;
         list-style: none;
         padding: 0;
         margin: 0;
@@ -131,7 +136,7 @@
         padding: 10px 13px;
         position: relative;
         border-radius: 10px;
-        width: calc(100% - 10px);
+        width: 100%;
 
         @include v.mq(sm) {
             width: 100%;

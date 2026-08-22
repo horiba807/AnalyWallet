@@ -59,7 +59,7 @@
     </nav>
 
     <header class="header">
-        <div class="header__wrapper">
+        <div class="header__wrapper" id="header-logo">
             <div class="header__logo">
                 <img src="img/logo.svg">
             </div>
@@ -79,8 +79,14 @@
             </nav>
         </div>
         <aside id="header_menu" class="drawer-menu">
+            <div class="drawer-menu__logo-wrapper">
+                <div class="drawer-menu__logo">
+                    <img src="img/logo.svg">
+                </div>
+            </div>
             <div class="drawer-menu__container">
                 <div class="drawer-menu__inner">
+                    
                     <nav class="drawer-menu__sidebar">
                         <ul class="drawer-menu__tabs">
                             <li id="menu_btn_01" class="drawer-menu__tab btn active" data-target="category_settings">
@@ -138,7 +144,7 @@
                                         <button type="button" id="add-expense-btn" class="category-settings__add-btn">追加する</button>
                                     </form>
 
-                                    <h4 class="category-settings__subtitle">登録済みのカテゴリー</h4>
+                                    <h4 class="category-settings__subtitle--expence">登録済みのカテゴリー</h4>
                                     <ul id="expense-category-list" class="category-settings__list">
                                     </ul>
                                 </div>
