@@ -118,12 +118,12 @@ body .header__menu-btn:hover {
   cursor: pointer;
 }
 .header__nav-link {
-  text-decoration: none;
   color: #000;
   padding: 5px 0;
 }
 .header__nav-link:hover {
-  border-bottom: #EADBC8 solid 2px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }
 .header__nav.no-display {
   display: none;
@@ -2081,7 +2081,7 @@ form::-webkit-date-and-time-value {
 }
 #account_settings .delete-account .warning-box {
   padding: 15px;
-  border: solid 1px #d95252;
+  background-color: #f7dcdc;
   border-radius: 10px;
   display: -webkit-box;
   display: -ms-flexbox;

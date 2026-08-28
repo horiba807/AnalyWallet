@@ -51,19 +51,19 @@
     <footer>
         <div class="auth-link_wrapper">
             <div class="auth-link">
-                <a href="about/index.html">AnalyWalletについて</a>
+                <a href="../../index.html" target="_blank">AnalyWalletについて</a>
             </div>
             <div class="auth-link">
-                <a href="about/index.html">利用規約</a>
+                <a href="../../info/terms.html" target="_blank">利用規約</a>
             </div>
             <div class="auth-link">
-                <a href="about/index.html">プライバシーポリシー</a>
+                <a href="../../info/privacy.html" target="_blank">プライバシーポリシー</a>
             </div>
         </div>
         <p class="copyright">© 2026 AnalyWallet.<span id="app-version"></p>
     </footer>
     <div class="modal-wrapper" id="signup-modal_wrapper">
-        <div id="signup-modal" class="modal">
+        <div id="signup-modal" class="signup-modal">
             <div class="close_btn_wrapper">
                 <button class="close_btn" id="close_modal_btn"><span class="material-symbols-rounded">close</span></button>
             </div>
@@ -87,7 +87,7 @@
                     <div class="input__checkbox">
                         <input type="checkbox" id="signup-terms" required>
                         <label for="signup-terms">
-                            <a href="#">利用規約</a>・<a href="#">プライバシーポリシー</a>に同意する
+                            <a class="signup-terms__link" href="../../info/terms.html" target="_blank">利用規約</a>・<a class="signup-terms__link" href="../../info/privacy.html" target="_blank">プライバシーポリシー</a>に同意する
                         </label>
                     </div>
                     <button type="submit" id="signup-submit-btn">登録する</button>
@@ -96,7 +96,7 @@
         </div>
     </div>
     <div class="modal-wrapper" id="loginMFA-modal_wrapper">
-        <div id="loginMFA-modal" class="modal">
+        <div id="loginMFA-modal" class="loginMfa-modal">
             <div class="modal-content" style="text-align: center;">
                 <h2>二段階認証</h2>
 
@@ -131,7 +131,7 @@
     </div>
 
     <div class="modal-wrapper" id="forgetPass-modal_wrapper">
-        <div id="forgetPass-modal" class="modal">
+        <div id="forgetPass-modal" class="forgetPass-modal">
             <div class="close_btn_wrapper">
                 <button class="close_btn" id="close_FogetPassModal_btn"><span class="material-symbols-rounded">close</span></button>
             </div>
@@ -149,7 +149,7 @@
                     <div class="input_wrapper">
                         <input type="email" id="forgotPass-email" placeholder="メールアドレス" required>
                     </div>
-                    <a id="link-forgot-password" href="#">登録する</a>
+                    <a id="link-forgot-password" href="#">送信する</a>
                 </form>
             </div>
         </div>

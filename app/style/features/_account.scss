@@ -461,7 +461,7 @@
     .delete-account {
         .warning-box {
             padding: 15px;
-            border: solid 1px v.$warning;
+            background-color: v.$warning-bg;
             border-radius: 10px;
             display: flex;
             gap: 15px;

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0 auto;
 }
@@ -29,10 +30,18 @@ body {
   margin-top: 17.5px;
   margin-bottom: 17.5px;
   margin-left: 0;
+  position: relative;
 }
 .header__logo-svg img {
-  width: auto;
   height: 100%;
+  width: auto;
+}
+.header__logo-svg a {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
 }
 .header.no-display {
   display: none;
@@ -40,6 +49,7 @@ body {
 
 main {
   max-width: 800px;
+  margin-bottom: 50px;
 }
 main .title {
   margin: 30px 0 50px;
@@ -96,6 +106,189 @@ main .form {
 }
 main .form .iframe-wrapper {
   margin: 30px 0;
+}
+main .help {
+  line-height: 1.75;
+}
+main .help p {
+  margin-bottom: 5px;
+}
+main .help p a {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  color: #102C57;
+}
+main .help p a:hover {
+  color: #999999;
+  text-decoration-thickness: 2px;
+}
+main .help p img {
+  height: 28px;
+  width: auto;
+  padding: 0 10px;
+}
+main .help h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 20px 0 5px;
+}
+main .help__accordion {
+  border-bottom: 1px solid #e5e7eb;
+}
+main .help__accordion-header {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 15px 0;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+}
+main .help__accordion-header::-webkit-details-marker {
+  display: none;
+}
+main .help__accordion-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+main .help__accordion-icon {
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-family: "Material Symbols Rounded";
+  padding: 7px;
+  background: #f7f1e9;
+  border: solid 1px #EADBC8;
+  border-radius: 50%;
+}
+main .help__accordion-icon span {
+  font-size: 20px;
+}
+main .help__accordion[open] main .help__accordion-icon {
+  -webkit-transform: translateY(-50%) rotate(-180deg);
+          transform: translateY(-50%) rotate(-180deg);
+}
+main .help__list {
+  list-style-type: none;
+  counter-reset: list-number;
+  position: relative;
+}
+main .help__list-item {
+  margin-bottom: 30px;
+  counter-increment: help-counter;
+  position: relative;
+  padding-left: 3rem;
+}
+main .help__list-item::before {
+  content: counter(help-counter);
+  font-weight: 600;
+  border-radius: 50%;
+  background-color: #EADBC8;
+  border: solid 1px #DAC0A3;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  line-height: 1;
+}
+main .help__list-item::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 45px;
+  bottom: -10px;
+  /* 点線の場合 */
+  border-left: 2px dotted #ded9d2;
+  /* 破線にしたい場合はこちら */
+}
+main .help__img-grid-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 15px 0;
+}
+@media screen and (max-width: 599px) {
+  main .help__img-grid-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+main .help__img-wrapper {
+  width: 100%;
+  height: auto;
+}
+main .help__img-wrapper img {
+  width: 100%;
+  height: auto;
+  border: solid 1px #efeeec;
+  border-radius: 10px;
+}
+main .callout {
+  margin: 15px 0;
+  padding: 15px;
+  background-color: #f7f1e9;
+  border: solid 1px #EADBC8;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 12px;
+}
+@media screen and (max-width: 599px) {
+  main .callout {
+    padding: 12px;
+    display: block;
+  }
+}
+main .callout__icon {
+  font-family: "Material Symbols Rounded";
+  font-size: 28px;
+  line-height: 28px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  color: #102C57;
+}
+main .callout__text {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+main .callout__text p {
+  line-height: 1.5;
+}
+main .callout__text h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
 footer {

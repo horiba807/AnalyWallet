@@ -42,6 +42,43 @@
             </form>
         </div>
     </main>
+    <div class="modal-wrapper" id="loginMFA-modal_wrapper">
+        <div id="loginMFA-modal" class="loginMfa-modal">
+            <div class="modal-content" style="text-align: center;">
+                <h2>二段階認証</h2>
+    
+                <!-- ① 認証アプリ（TOTP）用フォーム -->
+                <div id="mfa-totp-container">
+                    <p>認証アプリに表示されている6桁のコードを入力してください。</p>
+    
+                    <!-- 💡 バックアップコード認証の注意点（Supabase AAL）についての警告表示 -->
+                    <div id="aal-bypass-notice"
+                        style="display: none; background: #fff3cd; color: #856404; font-size: 0.8rem; padding: 8px; margin-bottom: 10px; border-radius: 4px; text-align: left;">
+                        ※バックアップコードでログインしました。認証アプリが手元に戻ったら設定を確認してください。
+                    </div>
+    
+                    <input type="text" class="loginMFA-modal__input" id="login-mfa-code" placeholder="123456" maxlength="6">
+                    <div>
+                        <button type="button" class="loginMFA-modal__switch-btn"
+                            id="btn-switch-to-backup">バックアップコードを使用する</button>
+                    </div>
+                </div>
+    
+                <!-- ② バックアップコード用フォーム（初期表示は非表示） -->
+                <div id="mfa-backup-container" style="display: none;">
+                    <p>保存した8桁のバックアップコードを入力してください。</p>
+                    <input type="text" class="loginMFA-modal__input" id="login-backup-code" placeholder="ABCD-EFGH"
+                        maxlength="9">
+                    <div>
+                        <button type="button" class="loginMFA-modal__switch-btn"
+                            id="btn-switch-to-totp">認証アプリの6桁コードを入力する</button>
+                    </div>
+                </div>
+    
+                <button class="loginMFA-modal__form-btn" id="btn-login-mfa-verify" style="margin-top: 15px;">認証する</button>
+            </div>
+        </div>
+    </div>
     <script type="module" src="@/common/auth/reset.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 @use "components/toast";
+@use "components/confirm_modal";
 
 $breakpoints: (
     'sm': 'screen and (max-width: 599px)',
@@ -35,8 +36,6 @@ html{
     font-family:'Noto Sans JP', sans-serif;
     width: 90%;
     max-width: 400px;
-}
-body{
 }
 
 header {
@@ -210,7 +209,7 @@ footer{
     }
 }
 #signup-modal_wrapper {
-    .modal {
+    .signup-modal {
         position: fixed;
         width: 500px;
         background: $white;
@@ -300,6 +299,13 @@ footer{
             position: relative;
             transform: translateY(1px);
         }
+        .signup-terms__link{
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            &:hover{
+                text-decoration-thickness: 2px;
+            }
+        }
     }
     #signup-submit-btn {
         margin-top: 30px;
@@ -321,7 +327,7 @@ footer{
     }
 }
 #loginMFA-modal_wrapper{
-    .modal{
+    .loginMfa-modal{
         position: fixed;
         width: 400px;
         background: $white;
@@ -372,7 +378,7 @@ footer{
     }
 }
 #forgetPass-modal_wrapper{
-    .modal {
+    .forgetPass-modal {
         position: fixed;
         width: 500px;
         background: $white;

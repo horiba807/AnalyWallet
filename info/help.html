@@ -22,7 +22,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="AnalyWallet">
-    <link rel="apple-touch-icon" href="/app/img/icon-192.png">
+    <link rel="apple-touch-icon" href="/app/img/icon-192.webp">
 
     
 </head>
@@ -30,32 +30,733 @@
     <header>
         <div class="header__logo-svg">
             <img src="../app/img/logo.svg">
+            <a href="../index.html"></a>
         </div>
     </header>
     <main>
         <section class="title">
             <h1 class="title__text">ヘルプ</h1>
         </section>
-        <section class="terms">
+        <section class="help">
             <p>このページでは、AnalyWalletの利用方法を記載しています。</p>
-            <h2>会員登録</h2>
-            <h2>ログイン</h2>
-            <h2>カテゴリーのカスタマイズ</h2>
-            <h2>収支登録</h2>
-            <h2>登録情報の編集</h2>
-            <h2>登録情報の削除</h2>
-            <h2>サブスク設定</h2>
-            <h2>メールアドレスの変更</h2>
-            <h2>パスワードの変更</h2>
-            <h2>二段階認証の設定</h2>
-            <h2>アカウントの削除</h2>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>会員登録</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                        arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p><a href="https://analywallet.com/app/login/index.html" target="_blank">AnalyWallet</a>にアクセスします。</p>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>「新規登録はこちら」ボタンをクリックし、メールアドレス・パスワードを入力します。利用規約とプライバシーポリシーに同意の上、「送信する」ボタンをクリックしてください。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/01.webp">
+                            </div>
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/02.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>入力したメールアドレスに、以下のようなメールが届きますのでご確認ください。</p>
+                            <div class="callout">
+                                <div class="callout__icon">
+                                    <span class="material-symbols-outlined">
+                                        info
+                                    </span>
+                                </div>
+                                <div class="callout__text">
+                                    <p>届かない場合は、メールアドレスが間違っていないかご確認ください。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/03.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>以下のような画面になれば登録完了です。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/04.webp">
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>ログイン</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                            arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p><a href="https://analywallet.com/app/login/index.html" target="_blank">AnalyWallet</a>にアクセスします。</p>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>メールアドレスとパスワードを入力します。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/01.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>以下のような画面になればログイン成功です。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/04.webp">
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>カテゴリーのカスタマイズ</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                            arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>画面右上のメニューアイコン<img src="../img/help/menuIcon.jpg">をクリックします。</p>
+                            <div class="help__img-grid-wrapper">
+                                <div class="help__img-wrapper">
+                                    <img src="../img/help/05.webp">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>カテゴリー名を入力し、「追加する」ボタンをクリックします。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/06.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>以下のように、カテゴリーが追加されれば成功です。</p>
+                            <p>この例の場合は、支出に「食費」「交際費」「交通費」「趣味」「その他支出」カテゴリー、収入に「バイト」「その他収入」カテゴリーをそれぞれ追加しています。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/07.webp">
+                            </div>
+                        </div>
+                        <div class="callout">
+                            <div class="callout__icon">
+                                <span class="material-symbols-outlined">
+                                    info
+                                </span>
+                            </div>
+                            <div class="callout__text">
+                                <p>支出も収入も、登録方法は同じです。</p>
+                            </div>
+                        </div>
+                        <div class="callout">
+                            <div class="callout__icon">
+                                <span class="material-symbols-outlined">
+                                    info
+                                </span>
+                            </div>
+                            <div class="callout__text">
+                                <h3>調整用カテゴリーについて</h3>
+                                <p>調整用カテゴリーを用いると、ダッシュボード内の収入に含めずに、直接「現在の残高」に登録することができます。なお、調整用カテゴリーには「調整用」と書かれたバッチが付きます。</p>
+                                <div class="help__img-grid-wrapper">
+                                    <div class="help__img-wrapper">
+                                        <img src="../img/help/09.webp">
+                                    </div>
+                                    <div class="help__img-wrapper">
+                                        <img src="../img/help/08.webp">
+                                    </div>
+                                    <div class="help__img-wrapper">
+                                        <img src="../img/help/10.webp">
+                                    </div>
+                                </div>
+                                <p>この例の場合、カテゴリー「調整用カテゴリー」に登録した5万円が、ダッシュボードの収入にはカウントされず、「現在の残高」に直接追加されています。</p>
+                                <p>初回の登録時や、ずれた際の調整などにご利用ください。</p>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>収支登録</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                            arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>画面をスクロールし、収支登録セクションへ移動します。</p>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>登録フォームに従って入力します。カテゴリーには、カテゴリー設定で登録したカテゴリーを選択できます。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/11.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>以下のような画面になり、登録履歴に登録されていれば完了です。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/12.webp">
+                            </div>
+                        </div>
+                        <div class="callout">
+                            <div class="callout__icon">
+                                <span class="material-symbols-outlined">
+                                    info
+                                </span>
+                            </div>
+                            <div class="callout__text">
+                                <p>支出も収入も、登録方法は同じです。</p>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>ダッシュボードの見方</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                            arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>登録した収支の情報は、ダッシュボードにて確認することができます。</p>
+                            <p>たとえば、以下のデータを登録していたとすると...</p>
+                            <div class="help__img-grid-wrapper">
+                                <div class="help__img-wrapper">
+                                    <img src="../img/help/13.webp">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>ダッシュボード では以下のように表示されます。上部メニューで月を選択するとその月の収支情報、サマリーを選択するとその年の年間の収支情報を確認できます。画像では、2026年8月の収支記録を表示しています。</p>
+                            <div class="help__img-grid-wrapper">
+                                <div class="help__img-wrapper">
+                                    <img src="../img/help/14.webp">
+                                </div>
+                            </div>
+                            <p>なお、サマリーでは年間の収入・支出・残高の推移のグラフが表示されます。</p>
+                            <div class="help__img-grid-wrapper">
+                                <div class="help__img-wrapper">
+                                    <img src="../img/help/15.webp">
+                                </div>
+                            </div>
+                            <div class="callout">
+                                <div class="callout__icon">
+                                    <span class="material-symbols-outlined">
+                                        info
+                                    </span>
+                                </div>
+                                <div class="callout__text">
+                                    <h3>現在の残高 について</h3>
+                                    <p>現在の残高は、今までの (収入) - (支出) の和です。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>登録情報の編集</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                            arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>画面をスクロールし、登録履歴セクションへ移動します。編集したいデータの「編集する」ボタンをクリックしてください。</p>
+                            </p>
+                            <div class="help__img-grid-wrapper">
+                                <div class="help__img-wrapper">
+                                    <img src="../img/help/13.webp">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>以下のモーダルが表示されます。編集内容を入力してください。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/16.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>以下のような画面になり、登録履歴に登録されていれば完了です。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/17.webp">
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>登録情報の削除</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                            arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>画面をスクロールし、登録履歴セクションへ移動します。削除したいデータの「削除する」ボタンをクリックしてください。</p>
+                            </p>
+                            <div class="help__img-grid-wrapper">
+                                <div class="help__img-wrapper">
+                                    <img src="../img/help/13.webp">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>以下のような確認画面が表示されますので、「削除する」ボタンをクリックしてください。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/18.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>以下のような画面になり、登録データが削除されていれば完了です。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/19.webp">
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>サブスク設定</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                            arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <div class="callout">
+                                <div class="callout__icon">
+                                    <span class="material-symbols-outlined">
+                                        info
+                                    </span>
+                                </div>
+                                <div class="callout__text">
+                                    <h3>サブスク設定について</h3>
+                                    <p>あらかじめ指定した日に、毎月一定額を自動で登録システムです。登録時に「サブスク」カテゴリーが自動で生成され、データはその中に保存されます。</p>
+                                </div>
+                            </div>
+                            <p>画面右上のメニューアイコン<img src="../img/help/menuIcon.jpg">をクリックします。</p>
+                            <div class="help__img-grid-wrapper">
+                                <div class="help__img-wrapper">
+                                    <img src="../img/help/05.webp">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>サイドメニューで「サブスク管理」をクリックします。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/20.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>サービス名・金額・支払日を入力します。支払日に入れた日にちに、自動で登録されます。この例の場合は、毎月23日にAnalyWallet上に追加されます。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/21.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>「追加する」を押して、以下のようにリストに追加されれば完了です。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/22.webp">
+                            </div>
+                        </div>
+                        <div class="callout">
+                            <div class="callout__icon">
+                                <span class="material-symbols-outlined">
+                                    info
+                                </span>
+                            </div>
+                            <div class="callout__text">
+                                <p>サブスクは複数個登録することができます。</p>
+                                <div class="help__img-grid-wrapper">
+                                    <div class="help__img-wrapper">
+                                        <img src="../img/help/23.webp">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>指定した日にちになると、『メモ名（自動追加）』という形で自動追加されます。 </p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/24.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>削除する場合は、「削除する」ボタンをクリックしてください。 </p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/24.webp">
+                            </div>
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/28.webp">
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>メールアドレスの変更</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                            arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>画面右上のメニューアイコン<img src="../img/help/menuIcon.jpg">をクリックします。</p>
+                            <div class="help__img-grid-wrapper">
+                                <div class="help__img-wrapper">
+                                    <img src="../img/help/05.webp">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>サイドメニューで「アカウント設定」をクリックします。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/25.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>「メールアドレス」の欄に、新しいメールアドレスを入力します。確認の上、「メールアドレスを変更する」ボタンをクリックしてください。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/26.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>入力したメールアドレス宛に、確認メールが届きますのでご確認ください。確認の上、「メールアドレスを変更する」ボタンをクリックしてください。これにて変更完了です。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/27.webp">
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>パスワードの変更</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                            arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>画面右上のメニューアイコン<img src="../img/help/menuIcon.jpg">をクリックします。</p>
+                            <div class="help__img-grid-wrapper">
+                                <div class="help__img-wrapper">
+                                    <img src="../img/help/05.webp">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>サイドメニューで「アカウント設定」をクリックします。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/25.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>「パスワード」の欄に、現在のパスワードと新しいパスワードを入力します。確認の上、「パスワードを変更する」ボタンをクリックしてください。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/26.webp">
+                            </div>
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/29.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>登録されているメールアドレス宛に、確認メールが届きますのでご確認ください。これにて変更完了です。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/30.webp">
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>二段階認証の設定</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                            arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>AnalyWalletでは、二段階認証の設定を行うことができます。</p>
+                            <p>画面右上のメニューアイコン<img src="../img/help/menuIcon.jpg">をクリックします。</p>
+                            <div class="help__img-grid-wrapper">
+                                <div class="help__img-wrapper">
+                                    <img src="../img/help/05.webp">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>サイドメニューで「アカウント設定」をクリックします。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/25.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>「二段階認証（MFA）」の欄にある、「二段階認証を有効にする」ボタンをクリックします。</p>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>キーが発行されるので、利用している二段階認証アプリの該当する欄にコピー＆ペーストしてください。</p>
+                            <div class="callout">
+                                <div class="callout__icon">
+                                    <span class="material-symbols-outlined">
+                                        info
+                                    </span>
+                                </div>
+                                <div class="callout__text">
+                                    <p>画像では、Proton Passを用いています。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/31.webp">
+                            </div>
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/32.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>二段階認証アプリの6桁のコードを、AnalyWallet上で入力してください。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/33.webp">
+                            </div>
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/34.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>以下のような画面になれば設定完了です。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/35.webp">
+                            </div>
+                        </div>
+                        <div class="callout">
+                            <div class="callout__icon">
+                                <span class="material-symbols-outlined">
+                                    info
+                                </span>
+                            </div>
+                            <div class="callout__text">
+                                <p>バックアップコードは、アカウントにアクセスできなくなった場合に用いる重要なものです。必ずメモしてください。</p>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
+            <details class="help__accordion">
+                <summary class="help__accordion-header">
+                    <h2>アカウントの削除</h2>
+                    <span class="help__accordion-icon">
+                        <span class="material-symbols-rounded">
+                            arrow_downward
+                        </span>
+                    </span>
+                </summary>
+                <ol class="help__list">
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>画面右上のメニューアイコン<img src="../img/help/menuIcon.jpg">をクリックします。</p>
+                            <div class="help__img-grid-wrapper">
+                                <div class="help__img-wrapper">
+                                    <img src="../img/help/05.webp">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>サイドメニューで「アカウント設定」をクリックします。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/25.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>一番下の「アカウント設定」の欄で、「アカウントを削除する」ボタンをクリックします。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/36.webp">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="help__list-item">
+                        <div class="help__content-wrapper">
+                            <p>パスワードを入力して、「削除する」ボタンをクリックしてください。これにて完了です。</p>
+                        </div>
+                        <div class="help__img-grid-wrapper">
+                            <div class="help__img-wrapper">
+                                <img src="../img/help/37.webp">
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </details>
         </section>
     </main>
     <footer>
         <p class="footer__copy">&copy; 2026 AnalyWallet.</p>
         <ul class="footer__nav-list">
             <li class="footer__nav-list-item">
-                <a href="help.html">ヘルプ</a>
+                <a href="inde.html">ヘルプ</a>
             </li>
             <li class="footer__nav-list-item">
                 <a href="privacy.html">プライバシーポリシー</a>
@@ -64,7 +765,7 @@
                 <a href="terms.html">利用規約</a>
             </li>
             <li class="footer__nav-list-item">
-                <a href="index.html">お問い合わせ・ご要望</a>
+                <a href="contact.html">お問い合わせ・ご要望</a>
             </li>
         </ul>
     </footer>
