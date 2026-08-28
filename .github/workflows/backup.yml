@@ -22,7 +22,7 @@ jobs:
 
       - name: Create Backup
         run: |
-          pg_dump "${{ secrets.SUPABASE_DB_URL }}" -F c -f backup_$(date +%Y%m%d_%H%M%S).dump
+          /usr/lib/postgresql/17/bin/pg_dump "${{ secrets.SUPABASE_DB_URL }}" -F c -f backup_$(date +%Y%m%d_%H%M%S).dump
 
       - name: Setup Rclone Config
         run: |
