@@ -29,9 +29,7 @@ jobs:
           RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG }}
         run: |
           mkdir -p ~/.config/rclone
-          cat << 'EOF' > ~/.config/rclone/rclone.conf
-          $RCLONE_CONFIG_DATA
-          EOF
+          printf '%s\n' "$RCLONE_CONFIG_DATA" > ~/.config/rclone/rclone.conf
 
       - name: Upload to Google Drive
         run: |
