@@ -25,6 +25,8 @@ jobs:
           /usr/lib/postgresql/17/bin/pg_dump "${{ secrets.SUPABASE_DB_URL }}" -F c -f backup_$(date +%Y%m%d_%H%M%S).dump
 
       - name: Setup Rclone Config
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG }}
         run: |
           mkdir -p ~/.config/rclone
           echo "${{ secrets.RCLONE_CONFIG }}" > ~/.config/rclone/rclone.conf
