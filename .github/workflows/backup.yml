@@ -2,21 +2,26 @@ name: Supabase Database Backup
 
 on:
   schedule:
-    - cron: '0 19 * * *' # 毎日日本時間午前4時（UTC 19:00）に実行
+    - cron: '0 19 * * *' # 毎日日本時間 午前4時（UTC 19:00）に自動実行
   workflow_dispatch:     # 手動実行ボタンを有効化
 
 jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
-      - name: Install PostgreSQL Client and Rclone
+      - name: Install PostgreSQL 17 Client and Rclone
         run: |
           sudo apt-get update
-          sudo apt-get install -y postgresql-client rclone
+          sudo apt-get install -y curl gpg rclone
+
+          curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+          echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client-17
 
       - name: Create Backup
         run: |
-          # 接続URLからpg_dumpを実行し圧縮保存
           pg_dump "${{ secrets.SUPABASE_DB_URL }}" -F c -f backup_$(date +%Y%m%d_%H%M%S).dump
 
       - name: Setup Rclone Config
@@ -24,7 +29,6 @@ jobs:
           mkdir -p ~/.config/rclone
           echo "${{ secrets.RCLONE_CONFIG }}" > ~/.config/rclone/rclone.conf
 
-      - name: Upload to Cloud Storage
+      - name: Upload to Google Drive
         run: |
-          # gdrive:バックアップ先フォルダ名（OneDriveの場合は onedrive:フォルダ名）
           rclone copy backup_*.dump googledrive:Supabase_Backups/
