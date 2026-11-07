@@ -50,13 +50,6 @@
                 <!-- ① 認証アプリ（TOTP）用フォーム -->
                 <div id="mfa-totp-container">
                     <p>認証アプリに表示されている6桁のコードを入力してください。</p>
-    
-                    <!-- 💡 バックアップコード認証の注意点（Supabase AAL）についての警告表示 -->
-                    <div id="aal-bypass-notice"
-                        style="display: none; background: #fff3cd; color: #856404; font-size: 0.8rem; padding: 8px; margin-bottom: 10px; border-radius: 4px; text-align: left;">
-                        ※バックアップコードでログインしました。認証アプリが手元に戻ったら設定を確認してください。
-                    </div>
-    
                     <input type="text" class="loginMFA-modal__input" id="login-mfa-code" placeholder="123456" maxlength="6">
                     <div>
                         <button type="button" class="loginMFA-modal__switch-btn"
