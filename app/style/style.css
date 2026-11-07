@@ -476,7 +476,7 @@ footer .footer__link:hover {
 }
 @media screen and (max-width: 599px) {
   .drawer-menu__logout-Btn {
-    bottom: 63px;
+    bottom: 67px;
     right: calc(5% + 50px + 10px);
     padding: 10.5px 15px;
     text-align: center;
