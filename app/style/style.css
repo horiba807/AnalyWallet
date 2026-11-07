@@ -332,6 +332,7 @@ footer .footer__link:hover {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  position: relative;
 }
 @media screen and (max-width: 599px) {
   .drawer-menu__sidebar {
@@ -450,6 +451,35 @@ footer .footer__link:hover {
 @media screen and (min-width: 600px) {
   .drawer-menu__tab:hover span, .drawer-menu__tab.active span {
     text-decoration: none;
+  }
+}
+.drawer-menu__logout-Btn {
+  border: solid 1px #EADBC8;
+  font-size: 14px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 50px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+.drawer-menu__logout-Btn:hover {
+  background-color: #EADBC8;
+  border-color: #DAC0A3;
+}
+.drawer-menu__logout-Btn span {
+  display: none;
+}
+@media screen and (max-width: 599px) {
+  .drawer-menu__logout-Btn {
+    bottom: 63px;
+    right: calc(5% + 50px + 10px);
+    padding: 10.5px 15px;
+    text-align: center;
+    font-size: 12px;
+  }
+  .drawer-menu__logout-Btn span {
+    display: inline;
   }
 }
 .drawer-menu__content {

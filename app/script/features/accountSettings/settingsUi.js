@@ -25,10 +25,10 @@ export function renderStaticUserInfo(user) {
 
 // ログアウト処理
 export function setupLogoutEvent() {
-    const logoutBtn = document.getElementById('logout-btn');
-    if (!logoutBtn) return;
 
-    logoutBtn.addEventListener('click', async () => {
+    document.addEventListener('click', async (e) => {
+        const logoutBtn = e.target.closest('[data-action="logout"]');
+        if (!logoutBtn) return;
         const isConfirmed = await showConfirm("ログアウトしますか？", "ログアウト", "キャンセル", "ログアウトする", true);
         if (!isConfirmed) return;
 

@@ -75,6 +75,7 @@
     border-right: solid 2px v.$acc100;
     text-align: left;
     flex: 1;
+    position: relative;
 
     @include v.mq(sm) {
       display: flex;
@@ -189,6 +190,34 @@
         }
       }
     }
+  }
+
+  &__logout-Btn{
+    border: solid 1px v.$acc200;
+    font-size: 14px;
+    padding: 10px 15px;
+    border-radius:10px;
+    position: absolute;
+    bottom: 50px;
+    transition: .2s;
+    &:hover{
+      background-color: v.$acc200;
+      border-color: v.$acc210;
+    }
+    span{
+      display:none;
+    }
+    @include v.mq(sm){
+      bottom: 63px;
+      right: calc(5% + 50px + 10px);
+      padding: 10.5px 15px;
+      text-align: center;
+      font-size:12px;
+      span{
+        display:inline;
+      }
+    }
+
   }
 
   // 右側：詳細コンテンツエリア
