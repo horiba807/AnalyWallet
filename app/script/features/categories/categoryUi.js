@@ -15,12 +15,12 @@ export function renderCategorySettingsDOM() {
     incomeList.innerHTML = '';
     
 
-    // 💡 支出リストの生成
+    //支出リストの生成
     (state.categories.expense || []).forEach(cat => {
         expenseList.appendChild(createCategoryRow(cat));
     });
 
-    // 💡 収入リストの生成
+    //収入リストの生成
     (state.categories.income || []).forEach(cat => {
         incomeList.appendChild(createCategoryRow(cat));
     });
