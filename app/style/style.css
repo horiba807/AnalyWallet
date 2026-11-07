@@ -175,18 +175,21 @@ body .header__menu-btn:hover {
           transform: translateX(-50%);
   font-size: 10px;
   width: 100%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 .header__sm-nav-item a {
   text-decoration: none;
   color: #000;
   position: absolute;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  left: 0%;
+  top: 0;
   width: 100%;
   height: 100%;
 }
-.header__sm-nav-item:hover {
+.header__sm-nav-item:active {
   background: #ded9d2;
 }
 
