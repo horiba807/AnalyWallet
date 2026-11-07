@@ -95,7 +95,7 @@ authForm.addEventListener('submit', async (e) => {
         // 現在どのモードか（'totp' または 'backup'）
         let currentMode = 'totp';
 
-        // 🔄 モード切替イベント：バックアップコード入力へ
+        // モード切替イベント：バックアップコード入力へ
         if (btnSwitchToBackup) {
             btnSwitchToBackup.onclick = () => {
                 currentMode = 'backup';
@@ -104,7 +104,7 @@ authForm.addEventListener('submit', async (e) => {
             };
         }
 
-        // 🔄 モード切替イベント：TOTP入力へ
+        // モード切替イベント：TOTP入力へ
         if (btnSwitchToTotp) {
             btnSwitchToTotp.onclick = () => {
                 currentMode = 'totp';
@@ -113,7 +113,7 @@ authForm.addEventListener('submit', async (e) => {
             };
         }
 
-        // 🔐 「認証する」ボタンが押されたときの処理
+        // 「認証する」ボタンが押されたときの処理
         loginMfaVerifyBtn.onclick = async () => {
             const { data: { user } } = await supabaseClient.auth.getUser();
             if (!user) {
