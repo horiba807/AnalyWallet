@@ -96,6 +96,7 @@ body .header__menu-btn:hover {
 .header__logo img {
   height: 100%;
   width: auto;
+  vertical-align: top;
 }
 .header__logo.no-display {
   display: none;
