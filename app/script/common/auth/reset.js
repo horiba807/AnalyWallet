@@ -44,7 +44,7 @@ async function verifyAndConsumeBackupCode(inputCode, userId) {
 }
 
 //==========================================================================
-// パスワードリセット処理（二段階認証対応版）
+// パスワードリセット処理
 //==========================================================================
 const resetForm = document.getElementById('form-reset-password');
 
