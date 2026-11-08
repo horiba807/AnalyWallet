@@ -1,6 +1,5 @@
 import { supabaseClient } from "@/common/config/supabase.js";
 import { showToast } from '@/common/ui/toast.js';
-import { showConfirm } from "@/common/ui/confirmModal.js";
 
 //==========================================================================
 // MFA（二要素認証）基本機能
@@ -80,4 +79,4 @@ export async function unenrollMFA(factorId) {
     }
 
     return true;
-}
+}

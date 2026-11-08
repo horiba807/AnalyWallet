@@ -9,19 +9,16 @@ import { renderAppVersion } from '@/common/ui/renderAppVersion.js';
 
 //ダッシュボード
 import { setupDashboardEvents } from '@/features/dashboard/dashboardEvents.js';
-import { getFilteredHistory } from '@/features/dashboard/dashboardUi.js';
 
 //データ登録・明細テーブル
-import { updateCategoryMenu, renderFilterCategoryDOM } from '@/features/transactions/transactionForm.js';
-import { renderTableDOM } from '@/features/transactions/transactionUi.js';
+import { updateCategoryMenu } from '@/features/transactions/transactionForm.js';
 import { setupTransactionEvents } from '@/features/transactions/transactionEvents.js';
 import { fetchTransactions } from '@/features/transactions/transactionApi.js';
 
 //=======ドロワーメニュー========
 
 //カテゴリー設定
-import { renderCategorySettingsDOM } from '@/features/categories/categoryUi.js';
-import { fetchCategories, setupCategorySettingsEvents } from '@/features/categories/categoryApi.js';
+import { setupCategorySettingsEvents } from '@/features/categories/categoryApi.js';
 
 //サブスク設定
 import { fetchSubscriptions, setupSubscriptionEvents, checkAndProcessSubscriptions } from '@/features/subscriptions/subscriptionApi.js';
@@ -57,15 +54,10 @@ async function checkLoginAndInit() {
     renderStaticUserInfo(user);
     bindStaticEvents();
 
-    // 3. データ取得（並列実行）
-    await Promise.all([
-        loadCategoryData(),
-        fetchTransactions()
-    ]);
-
-    // 4. メイン表示の初期化
-    const data = getFilteredHistory();
-    renderTableDOM(data);
+    // 3. データ取得 & 描画
+    //    fetchTransactions の中でカテゴリー取得・各メニュー・ダッシュボード・明細表まで描画される
+    await fetchTransactions();
+    updateCategoryMenu('expense', 'edit_category'); // 編集モーダル用
 
     initPasswordResetModal();
     runSubscriptionTasks(); // バックグラウンドで非同期実行
@@ -88,15 +80,6 @@ function bindStaticEvents() {
     checkAndRenderMFA();
 }
 
-// カテゴリデータの読み込みとDOM構築
-async function loadCategoryData() {
-    await fetchCategories();
-    renderCategorySettingsDOM();
-    updateCategoryMenu('expense', 'category');      // 登録用
-    updateCategoryMenu('expense', 'edit_category'); // 編集用
-    renderFilterCategoryDOM();                      // フィルター用
-}
-
 // サブスク処理（バックグラウンド実行）
 async function runSubscriptionTasks() {
     fetchSubscriptions();
@@ -107,4 +90,4 @@ async function runSubscriptionTasks() {
 }
 
 // ■■■■■■■■■■■■■■■■■■ アプリケーション起動 ■■■■■■■■■■■■■■■■■■
-checkLoginAndInit();
+checkLoginAndInit();

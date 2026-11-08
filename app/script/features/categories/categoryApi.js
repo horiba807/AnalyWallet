@@ -1,5 +1,5 @@
 import { supabaseClient } from "@/common/config/supabase.js";
-import { state, moneyForm } from '@/common/state/state.js';
+import { state } from '@/common/state/state.js';
 import { showToast } from '@/common/ui/toast.js';
 import { showConfirm } from "@/common/ui/confirmModal.js";
 import { renderCategorySettingsDOM } from '@/features/categories/categoryUi.js'
@@ -119,7 +119,7 @@ async function handleDeleteCategory(id, label) {
 
     if (error) {
         console.error('削除失敗:', error);
-        showToast(`削除に失敗しました\n${error}`, "error");
+        showToast(`削除に失敗しました\n${error.message}`, "error");
         return;
     }
 

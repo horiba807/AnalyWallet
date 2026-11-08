@@ -1,10 +1,8 @@
 // resetPassModal.js
-import { createClient } from '@supabase/supabase-js';
 import { supabaseClient } from "@/common/config/supabase.js";
 import { showToast } from '@/common/ui/toast.js';
 import { showConfirm } from "@/common/ui/confirmModal.js";
 
-import { decryptText } from '@/common/utils/crypto.js';
 
 //==========================================================================
 // パスワードリセット用のモーダル
@@ -81,4 +79,4 @@ export function initPasswordResetModal(options = {}) {
             }
         });
     }
-}
+}

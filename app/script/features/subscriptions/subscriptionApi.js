@@ -1,5 +1,5 @@
 import { supabaseClient } from "@/common/config/supabase.js";
-import { state, moneyForm } from '@/common/state/state.js';
+import { state } from '@/common/state/state.js';
 import { showToast } from '@/common/ui/toast.js';
 import { showConfirm } from "@/common/ui/confirmModal.js";
 
@@ -75,7 +75,7 @@ async function handleDeleteSubscription(id, name) {
 
     if (error) {
         console.error("サブスク削除失敗:", error);
-        alert("削除に失敗しました。");
+        showToast(`削除に失敗しました\n${error.message}`, "error");
         return;
     }
 
@@ -98,16 +98,17 @@ export function setupSubscriptionEvents() {
 }
 
 // サブスクの月次自動判定 & 家計簿への追加処理
+// 戻り値: 明細を1件以上追加したら true（呼び出し側で再取得・再描画する）
 export async function checkAndProcessSubscriptions() {
     const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) return;
+    if (!user) return false;
 
     const { data: subs, error } = await supabaseClient
         .from('subscriptions')
         .select('*')
         .eq('user_id', user.id);
 
-    if (error || !subs || subs.length === 0) return;
+    if (error || !subs || subs.length === 0) return false;
 
     // 「サブスク」カテゴリーの重複チェック＆自動作成
     const { data: existingCat, error: findError } = await supabaseClient
@@ -120,14 +121,12 @@ export async function checkAndProcessSubscriptions() {
 
     if (findError) {
         console.error("カテゴリーの重複チェックに失敗しました:", findError);
-        return;
+        return false;
     }
 
     let categoryId;
 
     if (!existingCat) {
-        console.log("サブスクカテゴリを自動生成します");
-
         const { data: newCat, error: catError } = await supabaseClient
             .from('categories')
             .insert([{
@@ -140,17 +139,12 @@ export async function checkAndProcessSubscriptions() {
 
         if (catError) {
             console.error("サブスクカテゴリーの自動作成に失敗しました:", catError);
-            return;
+            return false;
         }
 
         categoryId = newCat.id;
-        console.log(`サブスクカテゴリーを新規作成しました(ID: ${categoryId})`);
-
-        if (typeof fetchCategories === 'function') await fetchCategories();
-
     } else {
         categoryId = existingCat.id;
-        console.log(`既存のサブスクカテゴリー(ID: ${categoryId})を使用します。`);
     }
 
     const today = new Date();
@@ -159,10 +153,15 @@ export async function checkAndProcessSubscriptions() {
     const currentDay = today.getDate();
     const currentYearMonth = `${currentYear}-${currentMonth}`;
 
+    // 今月の末日（29〜31日払いを短い月でも月末に計上するため）
+    const lastDayOfMonth = new Date(currentYear, today.getMonth() + 1, 0).getDate();
+
     let hasAddedNewTransaction = false;
 
     for (const sub of subs) {
-        if (currentDay >= sub.billing_day && sub.last_charged_month !== currentYearMonth) {
+        const chargeDay = Math.min(Number(sub.billing_day), lastDayOfMonth);
+
+        if (currentDay >= chargeDay && sub.last_charged_month !== currentYearMonth) {
 
             const { error: insertError } = await supabaseClient
                 .from('transactions')
@@ -172,7 +171,7 @@ export async function checkAndProcessSubscriptions() {
                     category: categoryId,
                     amount: sub.amount,
                     memo: `${sub.name}（自動追加）`,
-                    date: `${currentYear}-${currentMonth}-${String(sub.billing_day).padStart(2, '0')}`
+                    date: `${currentYearMonth}-${String(chargeDay).padStart(2, '0')}`
                 }]);
 
             if (insertError) {
@@ -189,7 +188,5 @@ export async function checkAndProcessSubscriptions() {
         }
     }
 
-    if (hasAddedNewTransaction && typeof fetchTransactions === 'function') {
-        await fetchTransactions();
-    }
-}
+    return hasAddedNewTransaction;
+}

@@ -8,4 +8,4 @@ export function renderAppVersion() {
     if (appVerElement) {
         appVerElement.textContent = `Ver. ${pkg.version}`;
     }
-}
+}

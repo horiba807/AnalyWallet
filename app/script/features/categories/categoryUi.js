@@ -1,4 +1,5 @@
-import { state, moneyForm } from '@/common/state/state.js';
+import { state } from '@/common/state/state.js';
+import { escapeHtml } from '@/common/utils/escapeHtml.js';
 
 //==========================================================================
 // 登録カテゴリーの表示DOM
@@ -35,19 +36,19 @@ function createCategoryRow(cat) {
     const isCarryOver = Boolean(cat.isCarryOver ?? cat.is_carry_over);
 
     //調整用カテゴリーのバッジ
-    const badgeHtml = cat.isCarryOver
+    const badgeHtml = isCarryOver
         ? `<span class="category-settings__badge">調整用</span>`
         : '';
 
     // ゴミ箱ボタンに data-id と data-label を仕込む
     li.innerHTML = `
-        ${cat.label}
+        ${escapeHtml(cat.label)}
         <div class="category-settings__label-wrapper">
             ${badgeHtml}
         </div>
-        <button type="button" class="category-settings__delete-btn"  data-id="${cat.value}" data-label="${cat.label}">
+        <button type="button" class="category-settings__delete-btn"  data-id="${escapeHtml(cat.value)}" data-label="${escapeHtml(cat.label)}">
             削除する
         </button>
     `;
     return li;
-}
+}

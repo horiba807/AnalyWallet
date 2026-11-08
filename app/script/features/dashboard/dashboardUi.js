@@ -1,11 +1,11 @@
 //dashboardUi.js
 //集計・サマリーの描画
 
-import { state, moneyForm } from '@/common/state/state.js';
-import { supabaseClient } from "@/common/config/supabase.js";
+import { state } from '@/common/state/state.js';
 import { renderCircleChart, renderLineChart } from './chart.js';
-import { fetchCategories } from '@/features/categories/categoryApi.js';
 import { renderTableDOM } from '@/features/transactions/transactionUi.js';
+import { escapeHtml } from '@/common/utils/escapeHtml.js';
+import { toYearMonth, isOnOrBeforeMonthEnd, isCarryOverItem } from '@/common/utils/transactionUtils.js';
 
 //==========================================================================
 // ダッシュボードの更新
@@ -56,8 +56,8 @@ export function getFilteredHistory() {
     // 参照するデータを state.transactions (または state.history) に統一
     const sourceData = state.transactions || state.history || [];
 
-    // 日付の新しい順にソート
-    sourceData.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // 日付の新しい順にソート（"YYYY-MM-DD" は文字列比較でOK。同日は新しく登録した順）
+    sourceData.sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.id - a.id));
 
     // 条件に合うデータをフィルター
     return sourceData.filter(item => {
@@ -96,7 +96,6 @@ export function calculateStats(filteredHistory) {
         ...(state.categories.expense || []),
         ...(state.categories.income || [])
     ];
-    const categoryMap = new Map(allCategories.map(cat => [String(cat.value), cat]));
 
     //カテゴリーIDをキーにした集計用オブジェクトを初期化
     let catTotals = {};
@@ -105,13 +104,8 @@ export function calculateStats(filteredHistory) {
     //今月・今年の分を集計
     filteredHistory.forEach(item => {
         const catValue = String(item.category);
-        const catObj = categoryMap.get(catValue);
 
-        const isCarryOver = catObj
-            ? Boolean(catObj.isCarryOver ?? catObj.is_carry_over)
-            : (item.category === 'carry_over');
-
-        if (isCarryOver) {
+        if (isCarryOverItem(item)) {
             //繰越金の場合：月間の収入/支出には加算せず、繰越金に振分
             carryOverAmount += item.amount;
         } else if (item.type === 'income') {
@@ -129,10 +123,11 @@ export function calculateStats(filteredHistory) {
         }
     });
 
-    // 選択された月の末日時点での累積和を計算
-    const lastDayOfMonth = new Date(state.currentYear, state.currentMonth === 'annual' ? 12 : state.currentMonth, 0);
-    const historyUpToNow = state.history.filter(item => new Date(item.date) <= lastDayOfMonth);
-    const currentBalance = historyUpToNow.reduce((acc, item) => {
+    // 選択された月の末日時点での累積和を計算（月末日も含める）
+    const targetMonth = state.currentMonth === 'annual' ? 12 : state.currentMonth;
+    const targetYearMonth = toYearMonth(state.currentYear, targetMonth);
+    const currentBalance = state.history.reduce((acc, item) => {
+        if (!isOnOrBeforeMonthEnd(item.date, targetYearMonth)) return acc;
         return item.type === 'income' ? acc + item.amount : acc - item.amount;
     }, 0);
 
@@ -171,7 +166,7 @@ function renderSummaryDOM(stats) {
             const wrapper = document.createElement('div');
             wrapper.className = 'grid_inner-flex_wrapper';
             wrapper.innerHTML = `
-                <div class="grid_inner-flex_wrapper label">${cat.label}</div>
+                <div class="grid_inner-flex_wrapper label">${escapeHtml(cat.label)}</div>
                 <div class="grid_inner-flex_wrapper">
                     <p>¥ ${amount.toLocaleString()}</p>
                 </div>
@@ -192,33 +187,13 @@ function renderSummaryDOM(stats) {
             const wrapper = document.createElement('div');
             wrapper.className = 'grid_inner-flex_wrapper';
             wrapper.innerHTML = `
-                <div class="grid_inner-flex_wrapper">${cat.label}</div>
+                <div class="grid_inner-flex_wrapper">${escapeHtml(cat.label)}</div>
                 <div class="grid_inner-flex_wrapper">
                     <p>¥ ${amount.toLocaleString()}</p>
                 </div>
             `;
             incomeContainer.appendChild(wrapper);
         });
-    }
-}
-
-//==========================================================================
-// グラフの描画切り替え（円グラフと折れ線グラフ）
-//==========================================================================
-function updateChartVisibility(catTotals) {
-    const annualChartContainer = document.getElementById('annual-chart-container');
-    const expenseChartContainer = document.getElementById('expense-chart-container');
-
-    if (!annualChartContainer || !expenseChartContainer) return;
-
-    if (state.currentMonth === 'annual') {
-        annualChartContainer.style.display = 'block';
-        expenseChartContainer.style.display = 'none';
-        renderLineChart(); //折れ線グラフ
-    } else {
-        annualChartContainer.style.display = 'none';
-        expenseChartContainer.style.display = 'block';
-        updateChart(catTotals); //円グラフ
     }
 }
 
@@ -241,38 +216,26 @@ function calculatePrevMonthDiff(currInc, currExp) {
     let prevInc = 0;
     let prevExp = 0;
 
+    // 比較対象の期間（"YYYY-" または "YYYY-MM-"）
+    let prefix;
     if (state.currentMonth === 'annual') {
-        //年間サマリーモード：前年（去年1年間）のデータを抽出
-        const prevYearData = state.history.filter(item => {
-            const d = new Date(item.date);
-            return d.getFullYear() === state.currentYear - 1; //去年のデータ
-        });
-
-        prevYearData.forEach(item => {
-            if (item.category !== 'carry_over') {
-                if (item.type === 'income') prevInc += item.amount;
-                else prevExp += item.amount;
-            }
-        });
+        //年間サマリーモード：前年（去年1年間）
+        prefix = `${state.currentYear - 1}-`;
     } else {
-        //通常モード：前月のデータを抽出
+        //通常モード：前月
         const pm = state.currentMonth === 1 ? 12 : state.currentMonth - 1;
         const py = state.currentMonth === 1 ? state.currentYear - 1 : state.currentYear;
-
-        const prevMonthData = state.history.filter(item => {
-            const d = new Date(item.date);
-            return d.getFullYear() === py && (d.getMonth() + 1) === pm;
-        });
-
-        prevMonthData.forEach(item => {
-            if (item.category !== 'carry_over') {
-                if (item.type === 'income') prevInc += item.amount;
-                else prevExp += item.amount;
-            }
-        });
+        prefix = `${toYearMonth(py, pm)}-`;
     }
 
-    //画面への反映はそのまま
+    // 今月の集計（calculateStats）と同じルールで繰越金を除外する
+    state.history.forEach(item => {
+        if (typeof item.date !== 'string' || !item.date.startsWith(prefix)) return;
+        if (isCarryOverItem(item)) return;
+        if (item.type === 'income') prevInc += item.amount;
+        else prevExp += item.amount;
+    });
+
     setDiffText('prev-diff-income', currInc - prevInc, false);
     setDiffText('prev-diff-expense', currExp - prevExp, true);
     setDiffText('prev-diff-net', (currInc - currExp) - (prevInc - prevExp), false);

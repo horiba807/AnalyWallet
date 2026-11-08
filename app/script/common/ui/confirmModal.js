@@ -1,3 +1,5 @@
+import { escapeHtml } from '@/common/utils/escapeHtml.js';
+
 //==========================================================================
 // 通常の確認用モーダル
 //==========================================================================
@@ -21,11 +23,11 @@ export function showConfirm(
 
         modal.innerHTML = `
       <div class="modal">
-        <h3 class="modal__title">${title}</h3>
-        <p class="modal__message">${message}</p>
+        <h3 class="modal__title">${escapeHtml(title)}</h3>
+        <p class="modal__message">${escapeHtml(message)}</p>
         <div class="modal__actions">
-          <button type="button" class="modal__btn modal__btn--cancel" id="confirm-cancel">${cancelBtn}</button>
-          <button type="button" class="modal__btn ${okBtnClass}" id="confirm-ok">${okBtn}</button>
+          <button type="button" class="modal__btn modal__btn--cancel" id="confirm-cancel">${escapeHtml(cancelBtn)}</button>
+          <button type="button" class="modal__btn ${okBtnClass}" id="confirm-ok">${escapeHtml(okBtn)}</button>
         </div>
       </div>
     `;
@@ -75,23 +77,23 @@ export function showPasswordConfirm(
 
         modal.innerHTML = `
       <div class="modal">
-        <h3 class="modal__title">${title}</h3>
-        <p class="modal__message">${message}</p>
+        <h3 class="modal__title">${escapeHtml(title)}</h3>
+        <p class="modal__message">${escapeHtml(message)}</p>
         
         <form id="confirm-password-form" class="delete-account__pass-form-wrapper">
           <input 
             type="password" 
             class="delete-account__pass-form"
             id="confirm-password-input" 
-            placeholder="${placeholder}" 
+            placeholder="${escapeHtml(placeholder)}" 
             required 
             autocomplete="current-password"
           >
         </form>
 
         <div class="modal__actions">
-          <button type="button" class="modal__btn modal__btn--cancel" id="confirm-cancel">${cancelBtn}</button>
-          <button type="button" class="modal__btn modal__btn--danger" id="confirm-ok">${okBtn}</button>
+          <button type="button" class="modal__btn modal__btn--cancel" id="confirm-cancel">${escapeHtml(cancelBtn)}</button>
+          <button type="button" class="modal__btn modal__btn--danger" id="confirm-ok">${escapeHtml(okBtn)}</button>
         </div>
       </div>
     `;
@@ -138,4 +140,4 @@ export function showPasswordConfirm(
             if (e.target === modal) closeModal(null);
         });
     });
-}
+}

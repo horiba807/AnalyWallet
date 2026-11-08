@@ -1,47 +1,44 @@
-import { calculateStats } from '@/features/dashboard/dashboardUi.js';
 import { state } from '@/common/state/state.js';
+import { isCarryOverItem } from '@/common/utils/transactionUtils.js';
 
-// 12ヶ月分の残高、収入、支出の配列を生成
-function getMonthlyStatsData() {
+// 12ヶ月分の残高、収入、支出の配列を生成（全明細を1回だけ走査する）
+export function getMonthlyStatsData() {
+    const year = Number(state.currentYear);
+    const yearPrefix = `${year}-`;
+
+    const monthlyIncomes = Array(12).fill(0);
+    const monthlyExpenses = Array(12).fill(0);
+    const monthlyNet = Array(12).fill(0); // 各月の増減（残高計算用）
+    let balanceBeforeYear = 0;            // 前年末までの累積残高
+
+    state.history.forEach(item => {
+        if (typeof item.date !== 'string') return;
+        const signed = item.type === 'income' ? item.amount : -item.amount;
+
+        // 前年以前 → 期首残高に加算
+        if (item.date < yearPrefix) {
+            balanceBeforeYear += signed;
+            return;
+        }
+        // 翌年以降 → 対象外
+        if (!item.date.startsWith(yearPrefix)) return;
+
+        const m = Number(item.date.slice(5, 7)) - 1; // 0〜11
+        monthlyNet[m] += signed;
+
+        if (item.type === 'expense') {
+            monthlyExpenses[m] += item.amount;
+        } else if (item.type === 'income' && !isCarryOverItem(item)) {
+            monthlyIncomes[m] += item.amount;
+        }
+    });
+
+    // 月末時点の総残高（累積）
     const monthlyBalances = [];
-    const monthlyIncomes = [];
-    const monthlyExpenses = [];
-
-    //繰越金カテゴリーのIDを動的に特定しておく
-    const carryOverCat = (state.categories.income || []).find(c => c.label === '繰越金');
-
-    for (let m = 1; m <= 12; m++) {
-        //その月の開始日と末日
-        const startOfMonth = new Date(state.currentYear, m - 1, 1);
-        const endOfMonth = new Date(state.currentYear, m, 0);
-
-        //その月だけの集計
-        const currentMonthData = state.history.filter(item => {
-            const d = new Date(item.date);
-            return d >= startOfMonth && d <= endOfMonth;
-        });
-
-        //繰越金以外の収入を集計（動的IDに対応）
-        const inc = currentMonthData
-            .filter(item => {
-                const catValue = String(item.category);
-                const isCarryOver = item.category === 'carry_over' || (carryOverCat && catValue === carryOverCat.value);
-                return item.type === 'income' && !isCarryOver;
-            })
-            .reduce((acc, item) => acc + item.amount, 0);
-
-        const exp = currentMonthData
-            .filter(item => item.type === 'expense')
-            .reduce((acc, item) => acc + item.amount, 0);
-
-        //月末時点での総残高（累積）
-        const balance = state.history
-            .filter(item => new Date(item.date) <= endOfMonth)
-            .reduce((acc, item) => item.type === 'income' ? acc + item.amount : acc - item.amount, 0);
-
-        monthlyIncomes.push(inc);
-        monthlyExpenses.push(exp);
-        monthlyBalances.push(balance);
+    let running = balanceBeforeYear;
+    for (let m = 0; m < 12; m++) {
+        running += monthlyNet[m];
+        monthlyBalances.push(running);
     }
 
     return { monthlyBalances, monthlyIncomes, monthlyExpenses };

@@ -4,12 +4,17 @@ import { showToast } from '@/common/ui/toast.js';
 import { updateCategoryMenu } from '@/features/transactions/transactionForm.js';
 import { fetchTransactions, updateTransaction, deleteTransaction, openEditModal } from '@/features/transactions/transactionApi.js';
 
-// グローバル展開
-window.deleteTransaction = deleteTransaction;
-window.openEditModal = openEditModal;
-
 export function setupTransactionEvents() {
     setDefaultDate();
+
+    // 明細テーブルの「削除する」「編集する」ボタン（イベント委譲）
+    document.getElementById('history-list')?.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-action]');
+        if (!btn) return;
+        const id = btn.dataset.id;
+        if (btn.dataset.action === 'delete') deleteTransaction(id);
+        if (btn.dataset.action === 'edit') openEditModal(id);
+    });
 
     // 収支タイプの切り替え
     document.querySelectorAll('input[name="transaction-type"]').forEach(r => {
@@ -91,4 +96,4 @@ function setDefaultDate() {
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
     dateInput.value = `${year}-${month}-${day}`;
-}
+}

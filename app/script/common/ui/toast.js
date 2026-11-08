@@ -1,3 +1,5 @@
+import { escapeHtml } from '@/common/utils/escapeHtml.js';
+
 //==========================================================================
 // トーストの作成
 //==========================================================================
@@ -21,11 +23,9 @@ export function showToast(message, type = 'success', duration = 5000) {
 
     toast.innerHTML = `
         <span class="material-symbols-rounded toast__icon">${icon}</span>
-        <span class="toast__message">${message}</span>
+        <span class="toast__message">${escapeHtml(message)}</span>
         <div class="toast__close-btn">
-            <span class="material-symbols-rounded" id="toast-closebtn">
-                close
-            </span>
+            <span class="material-symbols-rounded">close</span>
         </div>
     `;
 
@@ -37,19 +37,19 @@ export function showToast(message, type = 'success', duration = 5000) {
         toast.classList.add('toast--show');
     });
 
-    document.getElementById('toast-closebtn').addEventListener("click", () => {
+    // 閉じる処理（×ボタンと時間切れで共通・二重実行しない）
+    let closed = false;
+    const close = () => {
+        if (closed) return;
+        closed = true;
+        clearTimeout(timerId);
         toast.classList.remove('toast--show');
-        toast.addEventListener('transitionend', () => {
-            toast.remove();
-        });
-    });
+        toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+    };
+
+    // このトースト自身の×ボタンにだけイベントを付ける
+    toast.querySelector('.toast__close-btn').addEventListener('click', close);
 
     // 指定時間後にフェードアウトして削除
-    setTimeout(() => {
-        toast.classList.remove('toast--show');
-        // アニメーションが終わったらDOMから削除
-        toast.addEventListener('transitionend', () => {
-            toast.remove();
-        });
-    }, duration);
+    const timerId = setTimeout(close, duration);
 }

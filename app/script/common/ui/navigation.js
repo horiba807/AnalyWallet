@@ -47,4 +47,4 @@ export function setupTabNavigation() {
             document.getElementById(currentTargetId)?.classList.add('active');
         });
     });
-}
+}

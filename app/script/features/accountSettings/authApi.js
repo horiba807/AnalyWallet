@@ -1,7 +1,5 @@
 import { supabaseClient } from "@/common/config/supabase.js";
-import { state, moneyForm } from '@/common/state/state.js';
 import { showToast } from '@/common/ui/toast.js';
-import { showConfirm } from "@/common/ui/confirmModal.js";
 
 //==========================================================================
 // アカウント設定（メールアドレス・パスワード変更）
@@ -47,4 +45,4 @@ export async function updateUserPassword(currentEmail, currentPassword, newPassw
     }
 
     return true;
-}
+}

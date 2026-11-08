@@ -1,5 +1,5 @@
 import { supabaseClient } from "@/common/config/supabase.js";
-import { state, moneyForm } from '@/common/state/state.js';
+import { state } from '@/common/state/state.js';
 import { showToast } from '@/common/ui/toast.js';
 import { showConfirm } from "@/common/ui/confirmModal.js";
 import { renderCategorySettingsDOM } from '@/features/categories/categoryUi.js';
@@ -40,9 +40,12 @@ export async function deleteTransaction(id) {
     const isConfirmed = await showConfirm(`#${id} を本当に削除しますか？`, "確認", "キャンセル", "削除する", true);
     if (!isConfirmed) return;
     const { error } = await supabaseClient.from('transactions').delete().eq('id', id);
-    if (error) showToast(`#${id} の削除に失敗しました:\n${error}`, "error");
-    else fetchTransactions();
+    if (error) {
+        showToast(`#${id} の削除に失敗しました:\n${error.message}`, "error");
+        return;
+    }
     showToast(`#${id} を削除しました`, "success");
+    await fetchTransactions();
 }
 
 //編集モーダルのデータセット & 表示制御
@@ -92,4 +95,4 @@ export async function updateTransaction(id, updatedData) {
         throw error;
     }
     return data;
-}
+}

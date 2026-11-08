@@ -38,4 +38,4 @@ export async function deleteAccount(password) {
         showToast('処理中にエラーが発生しました。', 'error');
         return false;
     }
-}
+}

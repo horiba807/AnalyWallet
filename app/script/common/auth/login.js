@@ -242,8 +242,6 @@ if (signupForm) {
 
         if (error) {
             showToast(`アカウント登録に失敗しました: \n ${error.message}`, 'error');
-            console.log(`error: ${error.message}`);
-
             return;
         }
 
@@ -252,7 +250,7 @@ if (signupForm) {
 
 
         // モーダルを閉じる
-        signUpModal.classList.remove('active');
+        signupModal.classList.remove('active');
         signupForm.reset(); // 入力欄を空に
     });
 }
@@ -260,8 +258,4 @@ if (signupForm) {
 //==========================================================================
 //パスワードを忘れた場合の処理
 //==========================================================================
-initPasswordResetModal();
-
-document.getElementById('openResetPassModal').addEventListener('click', async() => {
-    initPasswordResetModal();
-});
+initPasswordResetModal();

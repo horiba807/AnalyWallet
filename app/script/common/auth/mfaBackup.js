@@ -1,6 +1,7 @@
 import { supabaseClient } from "@/common/config/supabase.js";
 import { showToast } from '@/common/ui/toast.js';
 import { showConfirm } from "@/common/ui/confirmModal.js";
+import { escapeHtml } from "@/common/utils/escapeHtml.js";
 
 import { decryptText, generateBackupCodes, encryptText } from "@/common/utils/crypto.js";
 //==========================================================================
@@ -92,9 +93,9 @@ export function showGeneratedBackupCodes(codesData) {
 
     codesList.innerHTML = normalizedData.map(item => {
         if (item.isUsed) {
-            return `<div style="text-decoration: line-through; opacity: 0.5;">${item.code}</div>`;
+            return `<div style="text-decoration: line-through; opacity: 0.5;">${escapeHtml(item.code)}</div>`;
         }
-        return `<div>${item.code}</div>`;
+        return `<div>${escapeHtml(item.code)}</div>`;
     }).join('');
 
     displayArea.style.display = 'block';
@@ -165,4 +166,4 @@ export function setupBackupAccordion() {
             }
         };
     }
-}
+}

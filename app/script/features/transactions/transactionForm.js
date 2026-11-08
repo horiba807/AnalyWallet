@@ -1,4 +1,4 @@
-import { state, moneyForm } from '@/common/state/state.js';
+import { state } from '@/common/state/state.js';
 
 //==========================================================================
 // 登録したカテゴリーをフォーム内の<select>タグで表示
@@ -58,4 +58,4 @@ export function renderFilterCategoryDOM() {
 
         filterSelect.appendChild(incomeGroup);
     }
-}
+}

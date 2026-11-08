@@ -76,4 +76,4 @@ export function generateBackupCodes(count = 10) {
         codes.push(`${code.slice(0, 4)}-${code.slice(4)}`);
     }
     return codes;
-}
+}

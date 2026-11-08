@@ -31,4 +31,4 @@ export function setupDashboardEvents() {
         state.currentCategory = e.target.value;
         updateHistoryDisplay();
     });
-}
+}

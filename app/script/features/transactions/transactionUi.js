@@ -1,4 +1,5 @@
-import { state, moneyForm } from '@/common/state/state.js';
+import { state } from '@/common/state/state.js';
+import { escapeHtml } from '@/common/utils/escapeHtml.js';
 
 // ==========================================================================
 // 明細テーブルのDOM描画
@@ -33,13 +34,13 @@ export function renderTableDOM(filteredHistory = []) {
         const sign = item.type === 'expense' ? '-' : '+';
 
         tr.innerHTML = `
-            <td>${item.date}</td>
-            <td>${getCategoryLabel(item.category)}</td>
-            <td class="${amountClass}">${sign} ¥${item.amount.toLocaleString()}</td>
-            <td>${item.memo || '-'}</td>
+            <td>${escapeHtml(item.date)}</td>
+            <td>${escapeHtml(getCategoryLabel(item.category))}</td>
+            <td class="${amountClass}">${sign} ¥${Number(item.amount).toLocaleString()}</td>
+            <td>${item.memo ? escapeHtml(item.memo) : '-'}</td>
             <td class="btn_wrapper">
-                <button class="column-btn delete" onclick="deleteTransaction('${item.id}')">削除する</button>
-                <button class="column-btn edit" onclick="openEditModal('${item.id}')">編集する</button>
+                <button type="button" class="column-btn delete" data-action="delete" data-id="${escapeHtml(item.id)}">削除する</button>
+                <button type="button" class="column-btn edit" data-action="edit" data-id="${escapeHtml(item.id)}">編集する</button>
             </td>
         `;
         historyList.appendChild(tr);
@@ -82,4 +83,4 @@ function getCategoryLabel(val) {
 
     //見つかったら「給与」などの名前（label）を返し、なければそのままの値を出す
     return opt ? opt.label : val;
-}
+}
